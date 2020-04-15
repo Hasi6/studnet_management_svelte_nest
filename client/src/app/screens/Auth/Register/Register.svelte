@@ -46,13 +46,6 @@
   }
 </style>
 
-{#await $faculties}
-  Loading....
-{:then result}
-  {JSON.stringify(result)}
-{:catch error}
-  {error.message}
-{/await}
 <UnAuthProtect>
   <div slot="content" class="container login_form">
     <form>
