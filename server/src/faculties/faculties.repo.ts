@@ -28,7 +28,7 @@ export class FacultiesRepo {
 
     // ************************************** Get Faculty **************************************
     // Get All Faculties
-    public getAllFaculties = async (): Promise<IFaculty> => {
+    public getAllFaculties = async (): Promise<IFaculty[]> => {
         try {
             return await this.faculty.find();
         } catch (err) {
