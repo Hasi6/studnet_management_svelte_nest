@@ -7,6 +7,9 @@
   let email = "";
   let password = "";
   let confirmPassword;
+  let faculty;
+
+  $: console.log(faculty);
 
   $: (() => {
     if (password !== confirmPassword) {
@@ -30,6 +33,26 @@
 <UnAuthProtect>
   <div slot="content" class="container login_form">
     <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Username</label>
+          <input type="text" class="form-control" placeholder="Username" />
+        </div>
+        <div class="form-group col-md-6">
+          <label>Faculty</label>
+
+          <select
+            class="custom-select mr-sm-2"
+            id="inlineFormCustomSelect"
+            bind:value={faculty}>
+            <option selected>Faculty</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input
