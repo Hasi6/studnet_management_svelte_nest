@@ -2,6 +2,9 @@
   import UnAuthProtect from "../UnAuthProtect.svelte";
   import { validateEmail } from "../../../helpers/emailValidator.js";
   import { Link } from "svelte-routing";
+  import axios from "axios";
+  import { endPoint } from "../../../../config";
+  import { authStore } from "../../../Store/auth/auth.store.js";
 
   let email = "";
   let password = "";
@@ -17,9 +20,19 @@
     }
   })();
 
-  const submit = () => {
+  const submit = async () => {
     if (validateEmail(email) && password.length >= 6) {
-      alert("Valid");
+      const body = {
+        email,
+        password
+      };
+
+      try {
+        const { data } = await axios.post(`${endPoint}/api/auth/login`, body);
+        localStorage.setItem("token", data.token);
+      } catch (err) {
+        console.log(err.message);
+      }
     } else {
       console.log("Hasi");
       errorss = [...errorss, { msg: "Invalid Inputs" }];
