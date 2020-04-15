@@ -2,6 +2,22 @@
   import UnAuthProtect from "../UnAuthProtect.svelte";
   import { validateEmail } from "../../../helpers/emailValidator.js";
   import { Link } from "svelte-routing";
+  import { aplloClient } from "../../../Store/graphql/grqphQlClient.js";
+  import { setClient, getClient, query, mutate } from "svelte-apollo";
+  import ApolloClient, { gql } from "apollo-boost";
+  const client = new ApolloClient({ uri: "http://localhost:5000/graphql" });
+  setClient(client);
+
+  const getFaculties = gql`
+    {
+      faculties {
+        name
+      }
+    }
+  `;
+
+  const getCliet = getClient();
+  const faculties = query(getCliet, { query: getFaculties });
 
   let username = "";
   let email = "";
@@ -30,6 +46,13 @@
   }
 </style>
 
+{#await $faculties}
+  Loading....
+{:then result}
+  {JSON.stringify(result)}
+{:catch error}
+  {error.message}
+{/await}
 <UnAuthProtect>
   <div slot="content" class="container login_form">
     <form>
@@ -45,10 +68,16 @@
             class="custom-select mr-sm-2"
             id="inlineFormCustomSelect"
             bind:value={faculty}>
-            <option selected>Faculty</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+
+            {#await $faculties}
+              Loading....
+            {:then result}
+              {#each result.data.faculties as faculty}
+                <option value={faculty.name}>{faculty.name}</option>
+              {/each}
+            {:catch error}
+              {error.message}
+            {/await}
           </select>
         </div>
       </div>

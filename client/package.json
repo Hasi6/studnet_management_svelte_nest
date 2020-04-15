@@ -8,8 +8,11 @@
     "lint": "svelte-cli-service lint"
   },
   "dependencies": {
+    "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",
     "core-js": "^2.6.5",
+    "graphql": "^15.0.0",
+    "svelte-apollo": "^0.3.0",
     "svelte-routing": "^1.4.2"
   },
   "devDependencies": {

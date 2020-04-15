@@ -1,4 +1,4 @@
-import { InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
+import { InternalServerErrorException, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 
@@ -21,8 +21,13 @@ export class FacultiesRepo {
             await newFaculty.save()
             return newFaculty;
         } catch (err) {
-            logger.verbose(`Faculties Repo Add Faculty Function Error ${err.message}`)
-            throw new InternalServerErrorException()
+            if (err.code === 11000) {
+                throw new BadRequestException(`${createFacultyDto.name} is Already a Added`)
+            }
+            else {
+                logger.verbose(`Faculties Repo Add Faculty Function Error ${err.message}`)
+                throw new InternalServerErrorException()
+            }
         }
     }
 
