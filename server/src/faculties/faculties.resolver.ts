@@ -9,7 +9,8 @@ export class FacultiesResolver {
 
 
     @Query()
-    faculties() {
+    async faculties() {
+        console.log(await this.facultiesService.getAllFaculties())
         return this.facultiesService.getAllFaculties()
     }
 

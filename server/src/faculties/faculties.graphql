@@ -6,5 +6,5 @@ type Faculties {
 }
 
 type Query {
-  faculties: Faculties
+  faculties: [Faculties]
 }
