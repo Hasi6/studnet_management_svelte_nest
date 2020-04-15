@@ -1,9 +1,13 @@
 <script>
-  console.log("Login");
+  import UnAuthProtect from "../UnAuthProtect.svelte";
 </script>
 
 <style>
 
 </style>
 
-<h1>Login</h1>
+<UnAuthProtect>
+  <div slot="content">
+    <h1>Login</h1>
+  </div>
+</UnAuthProtect>

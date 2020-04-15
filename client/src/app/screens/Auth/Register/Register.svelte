@@ -1,9 +1,13 @@
 <script>
-
+  import UnAuthProtect from "../UnAuthProtect.svelte";
 </script>
 
 <style>
 
 </style>
 
-<h1>Register</h1>
+<UnAuthProtect>
+  <div solt="content">
+    <h1>Register</h1>
+  </div>
+</UnAuthProtect>
