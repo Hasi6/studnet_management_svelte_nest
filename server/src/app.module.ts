@@ -1,5 +1,7 @@
+import { GraphQLModule } from '@nestjs/graphql';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose'
+
 
 import { FacultiesModule } from './faculties/faculties.module';
 
@@ -10,6 +12,11 @@ import { FacultiesModule } from './faculties/faculties.module';
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true
+    }),
+    GraphQLModule.forRoot({
+      debug: true,
+      playground: true,
+      typePaths: ['./**/*.graphql']
     }),
     FacultiesModule
   ],

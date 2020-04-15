@@ -1,0 +1,10 @@
+type Faculties {
+  _id: String!
+  name: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Query {
+  faculties: Faculties
+}

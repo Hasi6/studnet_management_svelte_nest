@@ -13,7 +13,7 @@ export class FacultiesController {
     @Post("/")
     @UsePipes(ValidationPipe)
     addPost(@Body() createFacultyDto: CreateFacultyDto) {
-        return "Hasi"
+        return this.facultiesService.addFaculties(createFacultyDto)
     }
 
 

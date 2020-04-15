@@ -1,3 +1,4 @@
+import { FacultiesResolver } from './faculties.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { FacultiesRepo } from './faculties.repo';
@@ -16,7 +17,7 @@ import { FacultySchema } from './faculties.schema';
     )
   ],
   controllers: [FacultiesController],
-  providers: [FacultiesService, FacultiesRepo],
-  exports: [FacultiesService, FacultiesRepo],
+  providers: [FacultiesService, FacultiesRepo, FacultiesResolver],
+  exports: [FacultiesService, FacultiesRepo, FacultiesResolver],
 })
 export class FacultiesModule { }
