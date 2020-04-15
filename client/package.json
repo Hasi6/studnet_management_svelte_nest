@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "svelte-cli-service serve",
+    "serve": "svelte-cli-service serve --open --port=3000",
     "build": "svelte-cli-service build",
     "lint": "svelte-cli-service lint"
   },
   "dependencies": {
-    "core-js": "^2.6.5"
+    "core-js": "^2.6.5",
+    "svelte-routing": "^1.4.2"
   },
   "devDependencies": {
     "@svel/cli-plugin-babel": "^0.5.0",
