@@ -7,7 +7,7 @@
 </style>
 
 <UnAuthProtect>
-  <div solt="content">
+  <div slot="content">
     <h1>Register</h1>
   </div>
 </UnAuthProtect>

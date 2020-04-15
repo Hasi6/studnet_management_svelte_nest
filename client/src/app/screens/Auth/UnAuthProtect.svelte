@@ -11,7 +11,7 @@
     unsubscribe = authStore.subscribe(auth => {
       authenticated = auth;
     });
-    if (!authenticated.auth) {
+    if (authenticated.auth) {
       navigate("/", { replace: true });
     }
   };

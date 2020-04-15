@@ -1,5 +1,28 @@
 <script>
-  import { Link } from "svelte-routing";
+  import { Link, navigate } from "svelte-routing";
+  import { onMount, onDestroy } from "svelte";
+  import { authStore } from "../Store/auth/auth.store";
+
+  let authenticated;
+
+  // Check User Auth
+  let unsubscribe;
+  const checkUserAuth = () => {
+    unsubscribe = authStore.subscribe(auth => {
+      authenticated = auth;
+    });
+    if (!authenticated.auth) {
+      navigate("/login", { replace: true });
+    }
+  };
+
+  onMount(() => {
+    checkUserAuth();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <nav>
