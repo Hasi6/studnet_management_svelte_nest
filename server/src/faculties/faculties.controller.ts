@@ -2,7 +2,7 @@ import { Controller, Post, UsePipes, ValidationPipe, Body } from '@nestjs/common
 import { FacultiesService } from './faculties.service';
 import { CreateFacultyDto } from './Dto/faculty.dto';
 
-@Controller('faculties')
+@Controller('api/faculties')
 export class FacultiesController {
 
     constructor(

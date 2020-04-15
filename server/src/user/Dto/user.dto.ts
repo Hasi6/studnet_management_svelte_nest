@@ -14,3 +14,10 @@ export class CreateUserDto {
     @Max(20)
     password: string;
 }
+
+export class LoginUserDto {
+    @IsNotEmpty()
+    email: string;
+    @IsNotEmpty()
+    password: string;
+}
