@@ -1,12 +1,13 @@
 <script>
   import UnAuthProtect from "../UnAuthProtect.svelte";
   import { validateEmail } from "../../../helpers/emailValidator.js";
+  import { Link } from "svelte-routing";
 
   let email = "";
   let password = "";
   let test = "";
   let disabled = true;
-  let errors = [];
+  let errorss = [];
 
   $: (() => {
     if (validateEmail(email) && password.length >= 6) {
@@ -21,7 +22,7 @@
       alert("Valid");
     } else {
       console.log("Hasi");
-      errors = [...errors, { msg: "Invalid Inputs" }];
+      errorss = [...errorss, { msg: "Invalid Inputs" }];
     }
   };
 </script>
@@ -74,19 +75,24 @@
       on:click|preventDefault={() => submit()}>
       Submit
     </button>
+    <br />
+    {#each errorss as errors}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{errors.msg}</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {/each}
+    <span>
+      Don't Have an Account?
+      <Link to="register">Register Here</Link>
+    </span>
+
   </div>
 
-  {#each errors as error}
-    Hasi
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong>{error.msg}</strong>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  {/each}
 </UnAuthProtect>
