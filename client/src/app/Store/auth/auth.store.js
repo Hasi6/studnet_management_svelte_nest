@@ -2,8 +2,9 @@
 import { writable } from "svelte/store";
 import axios from "axios";
 import { endPoint } from "../../../config";
+import { navigate } from "svelte-routing";
 
-function authStore() {
+const authStore = () => {
   // Initial State
   const authenticate = writable({
     auth: null,
@@ -35,6 +36,19 @@ function authStore() {
   };
 
   // Register User
+  const registerUser = async body => {
+    try {
+      const { status } = await axios.post(
+        `${endPoint}/api/auth/register`,
+        body
+      );
+      if (status === 201) {
+        navigate("/login", { replace: true });
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   // Logout User
   const logOutUser = async () => {
@@ -52,8 +66,9 @@ function authStore() {
     subscribe: authenticate.subscribe,
     checkAuthState,
     loginUser,
+    registerUser,
     logOutUser
   };
-}
+};
 
 export default authStore();

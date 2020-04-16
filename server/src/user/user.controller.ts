@@ -1,4 +1,3 @@
-import { IUser } from './user.model';
 import { Controller, Post, UsePipes, ValidationPipe, Body } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto } from './Dto/user.dto';
 import { UserService } from './user.service';
@@ -13,7 +12,7 @@ export class UserController {
 
     @Post("/register")
     @UsePipes(ValidationPipe)
-    registerUser(@Body() createUserDto: CreateUserDto): Promise<IUser> {
+    registerUser(@Body() createUserDto: CreateUserDto): Promise<string> {
         return this.userService.register(createUserDto)
     }
 

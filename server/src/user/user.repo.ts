@@ -15,11 +15,11 @@ export class UserRepo {
 
     // ***************************** Create User *******************************************
     // Create User
-    public createUser = async (nUser: IUser): Promise<IUser> => {
+    public createUser = async (nUser: IUser): Promise<string> => {
         try {
             const newUser = new this.user(nUser)
             await newUser.save()
-            return newUser
+            return "User Created";
         } catch (err) {
             logger.verbose(`User Repo Create User Error ${err.message}`)
             if (err.code === 11000) {

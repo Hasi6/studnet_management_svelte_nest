@@ -22,28 +22,23 @@ export class UserService {
 
     // ************************************ Create User *****************************************
     // Create User
-    public register = async (createUserDto: CreateUserDto): Promise<IUser> => {
-        try {
-            const { email, password, username } = createUserDto;
+    public register = async (createUserDto: CreateUserDto): Promise<string> => {
+        const { email, password, username } = createUserDto;
 
-            const image = gravatar.url(email, {
-                s: "200",
-                r: "pg",
-                d: "mm"
-            })
-            const token = `${email}-${uuid()}-${Date.now()}`
-            const user: IUser = {
-                email, password, image, username, token
-            }
-            // encrypt the password
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
-            return await this.userRepo.createUser(user);
-
-        } catch (err) {
-            logger.error(`Register Service Error ${err.message}`)
-            throw new InternalServerErrorException()
+        const image = gravatar.url(email, {
+            s: "200",
+            r: "pg",
+            d: "mm"
+        })
+        const token = `${email}-${uuid()}-${Date.now()}`
+        const user: IUser = {
+            email, password, image, username, token
         }
+        // encrypt the password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+        return await this.userRepo.createUser(user);
+
     }
 
     // Login User

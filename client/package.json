@@ -13,7 +13,8 @@
     "core-js": "^2.6.5",
     "graphql": "^15.0.0",
     "svelte-apollo": "^0.3.0",
-    "svelte-routing": "^1.4.2"
+    "svelte-routing": "^1.4.2",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@svel/cli-plugin-babel": "^0.5.0",
