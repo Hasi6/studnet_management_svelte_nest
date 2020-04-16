@@ -8,6 +8,10 @@ const errorStore = () => {
     {
       msg: "Test",
       type: "danger"
+    },
+    {
+      msg: "Test",
+      type: "danger"
     }
   ]);
 

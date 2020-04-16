@@ -2,6 +2,7 @@
   import { Link, navigate } from "svelte-routing";
   import { onMount, onDestroy } from "svelte";
   import authStore from "../Store/auth/auth.store";
+  import errorStore from "../Store/errors/errors.store.js";
 
   let authenticated;
 
@@ -28,6 +29,12 @@
     unsubscribe();
   });
 </script>
+
+<button
+  class="btn btn-success"
+  on:click={() => errorStore.addErrors({ msg: 'Hasi', type: 'success' })}>
+  Add Error
+</button>
 
 <nav>
   <Link to="/">Home</Link>
