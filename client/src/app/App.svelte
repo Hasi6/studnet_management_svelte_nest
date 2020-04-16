@@ -4,7 +4,7 @@
 
   const token = localStorage.getItem("token");
 
-  const unubscribe = authStore().checkAuthState();
+  const unubscribe = authStore.checkAuthState();
 </script>
 
 <Router />

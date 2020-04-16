@@ -8,20 +8,17 @@
   // Check User Auth
   let unsubscribe;
   const checkUserAuth = () => {
-    unsubscribe = authStore().subscribe(auth => {
+    unsubscribe = authStore.subscribe(auth => {
       authenticated = auth;
+      if (authenticated.auth === false) {
+        navigate("/login", { replace: true });
+      }
     });
-    if (authenticated.auth === false) {
-      navigate("/login", { replace: true });
-    }
   };
 
-  // const logoutUser = async () => {
-  //   await localStorage.removeItem("token");
-  //   authStore.update(() => {
-  //     return { auth: false, user: null };
-  //   });
-  // };
+  const logoutUser = async () => {
+    authStore.logOutUser();
+  };
 
   onMount(() => {
     checkUserAuth();

@@ -8,12 +8,12 @@
   // Check User Auth
   let unsubscribe;
   const checkUserAuth = () => {
-    unsubscribe = authStore().subscribe(auth => {
+    unsubscribe = authStore.subscribe(auth => {
       authenticated = auth;
+      if (authenticated.auth) {
+        navigate("/", { replace: true });
+      }
     });
-    if (authenticated.auth) {
-      navigate("/", { replace: true });
-    }
   };
 
   onMount(() => {

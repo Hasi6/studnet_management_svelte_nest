@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 import axios from "axios";
 import { endPoint } from "../../../config";
 
-const authStore = () => {
+function authStore() {
   // Initial State
   const authenticate = writable({
     auth: null,
@@ -13,9 +13,7 @@ const authStore = () => {
   // Check Auth State
   const checkAuthState = async () => {
     const token = await localStorage.getItem("token");
-    console.log(token);
     authenticate.update(() => {
-      console.log("Hasi");
       return {
         auth: token ? true : false,
         user: null
@@ -40,7 +38,8 @@ const authStore = () => {
 
   // Logout User
   const logOutUser = async () => {
-    localStorage.removeItem("token");
+    console.log("Test");
+    await localStorage.removeItem("token");
     authenticate.update(() => {
       return {
         auth: false,
@@ -55,6 +54,6 @@ const authStore = () => {
     loginUser,
     logOutUser
   };
-};
+}
 
-export default authStore;
+export default authStore();

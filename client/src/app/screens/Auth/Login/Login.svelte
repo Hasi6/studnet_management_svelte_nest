@@ -4,7 +4,7 @@
   import { Link } from "svelte-routing";
   import axios from "axios";
   import { endPoint } from "../../../../config";
-  import { authStore } from "../../../Store/auth/auth.store.js";
+  import authStore from "../../../Store/auth/auth.store.js";
 
   let email = "";
   let password = "";
@@ -20,23 +20,8 @@
     }
   })();
 
-  const submit = async () => {
-    if (validateEmail(email) && password.length >= 6) {
-      const body = {
-        email,
-        password
-      };
-
-      try {
-        const { data } = await axios.post(`${endPoint}/api/auth/login`, body);
-        localStorage.setItem("token", data.token);
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
-      console.log("Hasi");
-      errorss = [...errorss, { msg: "Invalid Inputs" }];
-    }
+  const submit = () => {
+    authStore.loginUser({ email, password });
   };
 </script>
 
