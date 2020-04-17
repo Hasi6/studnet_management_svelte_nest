@@ -12,10 +12,12 @@
   .alert_div {
     width: 300px;
     position: absolute;
+    right: 10vw;
   }
 </style>
 
 <div class="alert_div">
+  <br />
   {#each errors as error}
     <div
       class={`alert

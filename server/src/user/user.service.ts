@@ -43,35 +43,25 @@ export class UserService {
 
     // Login User
     public login = async (loginUserDto: LoginUserDto): Promise<{ token: string }> => {
-        try {
-            const { email, password } = loginUserDto;
-            const user: IUser = await this.userRepo.getUserByEmailOrUsername(email);
-            if (!user) {
-                throw new BadRequestException("Invalid Credentials")
-            }
-            const isMatch = await bcrypt.compare(password, user.password)
-            if (!isMatch) {
-                throw new UnauthorizedException()
-            }
-            const payload: IJwtToken = {
-                _id: user._id,
-                email: user.email,
-                image: user.image,
-                username: user.username,
-                onLineStatus: user.onlineStatus
-            }
-            const token = this.jwt.sign(payload)
-            return { token }
-        } catch (err) {
-            logger.error(`Login Service Error ${err.message}`)
-            if (err.status === 400) {
-                throw new BadRequestException()
-            } else if (err.status === 401) {
-                throw new UnauthorizedException("Invalid Credentials")
-            } else {
-                throw new InternalServerErrorException()
-            }
+        const { email, password } = loginUserDto;
+        const user: IUser = await this.userRepo.getUserByEmailOrUsername(email);
+        if (!user) {
+            throw new BadRequestException("Invalid Credentials")
         }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            throw new UnauthorizedException()
+        }
+        const payload: IJwtToken = {
+            _id: user._id,
+            email: user.email,
+            image: user.image,
+            username: user.username,
+            onLineStatus: user.onlineStatus
+        }
+        const token = this.jwt.sign(payload)
+        return { token }
+
     }
 
 

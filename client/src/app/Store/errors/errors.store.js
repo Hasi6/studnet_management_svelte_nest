@@ -4,22 +4,20 @@ import { v4 as uuid } from "uuid";
 
 const errorStore = () => {
   // Initial State
-  const errors = writable([
-    {
-      msg: "Test",
-      type: "danger"
-    },
-    {
-      msg: "Test",
-      type: "danger"
-    }
-  ]);
+  const errors = writable([]);
 
-  const addErrors = error => {
-    const body = { ...error, id: uuid() };
+  const addErrors = (error, time) => {
+    const id = uuid();
+    const body = { ...error, id };
     errors.update(error => {
       return [...error, body];
     });
+
+    setTimeout(() => {
+      errors.update(errors => {
+        return errors.filter(error => error.id !== id);
+      });
+    }, time || 10000);
   };
 
   return {

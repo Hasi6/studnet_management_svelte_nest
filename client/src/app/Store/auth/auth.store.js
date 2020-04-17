@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { writable } from "svelte/store";
 import axios from "axios";
+import errorStore from "../errors/errors.store";
 import { endPoint } from "../../../config";
 import { navigate } from "svelte-routing";
 
@@ -25,12 +26,17 @@ const authStore = () => {
   // Login User
   const loginUser = async body => {
     try {
-      const { data } = await axios.post(`${endPoint}/api/auth/login`, body);
-      await localStorage.setItem("token", data.token);
+      const res = await axios.post(`${endPoint}/api/auth/login`, body);
+      console.log(res);
+      await localStorage.setItem("token", res.data.token);
       authenticate.update(() => {
         return { auth: true, user: null };
       });
     } catch (err) {
+      const errors = err.response.data;
+      console.log(errors.message);
+      errorStore.addErrors({ msg: errors.message, type: "danger" });
+
       console.error(err.message);
     }
   };
@@ -46,7 +52,9 @@ const authStore = () => {
         navigate("/login", { replace: true });
       }
     } catch (err) {
-      console.error(err.message);
+      const errors = err.response.data;
+      console.log(errors.message);
+      errorStore.addErrors({ msg: errors.message, type: "danger" });
     }
   };
 
