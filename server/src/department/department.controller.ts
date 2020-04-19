@@ -3,7 +3,7 @@ import { DepartmentService } from './department.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateDepartmentDTO } from './dto/department.dto';
 
-@Controller('department')
+@Controller('api/department')
 export class DepartmentController {
 
 

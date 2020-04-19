@@ -10,6 +10,7 @@ import { DepartmentController } from './department.controller';
 import { FacultySchema } from './../faculties/faculties.schema';
 import { FacultiesService } from '../faculties/faculties.service';
 import { DepartmentsRepo } from './department.repo';
+import { DepartmentResolver } from './department.resolver';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { DepartmentsRepo } from './department.repo';
     ),
   ],
   controllers: [DepartmentController],
-  providers: [DepartmentService, FacultiesService, FacultiesRepo, DepartmentsRepo],
+  providers: [DepartmentService, FacultiesService, FacultiesRepo, DepartmentsRepo, DepartmentResolver],
   exports: [DepartmentService, FacultiesService, FacultiesRepo],
 })
 export class DepartmentModule { }

@@ -7,7 +7,7 @@ export const DepartmentSchema = new Schema({
         unique: true
     },
     facultyId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'faculties',
         required: true,
     }

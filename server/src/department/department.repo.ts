@@ -37,6 +37,14 @@ export class DepartmentsRepo {
 
     // *********************************** Find Department **********************************************
 
+    // Find Departments By Faculty id
+    public findDepartmentsByFacultyId = async (facultyId: string): Promise<IDepartment[]> => {
+        try {
+            return await this.department.find({ facultyId })
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
 
     // *********************************** Edit Department **********************************************
 

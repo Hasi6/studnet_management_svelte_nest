@@ -1,0 +1,15 @@
+type Departments {
+	_id: String!
+	name: String!
+	faculty: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+# type Query {
+# departments: [Faculties]
+# }
+
+type Mutation {
+	departments(facultyId: String!): [Departments] 
+}

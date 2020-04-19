@@ -1,4 +1,4 @@
-import { InternalServerErrorException, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
+import { InternalServerErrorException, Logger, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 
@@ -48,7 +48,12 @@ export class FacultiesRepo {
             return await this.faculty.findById({ _id })
         } catch (err) {
             logger.verbose(`Faculties Get Get Faculty By Id Function Error ${err.message}`)
-            throw new InternalServerErrorException()
+            if (err.name === "CastError") {
+                throw new ConflictException("Invalid Id")
+            }
+            else {
+                throw new InternalServerErrorException()
+            }
         }
     }
 
