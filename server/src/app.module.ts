@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 
 import { FacultiesModule } from './faculties/faculties.module';
 import { UserModule } from './user/user.module';
+import { DepartmentModule } from './department/department.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { UserModule } from './user/user.module';
       typePaths: ['./**/*.graphql']
     }),
     FacultiesModule,
-    UserModule
+    UserModule,
+    DepartmentModule
   ],
   controllers: [],
   providers: [],
