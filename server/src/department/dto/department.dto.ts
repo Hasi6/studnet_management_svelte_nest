@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateDepartment {
+export class CreateDepartmentDTO {
     @IsNotEmpty()
     name: string;
     @IsNotEmpty()
