@@ -4,6 +4,7 @@ import axios from "axios";
 import errorStore from "../errors/errors.store";
 import { endPoint } from "../../../config";
 import { navigate } from "svelte-routing";
+import decode from "jwt-decode";
 
 const authStore = () => {
   // Initial State
@@ -15,10 +16,27 @@ const authStore = () => {
   // Check Auth State
   const checkAuthState = async () => {
     const token = await localStorage.getItem("token");
+    let user = null;
+    let decodedUser;
+    if (token) {
+      decodedUser = decode(token);
+    }
+    // console.log(Date.now().splice(0, 10));
+    const newDate = Date.now();
+    if (
+      decodedUser &&
+      parseInt(newDate.toString().substr(0, 10)) < decodedUser.exp
+    ) {
+      user = decodedUser;
+      errorStore.addErrors({
+        msg: `Welcome ${user.username}`,
+        type: "success"
+      });
+    }
     authenticate.update(() => {
       return {
         auth: token ? true : false,
-        user: null
+        user: user
       };
     });
   };
@@ -27,10 +45,28 @@ const authStore = () => {
   const loginUser = async body => {
     try {
       const res = await axios.post(`${endPoint}/api/auth/login`, body);
-      console.log(res);
       await localStorage.setItem("token", res.data.token);
+      const token = res.data.token;
+      let user = null;
+      let decodedUser;
+      if (token) {
+        decodedUser = decode(token);
+      }
+      // console.log(Date.now().splice(0, 10));
+      const newDate = Date.now();
+      if (
+        decodedUser &&
+        parseInt(newDate.toString().substr(0, 10)) < decodedUser.exp
+      ) {
+        user = decodedUser;
+        errorStore.addErrors({
+          msg: `Welcome ${user.username}`,
+          type: "success"
+        });
+      }
+
       authenticate.update(() => {
-        return { auth: true, user: null };
+        return { auth: true, user };
       });
     } catch (err) {
       const errors = err.response.data;

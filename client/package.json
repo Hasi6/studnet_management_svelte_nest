@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "core-js": "^2.6.5",
     "graphql": "^15.0.0",
+    "jwt-decode": "^2.2.0",
     "svelte-apollo": "^0.3.0",
     "svelte-routing": "^1.4.2",
     "uuid": "^7.0.3"
