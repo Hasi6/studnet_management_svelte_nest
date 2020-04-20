@@ -3,7 +3,7 @@
 
   const navList = [
     { path: "addFaculty", lable: "Add Faculty" },
-    { path: "", lable: "Add Department" }
+    { path: "addDepartment", lable: "Add Department" }
   ];
 </script>
 

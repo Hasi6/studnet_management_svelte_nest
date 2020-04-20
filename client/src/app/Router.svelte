@@ -5,7 +5,7 @@
   import Register from "./screens/Auth/Register/Register.svelte";
   import Admin from "./screens/Admin/Admin.svelte";
   import AddFaculty from "./screens/Admin/AddFaculty/AddFaculty.svelte";
-
+  import AddDepartment from "./screens/Admin/AddDepartment/AddDepartment.svelte";
   export let url = "";
 </script>
 
@@ -14,6 +14,7 @@
   <Route path="register" component={Register} />
   <Route path="admin" component={Admin} />
   <Route path="addFaculty" component={AddFaculty} />
+  <Route path="addDepartment" component={AddDepartment} />
   <Route path="/">
     <Home />
   </Route>

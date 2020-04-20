@@ -1,13 +1,23 @@
 <script>
   import axios from "axios";
+  import { setClient, getClient, query } from "svelte-apollo";
+  import { client } from "../../../helpers/apolloClient.js";
+  import { getFaculties } from "../../../graphql/queries/getFaculties.query.js";
+  import { getDepartments } from "../../../graphql/mutations/getDepartments.mutation.js";
+
   import AdminMarkUp from "../AdminMarkUp";
   import errorStore from "../../../Store/errors/errors.store";
   import { endPoint } from "../../../../config";
 
+  setClient(client);
+
+  const getCliet = getClient();
+  const faculties = query(getCliet, { query: getFaculties });
+
   const token = localStorage.getItem("token");
 
   let disabled = true;
-
+  let faculty = "";
   let name = "";
 
   let header = {
@@ -17,10 +27,10 @@
     }
   };
 
-  $: disabled = name.length > 4 && name.length < 50 ? false : true;
+  $: disabled = name.length > 4 && name.length < 50 && !faculty ? false : true;
 
-  // Add Faculty
-  const addFaculty = async () => {
+  // Add Department
+  const addDepartment = async () => {
     try {
       const { data, status } = await axios.post(
         `${endPoint}/api/faculties`,
@@ -55,10 +65,30 @@
 <AdminMarkUp>
   <div slot="content">
     <div class="mainDiv">
-      <h1>Add Faculty</h1>
+      <h1>Add Department</h1>
       <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Faculty Name</label>
+          <label>Faculty</label>
+
+          <select
+            class="custom-select mr-sm-2"
+            id="inlineFormCustomSelect"
+            bind:value={faculty}>
+            <option value={null}>Select Faculty</option>
+
+            {#await $faculties}
+              Loading....
+            {:then result}
+              {#each result.data.faculties as faculty}
+                <option value={faculty._id}>{faculty.name}</option>
+              {/each}
+            {:catch error}
+              {error.message}
+            {/await}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Department Name</label>
           <input
             type="text"
             class="form-control"
@@ -75,7 +105,7 @@
       <button
         {disabled}
         class="btn btn-success"
-        on:click|preventDefault={() => addFaculty()}>
+        on:click|preventDefault={() => addDepartment()}>
         Submit
       </button>
     </div>

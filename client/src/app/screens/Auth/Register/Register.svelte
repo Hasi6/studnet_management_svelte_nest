@@ -2,9 +2,7 @@
   import UnAuthProtect from "../UnAuthProtect.svelte";
   import { validateEmail } from "../../../helpers/emailValidator.js";
   import { Link } from "svelte-routing";
-  import { aplloClient } from "../../../Store/graphql/grqphQlClient.js";
   import { setClient, getClient, query, mutate } from "svelte-apollo";
-  import { gql } from "apollo-boost";
   import { client } from "../../../helpers/apolloClient.js";
   import { getFaculties } from "../../../graphql/queries/getFaculties.query.js";
   import { getDepartments } from "../../../graphql/mutations/getDepartments.mutation.js";
