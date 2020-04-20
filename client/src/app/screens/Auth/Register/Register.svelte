@@ -95,6 +95,7 @@
             class="custom-select mr-sm-2"
             id="inlineFormCustomSelect"
             bind:value={faculty}>
+            <option value={null}>Select Faculty</option>
 
             {#await $faculties}
               Loading....
