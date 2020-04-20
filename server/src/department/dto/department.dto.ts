@@ -7,3 +7,8 @@ export class CreateDepartmentDTO {
     facultyId: string;
 
 }
+
+export class EditDepartmentDto {
+    @IsNotEmpty()
+    name: string;
+}

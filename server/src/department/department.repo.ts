@@ -2,7 +2,7 @@ import { InternalServerErrorException, Logger, BadRequestException } from '@nest
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 import { IDepartment } from './department.model';
-import { CreateDepartmentDTO } from './dto/department.dto';
+import { CreateDepartmentDTO, EditDepartmentDto } from './dto/department.dto';
 
 
 
@@ -37,6 +37,9 @@ export class DepartmentsRepo {
 
     // *********************************** Find Department **********************************************
 
+    // Find Department By Id
+
+
     // Find Departments By Faculty id
     public findDepartmentsByFacultyId = async (facultyId: string): Promise<IDepartment[]> => {
         try {
@@ -47,6 +50,15 @@ export class DepartmentsRepo {
     }
 
     // *********************************** Edit Department **********************************************
+    // Edit Department Name
+    public editDepartment = async (_id: string, editDepartmentDto: EditDepartmentDto): Promise<IDepartment> => {
+        try {
+            await this.department.updateOne({ _id }, { $set: editDepartmentDto })
+            return await this.d
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
 
 
     // *********************************** Delete Department **********************************************
