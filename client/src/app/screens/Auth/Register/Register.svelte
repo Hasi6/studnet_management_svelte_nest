@@ -6,27 +6,12 @@
   import { setClient, getClient, query, mutate } from "svelte-apollo";
   import { gql } from "apollo-boost";
   import { client } from "../../../helpers/apolloClient.js";
+  import { getFaculties } from "../../../graphql/queries/getFaculties.query.js";
+  import { getDepartments } from "../../../graphql/mutations/getDepartments.mutation.js";
   setClient(client);
-
-  const getFaculties = gql`
-    {
-      faculties {
-        name
-        _id
-      }
-    }
-  `;
 
   const getCliet = getClient();
   const faculties = query(getCliet, { query: getFaculties });
-
-  const getDepartments = gql`
-    mutation($facultyId: String!) {
-      departments(facultyId: $facultyId) {
-        name
-      }
-    }
-  `;
 
   let username = "";
   let email = "";
@@ -36,19 +21,18 @@
   let departments = [];
   let department;
 
-  $: (() => {
-    mutate(client, {
-      mutation: getDepartments,
-      variables: { facultyId: faculty }
-    })
-      .then(res => {
-        if (res && res.data && res.data.departments) {
-          departments = res.data.departments;
-        }
-      })
-      .catch(err => {
-        console.error(err.message);
+  $: (async () => {
+    try {
+      const res = await mutate(client, {
+        mutation: getDepartments,
+        variables: { facultyId: faculty }
       });
+      if (res && res.data && res.data.departments) {
+        departments = res.data.departments;
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   })();
 
   $: (() => {
