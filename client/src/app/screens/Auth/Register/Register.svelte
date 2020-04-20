@@ -6,6 +6,8 @@
   import { client } from "../../../helpers/apolloClient.js";
   import { getFaculties } from "../../../graphql/queries/getFaculties.query.js";
   import { getDepartments } from "../../../graphql/mutations/getDepartments.mutation.js";
+  import authStore from "../../../Store/auth/auth.store.js";
+  import errorStore from "../../../Store/errors/errors.store.js";
   setClient(client);
 
   const getCliet = getClient();
@@ -14,10 +16,11 @@
   let username = "";
   let email = "";
   let password = "";
-  let confirmPassword;
+  let confirmPassword = "";
   let faculty;
   let departments = [];
   let department;
+  let disabled = true;
 
   $: (async () => {
     try {
@@ -37,6 +40,14 @@
     if (password !== confirmPassword) {
     }
   })();
+
+  const submit = () => {
+    const body = {
+      username
+    };
+
+    authStore.registerUser();
+  };
 </script>
 
 <style>
@@ -132,8 +143,30 @@
           </div>
         {/if}
       </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Confirm Password</label>
+        <input
+          type="password"
+          bind:value={confirmPassword}
+          class="form-control"
+          placeholder="Confirm Password" />
+        {#if confirmPassword.length < 6 && confirmPassword !== ''}
+          <div class="alert alert-danger">
+            {'Password mu be 6 or more characters'}
+          </div>
+        {:else if password !== confirmPassword && password && confirmPassword}
+          <div class="alert alert-danger">
+            {'Password and confirm password did not matched'}
+          </div>
+        {/if}
+      </div>
     </form>
-    <button class="btn btn-success">Submit</button>
+    <button
+      class="btn btn-success"
+      {disabled}
+      on:click|preventDefault={() => submit()}>
+      Register
+    </button>
     <br />
 
     <span>

@@ -10,6 +10,8 @@ export class CreateUserDto {
     @IsNotEmpty()
     faculty: string;
     @IsNotEmpty()
+    department: string;
+    @IsNotEmpty()
     @MinLength(6)
     @MaxLength(20)
     password: string;

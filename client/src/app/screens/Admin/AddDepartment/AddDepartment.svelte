@@ -17,7 +17,7 @@
   const token = localStorage.getItem("token");
 
   let disabled = true;
-  let faculty = "";
+  let facultyId = "";
   let name = "";
 
   let header = {
@@ -27,14 +27,16 @@
     }
   };
 
-  $: disabled = name.length > 4 && name.length < 50 && !faculty ? false : true;
+  $: disabled = name.length > 4 && name.length < 50 && facultyId ? false : true;
+
+  $: console.log(facultyId);
 
   // Add Department
   const addDepartment = async () => {
     try {
       const { data, status } = await axios.post(
-        `${endPoint}/api/faculties`,
-        { name },
+        `${endPoint}/api/department`,
+        { name, facultyId },
         header
       );
 
@@ -73,7 +75,7 @@
           <select
             class="custom-select mr-sm-2"
             id="inlineFormCustomSelect"
-            bind:value={faculty}>
+            bind:value={facultyId}>
             <option value={null}>Select Faculty</option>
 
             {#await $faculties}
