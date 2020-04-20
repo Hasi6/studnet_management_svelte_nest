@@ -4,8 +4,8 @@
   import { Link } from "svelte-routing";
   import { aplloClient } from "../../../Store/graphql/grqphQlClient.js";
   import { setClient, getClient, query, mutate } from "svelte-apollo";
-  import ApolloClient, { gql } from "apollo-boost";
-  const client = new ApolloClient({ uri: "http://localhost:5000/graphql" });
+  import { gql } from "apollo-boost";
+  import { client } from "../../../helpers/apolloClient.js";
   setClient(client);
 
   const getFaculties = gql`
