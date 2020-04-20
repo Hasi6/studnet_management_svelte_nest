@@ -22,6 +22,8 @@
   let department;
   let disabled = true;
 
+  $: console.log(department);
+
   $: (async () => {
     try {
       const res = await mutate(client, {
@@ -36,17 +38,33 @@
     }
   })();
 
-  $: (() => {
-    if (password !== confirmPassword) {
-    }
-  })();
+  // $: (() => {
+  //   if (password !== confirmPassword) {
+  //   }
+  // })();
+
+  $: disabled =
+    password &&
+    password.length > 6 &&
+    confirmPassword &&
+    confirmPassword.length > 4 &&
+    password === confirmPassword &&
+    email &&
+    username &&
+    department
+      ? false
+      : true;
 
   const submit = () => {
     const body = {
-      username
+      username,
+      email,
+      password,
+      faculty,
+      department
     };
 
-    authStore.registerUser();
+    authStore.registerUser(body);
   };
 </script>
 
@@ -107,10 +125,10 @@
           <select
             class="custom-select mr-sm-2"
             id="inlineFormCustomSelect"
-            bind:value={faculty}>
+            bind:value={department}>
 
-            {#each departments as department}
-              <option value={department.name}>{department.name}</option>
+            {#each departments as dep}
+              <option value={dep._id}>{dep.name}</option>
             {/each}
 
           </select>

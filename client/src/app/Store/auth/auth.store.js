@@ -49,11 +49,26 @@ const authStore = () => {
         body
       );
       if (status === 201) {
+        errorStore.addErrors({
+          msg: "Successfully Registered",
+          type: "success"
+        });
         navigate("/login", { replace: true });
       }
     } catch (err) {
       const errors = err.response.data;
-      console.log(errors.message);
+      let newErrors;
+      try {
+        newErrors = errors.message.splice(",");
+      } catch (err) {
+        newErrors = [errors.message];
+      }
+      if (newErrors.length > 0) {
+        newErrors.map(error => {
+          errorStore.addErrors({ msg: error, type: "danger" });
+        });
+        return;
+      }
       errorStore.addErrors({ msg: errors.message, type: "danger" });
     }
   };
