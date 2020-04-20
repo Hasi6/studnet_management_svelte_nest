@@ -1,4 +1,4 @@
-import { InternalServerErrorException, Logger, BadRequestException } from '@nestjs/common';
+import { InternalServerErrorException, Logger, BadRequestException, ConflictException } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 import { IDepartment } from './department.model';
@@ -38,7 +38,16 @@ export class DepartmentsRepo {
     // *********************************** Find Department **********************************************
 
     // Find Department By Id
-
+    public findDepartmentById = async (_id: string): Promise<IDepartment | null> => {
+        try {
+            return await this.department.findById(_id)
+        } catch (err) {
+            if (err.name === "CastError") {
+                throw new ConflictException("Invalid Id")
+            }
+            throw new InternalServerErrorException()
+        }
+    }
 
     // Find Departments By Faculty id
     public findDepartmentsByFacultyId = async (facultyId: string): Promise<IDepartment[]> => {
