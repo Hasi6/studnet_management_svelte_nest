@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { FacultiesModule } from './faculties/faculties.module';
 import { UserModule } from './user/user.module';
 import { DepartmentModule } from './department/department.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { DepartmentModule } from './department/department.module';
     }),
     FacultiesModule,
     UserModule,
-    DepartmentModule
+    DepartmentModule,
+    CoursesModule
   ],
   controllers: [],
   providers: [],
