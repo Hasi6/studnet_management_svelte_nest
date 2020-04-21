@@ -7,6 +7,7 @@ import { FacultiesModule } from './faculties/faculties.module';
 import { UserModule } from './user/user.module';
 import { DepartmentModule } from './department/department.module';
 import { CoursesModule } from './courses/courses.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { CoursesModule } from './courses/courses.module';
     FacultiesModule,
     UserModule,
     DepartmentModule,
-    CoursesModule
+    CoursesModule,
+    ProfileModule
   ],
   controllers: [],
   providers: [],

@@ -63,8 +63,11 @@ export class DepartmentsRepo {
     public editDepartment = async (_id: string, editDepartmentDto: EditDepartmentDto): Promise<IDepartment> => {
         try {
             await this.department.updateOne({ _id }, { $set: editDepartmentDto })
-            return await this.d
+            return await this.findDepartmentById(_id)
         } catch (err) {
+            if (err.name === "CastError") {
+                throw new ConflictException("Invalid Id")
+            }
             throw new InternalServerErrorException()
         }
     }
