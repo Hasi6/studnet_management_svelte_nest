@@ -7482,6 +7482,11 @@ svelte-loader@^2.13.3:
     loader-utils "^1.1.0"
     svelte-dev-helper "^1.1.9"
 
+svelte-mui@^0.3.3-3:
+  version "0.3.3-3"
+  resolved "https://registry.yarnpkg.com/svelte-mui/-/svelte-mui-0.3.3-3.tgz#6f00b88bd5b6c5ab2f7c8a95f05b946913b48552"
+  integrity sha512-oBmrD9+mlyfW0zUt0GKKRaq0cVnR5ScKBFmv8amiVfSvUNvUuA0fp/QM1zqUN5dwNzrlzw6PGxCF5CnM21DIbQ==
+
 svelte-observable@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/svelte-observable/-/svelte-observable-0.4.0.tgz#74756e42fa3516c154d53f4244fa9cf691854224"
