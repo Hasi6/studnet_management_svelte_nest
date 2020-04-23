@@ -20,9 +20,16 @@ const errorStore = () => {
     }, time || 10000);
   };
 
+  const removeErrors = id => {
+    errors.update(errs => {
+      return errs.filter(error => error.id !== id);
+    });
+  };
+
   return {
     subscribe: errors.subscribe,
-    addErrors
+    addErrors,
+    removeErrors
   };
 };
 

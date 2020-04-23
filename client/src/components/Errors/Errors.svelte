@@ -31,7 +31,8 @@
         type="button"
         class="close"
         data-dismiss="alert"
-        aria-label="Close">
+        aria-label="Close"
+        on:click={() => errorStore.removeErrors(error.id)}>
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
