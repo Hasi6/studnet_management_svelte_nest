@@ -2055,6 +2055,19 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/history@*":
+  version "4.7.5"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
+  integrity sha512-wLD/Aq2VggCJXSjxEwrMafIP51Z+13H78nXIX0ABEuIGhmB5sNGbR113MOKo+yfw+RDo1ZU3DM6yfnnRF/+ouw==
+
+"@types/hoist-non-react-statics@^3.3.0":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -2102,15 +2115,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.7.1.tgz#238eb34a66431b71d2aaddeaa7db166f25971a0d"
   integrity sha512-Zq8gcQGmn4txQEJeiXo/KiLpon8TzAl0kmKH4zdWctPj05nWwp1ClMdAVEloqrQKfaC48PNLdgN/aVaLqUrluA==
 
-"@types/node@>=6", "@types/node@^13.7.0":
+"@types/node@>=6", "@types/node@^13.13.2", "@types/node@^13.7.0":
   version "13.13.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.2.tgz#160d82623610db590a64e8ca81784e11117e5a54"
   integrity sha512-LB2R1Oyhpg8gu4SON/mfforE525+Hi/M1ineICEDftqNVTyFg1aRIeGuTvXAoWHc4nbrFncWtJgMmoyRvuGh7A==
-
-"@types/node@^12.0.0":
-  version "12.12.37"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.37.tgz#cb4782d847f801fa58316da5b4801ca3a59ae790"
-  integrity sha512-4mXKoDptrXAwZErQHrLzpe0FN/0Wmf5JRniSVIdwUrtDf9wnmEV1teCNLBo/TwuXhkK/bVegoEn/wmb+x0AuPg==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2134,6 +2142,33 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-redux@^7.1.7":
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.7.tgz#12a0c529aba660696947384a059c5c6e08185c7a"
+  integrity sha512-U+WrzeFfI83+evZE2dkZ/oF/1vjIYgqrb5dGgedkqVV8HEfDFujNgWCwHL89TDuWKb47U0nTBT6PLGq4IIogWg==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.0"
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+    redux "^4.0.0"
+
+"@types/react-router-dom@^5.1.4":
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.4.tgz#8d3e0306df74af301cc896309e7d4758f1a4bf71"
+  integrity sha512-LO0z5qqSfWdYtCNsRm8/OMnnkv52hwADJKrAfpKIyfHclORllcgAMGypEA7ajHm38+jOonKLx8nPygNAAZGxtg==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.5.tgz#7b2f9b7cc3d350e92664c4e38c0ef529286fe628"
+  integrity sha512-RZPdCtZympi6X7EkGyaU7ISiAujDYTWgqMF9owE3P6efITw27IWQykcti0BvA5h4Mu1LLl5rxrpO3r8kHyUZ/Q==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.9.0":
   version "16.9.34"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.34.tgz#f7d5e331c468f53affed17a8a4d488cd44ea9349"
@@ -2141,6 +2176,13 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/redux@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@types/redux/-/redux-3.6.0.tgz#f1ebe1e5411518072e4fdfca5c76e16e74c1399a"
+  integrity sha1-8evh5UEVGAcuT9/KXHbhbnTBOZo=
+  dependencies:
+    redux "*"
 
 "@types/socket.io-client@^1.4.32":
   version "1.4.32"
@@ -9870,7 +9912,7 @@ redux-thunk@^2.3.0:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
   integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
 
-redux@^4.0.5:
+redux@*, redux@^4.0.0, redux@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
   integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
