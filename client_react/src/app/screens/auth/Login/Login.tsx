@@ -12,9 +12,24 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { useStyles } from "../Ui";
+import { GraphQLClient } from "graphql-request";
+import { endPoint } from "../../../config/index";
 
 const Login = () => {
   const classes = useStyles();
+
+  const client = new GraphQLClient(`${endPoint}/graphql`);
+
+  const meQuery = `{
+    faculties{
+    name
+  }
+}`;
+
+  (async () => {
+    const me = await client.request(meQuery);
+    console.log(me);
+  })();
 
   return (
     <Grid container component="main" className={classes.root}>
