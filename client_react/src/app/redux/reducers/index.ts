@@ -1,19 +1,22 @@
 import { combineReducers } from "redux";
 
-import asyncAction from "./async/asyncReducer";
-import { AsyncReducer } from './async/asyncReducer';
+import asyncAction, { AsyncReducer } from './async/asyncReducer';
 import { reducer as ToastrReducer } from "react-redux-toastr";
+import auth, { AuthReducer } from './auth/auth.reducer';
+
 
 
 
 export interface StoreState {
   async: AsyncReducer,
-  toastr: any
+  toastr: any,
+  auth: AuthReducer
 }
 
 const rootReducer = combineReducers<StoreState>({
   async: asyncAction,
-  toastr: ToastrReducer
+  toastr: ToastrReducer,
+  auth
 });
 
 export default rootReducer;

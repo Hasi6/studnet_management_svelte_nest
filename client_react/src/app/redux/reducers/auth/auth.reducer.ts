@@ -1,45 +1,27 @@
 import { createReducer } from "../util/reducerUtil"
-import { AsyncTypes } from '../../types/index.types';
+import { AuthTypes } from '../../types/index.types';
+import { IUser } from '../../../model/User.model';
 
 
-
-export interface AsyncReducer {
-    loading: boolean,
-    name: string | null
+export interface AuthReducer {
+    user: IUser | null,
+    auth: boolean | null
 }
 
-const initialState: AsyncReducer = {
-    loading: false,
-    name: null
+const initialState: AuthReducer = {
+    user: null,
+    auth: null
 }
 
-const asyncActionStarted = (state: AsyncReducer, payload: any) => {
-    console.log('Hasi');
+const setCurrentUser = (state: AuthReducer, { user, auth }: AuthReducer): AuthReducer => {
     return {
         ...state,
-        loading: true,
-        name: payload
+        user,
+        auth
     }
 }
 
-const asyncActionFinished = (state: AsyncReducer) => {
-    return {
-        ...state,
-        loading: false,
-        name: null
-    }
-}
-
-const asyncActionError = (state: AsyncReducer) => {
-    return {
-        ...state,
-        loading: false,
-        name: null
-    }
-}
 
 export default createReducer(initialState, {
-    [AsyncTypes.ASYNC_ACTION_START]: asyncActionStarted,
-    [AsyncTypes.ASYNC_ACTION_FINISHED]: asyncActionFinished,
-    [AsyncTypes.ASYNC_ACTION_ERROR]: asyncActionError
+    [AuthTypes.SET_CURRENT_USER]: setCurrentUser,
 })

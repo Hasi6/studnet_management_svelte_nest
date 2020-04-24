@@ -9,14 +9,14 @@ import jwtDecode from 'jwt-decode';
 const authEndPoint = `${endPoint}/api/auth`
 
 // Auth Request
-const authRequest = async (user: IAuthUser, url: string): Promise<{ token: string } | string | null> => {
-    try {
-        return await axios.post(`${authEndPoint}/${url}`);
-    } catch (err) {
-        toastr.error("Error", err.message)
-        return null;
-    }
-}
+// const authRequest = async (user: IAuthUser, url: string): Promise<{ token: string } | string | null> => {
+//     try {
+//         return await axios.post(`${authEndPoint}/${url}`);
+//     } catch (err) {
+//         toastr.error("Error", err.message)
+//         return null;
+//     }
+// }
 
 // Login User
 export const loginUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
@@ -24,7 +24,7 @@ export const loginUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
         const { data: { token } } = await axios.post<{ token: string }>(`${authEndPoint}/login`, user);
         const authState: { auth: boolean, user: any } = decodeToken(token);
         dispatch({ type: AuthTypes.LOGIN_USER });
-        dispatch({ type: AuthTypes.CURRENT_USER, payload: authState })
+        dispatch({ type: AuthTypes.SET_CURRENT_USER, payload: authState })
     } catch (err) {
         toastr.error("Error", err.message)
         return null;
@@ -87,6 +87,19 @@ export const resetPassword = (password: string, token: string) => async (dispatc
         toastr.error("Error", err.message)
         return null;
     }
+};
+
+
+// Logout User
+export const logOutUser = () => async (dispatch: Dispatch) => {
+    localStorage.removeItem('token')
+    dispatch({
+        type: AuthTypes.LOG_OUT_USER
+    });
+    dispatch({
+        type: AuthTypes.SET_CURRENT_USER,
+        payload: { user: null, auth: null }
+    })
 }
 
 // Decode Token
