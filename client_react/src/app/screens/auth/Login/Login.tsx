@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, FC } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,11 +15,21 @@ import Typography from "@material-ui/core/Typography";
 import { useStyles } from "../Ui";
 import { GraphQLClient } from "graphql-request";
 import { endPoint } from "../../../config/index";
+import { loginUser } from "../../../redux/actions/auth/auth.actions";
+import { connect } from "react-redux";
 
-const Login = () => {
+interface propTypes {
+  loginUser: any;
+}
+
+const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
   const classes = useStyles();
 
   const client = new GraphQLClient(`${endPoint}/graphql`);
+
+  useEffect(() => {
+    loginUser({ email: "hasi@gmail.com", password: "34343434sd" });
+  }, []);
 
   const meQuery = `{
     faculties{
@@ -99,4 +110,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { loginUser })(Login);
