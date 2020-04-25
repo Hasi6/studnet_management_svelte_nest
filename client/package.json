@@ -13,7 +13,10 @@
     "core-js": "^2.6.5",
     "graphql": "^15.0.0",
     "jwt-decode": "^2.2.0",
+    "smelte": "^1.0.12",
     "svelte-apollo": "^0.3.0",
+    "svelte-chota": "^1.7.1",
+    "svelte-material-ui": "^1.0.0-beta.21",
     "svelte-mui": "^0.3.3-3",
     "svelte-routing": "^1.4.2",
     "uuid": "^7.0.3"

@@ -2,9 +2,11 @@ import React, { FC, useState } from "react";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { TabMenu } from "primereact/tabmenu";
+import { Password } from "primereact/password";
 
 const AuthorizedWrapper: FC = ({ children }) => {
   const [visible, setVisible] = useState(false);
+  const [password, setPassword] = useState("");
   const [activeItem, setActiveItem] = useState({
     label: "Home",
     icon: "pi pi-fw pi-home"
@@ -29,6 +31,10 @@ const AuthorizedWrapper: FC = ({ children }) => {
         model={items}
         activeItem={activeItem}
         onTabChange={e => setActiveItem(e.value)}
+      />
+      <Password
+        value={password}
+        onChange={(e: any) => setPassword(e.target.value)}
       />
       {children}
     </>
