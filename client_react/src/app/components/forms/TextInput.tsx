@@ -11,35 +11,32 @@ interface propTypes {
   type?: string;
   autoFocus: boolean;
   setFocus: Function;
+  input: any;
+  meta: any;
 }
 
 const TextInput: FC<propTypes> = ({
-  onChange,
-  value,
+  input,
   label,
-  required,
   fullWidth,
-  name,
   type,
-  autoFocus,
-  setFocus
+  meta: { touched, error }
 }): JSX.Element => {
   return (
-    <TextField
-      value={value}
-      variant="outlined"
-      margin="normal"
-      type={type || "text"}
-      required={required}
-      onChange={e => {
-        setFocus(name);
-        onChange(e.target.value);
-      }}
-      fullWidth={fullWidth}
-      label={label}
-      name={name}
-      autoFocus={autoFocus}
-    />
+    <>
+      <TextField
+        color={touched && !!error ? "secondary" : "primary"}
+        {...input}
+        label={label}
+        fullWidth={fullWidth}
+        variant="outlined"
+        type={type}
+        margin="normal"
+      />
+      {touched && error && (
+        <label style={{ textAlign: "center", color: "darkRed" }}>{error}</label>
+      )}
+    </>
   );
 };
 

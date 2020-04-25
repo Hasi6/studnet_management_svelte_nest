@@ -26,6 +26,7 @@ export const loginUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
     const authState: { auth: boolean, user: any } = decodeToken(res?.data?.token);
     dispatch({ type: AuthTypes.LOGIN_USER });
     dispatch({ type: AuthTypes.SET_CURRENT_USER, payload: authState })
+    toastr.success("Welcome", authState.user.username)
 
 };
 

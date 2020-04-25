@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, FC, useState } from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
@@ -18,23 +16,26 @@ import { loginUser } from "../../../redux/actions/auth/auth.actions";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../../components/forms/TextInput";
+import { IAuthUser } from "../../../model/User.model";
+import {
+  composeValidators,
+  combineValidators,
+  isRequired,
+  hasLengthGreaterThan
+} from "revalidate";
 
-interface propTypes {
-  loginUser: any;
-}
-
-const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
+const Login: any = ({
+  loginUser,
+  handleSubmit
+}: {
+  loginUser: Function;
+  handleSubmit: Function;
+}) => {
   const classes = useStyles();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [focus, setFocus] = useState("email");
 
   const client = new GraphQLClient(`${endPoint}/graphql`);
 
-  useEffect(() => {
-    loginUser({ email: "hasi@gmail.com", password: "34343434sd" });
-  }, []);
+  useEffect(() => {}, []);
 
   const meQuery = `{
     faculties{
@@ -46,6 +47,11 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
     const me = await client.request(meQuery);
     console.log(me);
   })();
+
+  const onSubmit = (e: IAuthUser) => {
+    // loginUser(e);
+    console.log(e);
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -59,51 +65,32 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Field
-            name="email"
-            component={() => (
-              <TextInput
-                onChange={setEmail}
-                value={email}
-                fullWidth={true}
-                label={"Email"}
-                required={true}
-                name={"email"}
-                autoFocus={focus === "email" ? true : false}
-                setFocus={setFocus}
-              />
-            )}
-          />
-          <Field
-            name="password"
-            component={() => (
-              <TextInput
-                onChange={setPassword}
-                value={password}
-                fullWidth={true}
-                label={"Password"}
-                type="password"
-                required={true}
-                name={"password"}
-                autoFocus={focus === "password" ? true : false}
-                setFocus={setFocus}
-              />
-            )}
-          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Field
+              name="email"
+              component={TextInput}
+              label={"Email"}
+              fullWidth={true}
+              type={"text"}
+            />
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
+            <Field
+              name="password"
+              component={TextInput}
+              label={"Password"}
+              fullWidth={true}
+              type={"password"}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -123,6 +110,16 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
   );
 };
 
-export default reduxForm({
-  form: "LoginForm"
-})(connect(null, { loginUser })(Login));
+const validate = combineValidators({
+  email: isRequired({ message: "Email Required" }),
+  password: composeValidators(
+    isRequired({ message: "Password is Required" }),
+    hasLengthGreaterThan(5)({
+      message: "Password needs to be at least 6 Characters"
+    })
+  )()
+});
+
+export default connect(null, {
+  loginUser
+})(reduxForm({ form: "loginForm", validate })(Login));
