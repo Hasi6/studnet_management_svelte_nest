@@ -17,6 +17,7 @@ import { GraphQLClient } from "graphql-request";
 import { endPoint } from "../../../config/index";
 import { loginUser } from "../../../redux/actions/auth/auth.actions";
 import { connect } from "react-redux";
+import { reduxForm, Field } from "redux-form";
 
 interface propTypes {
   loginUser: any;
@@ -55,6 +56,9 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
+            <Field name="email" />
+            <Field name="password" />
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -110,4 +114,6 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
   );
 };
 
-export default connect(null, { loginUser })(Login);
+export default reduxForm({
+  form: "LoginForm"
+})(connect(null, { loginUser })(Login));
