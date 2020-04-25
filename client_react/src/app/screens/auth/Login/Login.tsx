@@ -49,8 +49,7 @@ const Login: any = ({
   })();
 
   const onSubmit = (e: IAuthUser) => {
-    // loginUser(e);
-    console.log(e);
+    loginUser(e);
   };
 
   return (
