@@ -20,6 +20,7 @@ import { ProfileModule } from './profile/profile.module';
     GraphQLModule.forRoot({
       debug: true,
       playground: true,
+      installSubscriptionHandlers: true,
       typePaths: ['./**/*.graphql']
     }),
     FacultiesModule,

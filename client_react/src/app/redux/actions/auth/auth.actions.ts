@@ -2,9 +2,10 @@ import { toastr } from 'react-redux-toastr';
 import { Dispatch } from "redux";
 import { AuthTypes } from '../../types/index.types';
 import { IAuthUser } from '../../../model/User.model';
-import axios, { Method } from 'axios';
+import axios from 'axios';
 import { endPoint } from '../../../config';
 import { decodeToken } from '../../../helpers/decodeJwtToken';
+import { apiRequests } from '../../../helpers/apiRequests';
 
 const authEndPoint = `${endPoint}/api/auth`
 
@@ -17,20 +18,11 @@ export const setCurrentUser = () => (dispatch: Dispatch) => {
 }
 
 
-// Api Requests
-const apiRequests = async (method: Method, url: string, data?: any, headers?: any): Promise<any> => {
-    try {
-        return await axios.request<any>({ url: `${authEndPoint}/${url}`, method, data, headers })
-    } catch (err) {
-        const errors = err?.response?.data?.message;
-        toastr.error("Error", errors)
-        return null
-    }
-}
+
 
 // Login User
 export const loginUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
-    const res = await apiRequests("post", "login", user)
+    const res = await apiRequests("post", `${authEndPoint}/login`, user)
     const authState: { auth: boolean, user: any } = decodeToken(res?.data?.token);
     dispatch({ type: AuthTypes.LOGIN_USER });
     dispatch({ type: AuthTypes.SET_CURRENT_USER, payload: authState })

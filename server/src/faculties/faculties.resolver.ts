@@ -1,5 +1,7 @@
-import { Resolver, Query } from "@nestjs/graphql";
+import { Resolver, Query, Subscription } from "@nestjs/graphql";
+import { PubSub } from 'graphql-subscriptions'
 import { FacultiesService } from './faculties.service';
+const pubSub = new PubSub();
 
 @Resolver('Faculties')
 export class FacultiesResolver {
@@ -10,7 +12,13 @@ export class FacultiesResolver {
 
     @Query()
     faculties() {
+        pubSub.publish('commentAdded', "Hasi");
         return this.facultiesService.getAllFaculties()
+    }
+
+    @Subscription()
+    commentAdded() {
+        return pubSub.asyncIterator('commentAdded');
     }
 
 }
