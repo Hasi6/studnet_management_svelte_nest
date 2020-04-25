@@ -46,7 +46,7 @@ export class UserRepo {
     // Get User By Email
     public getUserByEmail = async (email: string) => {
         try {
-            return await this.user.findOne({ email })
+            return await this.user.findOne({ email });
         } catch (err) {
             logger.verbose(`User Repo Get User By Id Error ${err.message}`)
             throw new InternalServerErrorException()
@@ -58,13 +58,45 @@ export class UserRepo {
         try {
             return await this.user.findOne({ $or: [{ email }, { username: email }] })
         } catch (err) {
+
             logger.verbose(`User Repo Get User By Email Or Username Error ${err.message}`)
+            throw new InternalServerErrorException();
+        }
+    }
+
+    // Get User By Token
+    public getUserByToken = async (token: string): Promise<IUser | null> => {
+        try {
+            return await this.user.findOne({ token })
+        } catch (err) {
+            logger.verbose(`User Repo Get User By Token Error ${err.message}`)
             throw new InternalServerErrorException();
         }
     }
 
 
     // ***************************** Edit User *******************************************
+    // Verify User Account
+    public verifyUserAccount = async (token: string, newToken: string): Promise<boolean> => {
+        try {
+            await this.user.updateOne({ token }, { $set: { verifyAccount: true, token: newToken } });
+            return true;
+        } catch (err) {
+            logger.verbose(`User RepoVerify User Error ${err.message}`)
+            throw new InternalServerErrorException();
+        }
+    }
+
+    // Reset Password
+    public resetUserPassword = async (token: string, password: string, newToken): Promise<boolean> => {
+        try {
+            await this.user.updateOne({ token }, { $set: { verifyAccount: true, password, token: newToken } });
+            return true;
+        } catch (err) {
+            logger.verbose(`User RepoVerify User Error ${err.message}`)
+            throw new InternalServerErrorException();
+        }
+    }
 
 
     // ***************************** Delete User *******************************************

@@ -23,3 +23,15 @@ export class LoginUserDto {
     @IsNotEmpty()
     password: string;
 }
+
+export class RequestResetPasswordLink {
+    @IsEmail()
+    email: string;
+}
+
+export class ResetPassword {
+    @IsNotEmpty()
+    @MinLength(5)
+    @MaxLength(20)
+    password: string;
+}
