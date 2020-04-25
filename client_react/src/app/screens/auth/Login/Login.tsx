@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
@@ -18,6 +17,7 @@ import { endPoint } from "../../../config/index";
 import { loginUser } from "../../../redux/actions/auth/auth.actions";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
+import TextInput from "../../../components/forms/TextInput";
 
 interface propTypes {
   loginUser: any;
@@ -25,6 +25,10 @@ interface propTypes {
 
 const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
   const classes = useStyles();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [focus, setFocus] = useState("email");
 
   const client = new GraphQLClient(`${endPoint}/graphql`);
 
@@ -55,59 +59,64 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
-            <Field name="email" />
-            <Field name="password" />
+          <Field
+            name="email"
+            component={() => (
+              <TextInput
+                onChange={setEmail}
+                value={email}
+                fullWidth={true}
+                label={"Email"}
+                required={true}
+                name={"email"}
+                autoFocus={focus === "email" ? true : false}
+                setFocus={setFocus}
+              />
+            )}
+          />
+          <Field
+            name="password"
+            component={() => (
+              <TextInput
+                onChange={setPassword}
+                value={password}
+                fullWidth={true}
+                label={"Password"}
+                type="password"
+                required={true}
+                name={"password"}
+                autoFocus={focus === "password" ? true : false}
+                setFocus={setFocus}
+              />
+            )}
+          />
 
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-            <Box mt={5}></Box>
-          </form>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+          <Box mt={5}></Box>
         </div>
       </Grid>
     </Grid>
