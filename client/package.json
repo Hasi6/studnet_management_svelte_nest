@@ -22,6 +22,7 @@
     "svelte-material-ui": "^1.0.0-beta.21",
     "svelte-mui": "^0.3.3-3",
     "svelte-routing": "^1.4.2",
+    "sveltestrap": "^3.3.3",
     "uuid": "^7.0.3"
   },
   "devDependencies": {
