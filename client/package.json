@@ -27,6 +27,7 @@
     "@svel/cli-service": "^0.5.0",
     "@svel/eslint-config-prettier": "*",
     "babel-eslint": "^10.0.1",
+    "babel-preset-latest": "^6.24.1",
     "eslint": "^5.16.0",
     "eslint-plugin-svelte3": "^1.2.3"
   },
@@ -41,7 +42,9 @@
     "extends": [
       "@svel/prettier"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": 0
+    },
     "parser": "babel-eslint"
   },
   "postcss": {

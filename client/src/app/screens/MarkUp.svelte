@@ -42,18 +42,22 @@
   Add Error
 </button>
 
-<nav>
-  <Link to="/">Home</Link>
-  <Link to="login">Login</Link>
-  <Link to="register">Register</Link>
-  <button class="btn btn-warning" on:click={() => logoutUser()}>Logout</button>
-  <button class="btn btn-primary" on:click={setRightVisible}>Click</button>
-  <slot name="content" />
-  {JSON.stringify(authenticated)}
-</nav>
-<Sidepanel right bind:visible={rightVisible}>
-  <div class="logo" style="padding-left: 1rem;">Help</div>
-  <p>
-    <i style="padding: 12px;">Blank</i>
-  </p>
-</Sidepanel>
+{#if authenticated && authenticated.auth}
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="login">Login</Link>
+    <Link to="register">Register</Link>
+    <button class="btn btn-warning" on:click={() => logoutUser()}>
+      Logout
+    </button>
+    <button class="btn btn-primary" on:click={setRightVisible}>Click</button>
+    <slot name="content" />
+    {JSON.stringify(authenticated)}
+  </nav>
+  <Sidepanel right bind:visible={rightVisible}>
+    <div class="logo" style="padding-left: 1rem;">Help</div>
+    <p>
+      <i style="padding: 12px;">Blank</i>
+    </p>
+  </Sidepanel>
+{/if}
