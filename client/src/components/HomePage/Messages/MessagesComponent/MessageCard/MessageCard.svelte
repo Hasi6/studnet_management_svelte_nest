@@ -1,11 +1,17 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { Card } from "svelte-chota";
   import SingleMessage from "./SingleMessage/SingleMessage.svelte";
   import chatIdStore from "../../../../../app/Store/chat/chatId.store";
 
   let chatId;
   let unsubscribe;
+
+  const scrollTop = e => {
+    if (document.querySelector(".messageCard").scrollTop < 300) {
+      console.log("Hasi");
+    }
+  };
 
   const autoScroll = () => {
     const objDiv = document.querySelector(".messageCard");
@@ -17,17 +23,18 @@
   const getChatId = () => {
     unsubscribe = chatIdStore.subscribe(chat => {
       chatId = chat;
+      autoScroll();
     });
   };
-
-  $: (() => {
-    console.log(chatId);
-    autoScroll();
-  })();
 
   onMount(() => {
     autoScroll();
     getChatId();
+    scrollTop();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
   });
 </script>
 
@@ -40,7 +47,7 @@
 
 {chatId}
 <Card>
-  <div class="messageCard">
+  <div class="messageCard" on:scroll={scrollTop}>
     <SingleMessage isMe={true} />
     <SingleMessage isMe={false} />
     <SingleMessage isMe={true} />
