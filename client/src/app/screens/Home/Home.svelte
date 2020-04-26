@@ -16,8 +16,9 @@
   import Messages from "../../../components/HomePage/Messages/Messages.svelte";
   import Profile from "../../../components/HomePage/Profile/Profile.svelte";
   import AddChat from "../../../components/HomePage/AddChat/AddChat.svelte";
+  import GroupChat from "../../../components/HomePage/GroupChat/GroupChat.svelte";
 
-  let type = "chat";
+  let type = "addChat";
 
   const setType = arg => {
     type = arg;
@@ -37,6 +38,10 @@
     {:else if type === 'addChat'}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>
         <AddChat {setType} />
+      </div>
+    {:else if type === 'addGroup'}
+      <div in:fly={{ y: 200, duration: 500 }} out:fade>
+        <GroupChat {setType} />
       </div>
     {:else}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>

@@ -1,6 +1,7 @@
 <script>
   import SearchBar from "./SearchBar/SearchBar.svelte";
   import Users from "./Users/Users.svelte";
+  import GroupChat from "./GroupChat/GroupChat.svelte";
   export let setType;
 </script>
 
@@ -18,5 +19,9 @@
 <div class="addChat">
   <h1>Add Chat</h1>
   <SearchBar />
+  <hr />
+  <GroupChat {setType} />
+  <hr />
+
   <Users />
 </div>
