@@ -23,7 +23,7 @@
     style="height:100px"
     src="https://avatars0.githubusercontent.com/u/37216970?s=460&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4"
     alt="userimage" />
-
+  <p slot="left">Name</p>
   <p slot="right">
     <Field gapless>
 
