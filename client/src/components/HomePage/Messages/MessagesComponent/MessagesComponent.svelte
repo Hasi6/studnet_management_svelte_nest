@@ -3,6 +3,7 @@
   import chatIdStore from "../../../../app/Store/chat/chatId.store";
   import MessagesHeader from "./MessagesHeader/MessagesHeader";
   import MessageCard from "./MessageCard/MessageCard.svelte";
+  import AddMessage from "./AddMessage/AddMessage.svelte";
 
   let searchKey = "Hasi";
   let chatId;
@@ -30,5 +31,6 @@
 <div>
   <MessagesHeader {searchKey} {setSearchKey} />
   <MessageCard {chatId} />
+  <AddMessage />
 </div>
 {chatId} {searchKey}
