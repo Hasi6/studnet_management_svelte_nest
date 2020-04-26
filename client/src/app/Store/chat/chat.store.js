@@ -11,6 +11,12 @@ const chatStore = () => {
     });
   };
 
+  const updateChat = updatedChats => {
+    chats.update(() => {
+      return updatedChats;
+    });
+  };
+
   const removeChats = id => {
     chats.update(chat => {
       return chat.filter(ch => ch._id !== id);
@@ -20,6 +26,7 @@ const chatStore = () => {
   return {
     subscribe: chats.subscribe,
     addChats,
+    updateChat,
     removeChats
   };
 };
