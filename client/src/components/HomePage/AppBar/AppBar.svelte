@@ -1,11 +1,13 @@
 <script>
   import { Input, Button, Nav, Tag } from "svelte-chota";
   import { mdiDotsHorizontal } from "@mdi/js";
+  export let setProfile;
 </script>
 
 <style>
   img {
     border-radius: 50%;
+    cursor: pointer;
   }
 </style>
 
@@ -14,7 +16,8 @@
     <img
       slot="left"
       src="https://avatars0.githubusercontent.com/u/37216970?s=460&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4"
-      alt="userimage" />
+      alt="userimage"
+      on:click={() => setProfile(true)} />
 
     <a slot="right" href="/">
       <i class="fas fa-plus" />
