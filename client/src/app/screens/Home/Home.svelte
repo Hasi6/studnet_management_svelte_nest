@@ -1,5 +1,14 @@
 <script>
   import { Card } from "svelte-chota";
+  import {
+    fade,
+    scale,
+    fly,
+    slide,
+    draw,
+    crossfade,
+    blur
+  } from "svelte/transition";
   import MarkUp from "../MarkUp";
   import Chat from "../../../components/HomePage/Chat/Chat.svelte";
   import AppBar from "../../../components/HomePage/AppBar/AppBar.svelte";
@@ -22,11 +31,17 @@
 <MarkUp>
   <div slot="chatList">
     {#if type === 'profile'}
-      <Profile {setType} />
+      <div in:fly={{ y: 200, duration: 500 }} out:fade>
+        <Profile {setType} />
+      </div>
     {:else if type === 'addChat'}
-      <AddChat {setType} />
+      <div in:fly={{ y: 200, duration: 500 }} out:fade>
+        <AddChat {setType} />
+      </div>
     {:else}
-      <Chat {setType} />
+      <div in:fly={{ y: 200, duration: 500 }} out:fade>
+        <Chat {setType} />
+      </div>
     {/if}
   </div>
   <div slot="messages" style="overflow:auto">
