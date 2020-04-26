@@ -1,11 +1,30 @@
 /* eslint-disable no-console */
 import { writable } from "svelte/store";
-import axios from "axios";
+import { v4 as uuid } from "uuid";
 import errorStore from "../errors/errors.store";
 import { endPoint } from "../../../config";
 import { navigate } from "svelte-routing";
 import decode from "jwt-decode";
 import loadingStore from "../loading/loading.store";
+import { apiRequests } from "../../helpers/apiRequests";
+
+const tokenDecode = token => {
+  let decodedUser;
+  let user;
+  if (token) {
+    decodedUser = decode(token);
+  }
+  // console.log(Date.now().splice(0, 10));
+  const newDate = Date.now();
+  if (
+    decodedUser &&
+    parseInt(newDate.toString().substr(0, 10)) < decodedUser.exp
+  ) {
+    user = decodedUser;
+  }
+
+  return user;
+};
 
 const authStore = () => {
   // Initial State
@@ -18,22 +37,16 @@ const authStore = () => {
   const checkAuthState = async () => {
     const token = await localStorage.getItem("token");
     let user = null;
-    let decodedUser;
-    if (token) {
-      decodedUser = decode(token);
-    }
-    // console.log(Date.now().splice(0, 10));
-    const newDate = Date.now();
-    if (
-      decodedUser &&
-      parseInt(newDate.toString().substr(0, 10)) < decodedUser.exp
-    ) {
-      user = decodedUser;
+    user = tokenDecode(token);
+
+    if (user) {
       errorStore.addErrors({
         msg: `Welcome ${user.username}`,
-        type: "success"
+        type: "success",
+        id: uuid()
       });
     }
+
     authenticate.update(() => {
       return {
         auth: token ? true : false,
@@ -44,22 +57,15 @@ const authStore = () => {
 
   // Login User
   const loginUser = async body => {
-    try {
-      const res = await axios.post(`${endPoint}/api/auth/login`, body);
+    const res = await apiRequests(`${endPoint}/api/auth/login`, "post", body);
+    if (res) {
       await localStorage.setItem("token", res.data.token);
       const token = res.data.token;
       let user = null;
-      let decodedUser;
-      if (token) {
-        decodedUser = decode(token);
-      }
+
+      user = tokenDecode(token);
       // console.log(Date.now().splice(0, 10));
-      const newDate = Date.now();
-      if (
-        decodedUser &&
-        parseInt(newDate.toString().substr(0, 10)) < decodedUser.exp
-      ) {
-        user = decodedUser;
+      if (user) {
         errorStore.addErrors({
           msg: `Welcome ${user.username}`,
           type: "success"
@@ -70,50 +76,25 @@ const authStore = () => {
       });
       loadingStore.removeLoading();
       return true;
-    } catch (err) {
-      const errors = err.response.data;
-      console.log(errors.message);
-      errorStore.addErrors({ msg: errors.message, type: "danger" });
-      console.error(err.message);
-      loadingStore.removeLoading();
     }
+    loadingStore.removeLoading();
+    return false;
   };
 
   // Register User
   const registerUser = async body => {
-    try {
-      const { status } = await axios.post(
-        `${endPoint}/api/auth/register`,
-        body
-      );
-      if (status === 201) {
-        errorStore.addErrors({
-          msg: "Successfully Registered",
-          type: "success"
-        });
-        navigate("/login", { replace: true });
-      }
-    } catch (err) {
-      const errors = err.response.data;
-      let newErrors;
-      try {
-        newErrors = errors.message.splice(",");
-      } catch (err) {
-        newErrors = [errors.message];
-      }
-      if (newErrors.length > 0) {
-        newErrors.map(error => {
-          errorStore.addErrors({ msg: error, type: "danger" });
-        });
-        return;
-      }
-      errorStore.addErrors({ msg: errors.message, type: "danger" });
+    const res = await apiRequests(`${endPoint}/api/auth/login`, "post", body); //axios.post(`${endPoint}/api/auth/register`, body);
+    if (res && res.status === 201) {
+      errorStore.addErrors({
+        msg: "Successfully Registered",
+        type: "success"
+      });
+      navigate("/login", { replace: true });
     }
   };
 
   // Logout User
   const logOutUser = async () => {
-    console.log("Test");
     await localStorage.removeItem("token");
     authenticate.update(() => {
       return {
