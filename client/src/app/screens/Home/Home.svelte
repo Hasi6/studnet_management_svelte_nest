@@ -18,7 +18,7 @@
   import AddChat from "../../../components/HomePage/AddChat/AddChat.svelte";
   import GroupChat from "../../../components/HomePage/GroupChat/GroupChat.svelte";
 
-  let type = "addChat";
+  let type = "addGroup";
 
   const setType = arg => {
     type = arg;
