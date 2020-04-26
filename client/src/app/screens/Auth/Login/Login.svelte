@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy, onMount } from "svelte";
   import UnAuthProtect from "../UnAuthProtect.svelte";
   import { Input, Button } from "svelte-chota";
   import { Link } from "svelte-routing";
@@ -6,6 +7,7 @@
   import axios from "axios";
   import { endPoint } from "../../../../config";
   import authStore from "../../../Store/auth/auth.store.js";
+  import loadingStore from "../../../Store/loading/loading.store.js";
 
   let email = "";
   let password = "";
@@ -13,6 +15,21 @@
   let disabled = true;
   let errorss = [];
   let loading = false;
+
+  let loadingUnsubscribe;
+
+  $: console.log(loading);
+
+  onMount(() => {
+    loadingUnsubscribe = loadingStore.subscribe(loginLoading => {
+      console.log(loginLoading);
+      loading = loginLoading.name === "login" ? true : false;
+    });
+  });
+
+  onDestroy(() => {
+    loadingUnsubscribe();
+  });
 
   $: (() => {
     if (validateEmail(email) && password.length >= 6) {
@@ -24,8 +41,9 @@
 
   const submit = (e, loading) => {
     e.preventDefault();
+    loadingStore.setLoading("login");
     loading = true;
-    authStore.loginUser({ email, password }, loading);
+    authStore.loginUser({ email, password });
   };
 </script>
 

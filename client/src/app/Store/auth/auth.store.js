@@ -5,6 +5,7 @@ import errorStore from "../errors/errors.store";
 import { endPoint } from "../../../config";
 import { navigate } from "svelte-routing";
 import decode from "jwt-decode";
+import loadingStore from "../loading/loading.store";
 
 const authStore = () => {
   // Initial State
@@ -67,12 +68,14 @@ const authStore = () => {
       authenticate.update(() => {
         return { auth: true, user };
       });
+      loadingStore.removeLoading();
       return true;
     } catch (err) {
       const errors = err.response.data;
       console.log(errors.message);
       errorStore.addErrors({ msg: errors.message, type: "danger" });
       console.error(err.message);
+      loadingStore.removeLoading();
     }
   };
 

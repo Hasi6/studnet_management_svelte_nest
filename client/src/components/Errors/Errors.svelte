@@ -1,10 +1,18 @@
 <script>
+  import { onMount, onDestroy } from "svelte";
   import errorStore from "../../app/Store/errors/errors.store";
 
   let errors = [];
+  let errorsUnSubscribe;
 
-  errorStore.subscribe(allErrors => {
-    errors = allErrors;
+  onMount(() => {
+    errorsUnSubscribe = errorStore.subscribe(allErrors => {
+      errors = allErrors;
+    });
+  });
+
+  onDestroy(() => {
+    errorsUnSubscribe();
   });
 </script>
 
@@ -27,12 +35,7 @@
     show`}
       role="alert">
       <strong>{error.msg}</strong>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-        on:click={() => errorStore.removeErrors(error.id)}>
+      <button type="button" on:click={() => errorStore.removeErrors(error.id)}>
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
