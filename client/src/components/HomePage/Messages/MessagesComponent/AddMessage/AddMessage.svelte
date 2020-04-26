@@ -22,7 +22,26 @@
 </script>
 
 <style>
-
+  .dropper {
+    margin-top: 20px;
+    height: 30vh;
+    border: 2px dashed black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  input {
+    width: 100%;
+    height: 30vh;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .dropper:hover {
+    background: #eee;
+  }
 </style>
 
 <div
@@ -38,14 +57,19 @@
 
 </div>
 
-<Modal isOpen={open} {toggle}>
-  <ModalHeader {toggle}>Modal title</ModalHeader>
-  <ModalBody>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua.
-  </ModalBody>
-  <ModalFooter>
-    <Button color="primary" on:click={toggle}>Do Something</Button>
-    <Button color="secondary" on:click={toggle}>Cancel</Button>
-  </ModalFooter>
+<Modal isOpen={open} {toggle} style="margin-top:500px">
+  <div style="text-align:center">
+    <div class="dropper">
+      <input
+        type="file"
+        on:change={e => console.log(e.target.files)}
+        multiple={false}
+        accept="image/*" />
+      <span>Drag Files Here</span>
+
+    </div>
+    <Button success loading iconRight={mdiSend} style="margin:10px">
+      Send
+    </Button>
+  </div>
 </Modal>
