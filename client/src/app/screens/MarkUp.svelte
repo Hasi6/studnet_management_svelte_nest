@@ -39,11 +39,6 @@
 {#if authenticated && authenticated.auth}
   <Row>
     <Col size="4" sizeMD="4" sizeLG="4" sizeSM="4" sizeXS="4">
-      <Button
-        class="btn btn-success"
-        on:click={() => errorStore.addErrors({ msg: 'Hasi', type: 'success' })}>
-        Add Error
-      </Button>
 
       <slot name="chatList" />
 
@@ -53,3 +48,9 @@
     </Col>
   </Row>
 {/if}
+
+<Button
+  class="btn btn-success"
+  on:click={() => errorStore.addErrors({ msg: 'Hasi', type: 'success' })}>
+  Add Error
+</Button>
