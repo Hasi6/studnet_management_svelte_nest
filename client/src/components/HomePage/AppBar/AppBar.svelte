@@ -22,7 +22,7 @@
     <a slot="right" href="/">
       <i class="fas fa-plus" />
     </a>
-    <a slot="right" href="/">
+    <a slot="right" href="/" style="z-index:1000">
       <Button
         style="border:none; z-index:100!important"
         dropdown=""

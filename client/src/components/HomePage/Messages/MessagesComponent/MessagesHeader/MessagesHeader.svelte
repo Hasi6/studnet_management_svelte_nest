@@ -33,7 +33,7 @@
 
     </Field>
   </p>
-  <a slot="right" href="/">
+  <a slot="right" href="/" style="z-index:1000">
     <Button
       style="border:none; z-index:100!important"
       dropdown=""
