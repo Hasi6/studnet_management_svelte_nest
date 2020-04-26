@@ -64,15 +64,14 @@ const authStore = () => {
           type: "success"
         });
       }
-
       authenticate.update(() => {
         return { auth: true, user };
       });
+      return true;
     } catch (err) {
       const errors = err.response.data;
       console.log(errors.message);
       errorStore.addErrors({ msg: errors.message, type: "danger" });
-
       console.error(err.message);
     }
   };

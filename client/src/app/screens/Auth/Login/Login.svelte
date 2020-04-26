@@ -1,7 +1,8 @@
 <script>
   import UnAuthProtect from "../UnAuthProtect.svelte";
-  import { validateEmail } from "../../../helpers/emailValidator.js";
+  import { Input, Button } from "svelte-chota";
   import { Link } from "svelte-routing";
+  import { validateEmail } from "../../../helpers/emailValidator.js";
   import axios from "axios";
   import { endPoint } from "../../../../config";
   import authStore from "../../../Store/auth/auth.store.js";
@@ -11,6 +12,7 @@
   let test = "";
   let disabled = true;
   let errorss = [];
+  let loading = false;
 
   $: (() => {
     if (validateEmail(email) && password.length >= 6) {
@@ -20,8 +22,10 @@
     }
   })();
 
-  const submit = () => {
-    authStore.loginUser({ email, password });
+  const submit = (e, loading) => {
+    e.preventDefault();
+    loading = true;
+    authStore.loginUser({ email, password }, loading);
   };
 </script>
 
@@ -67,25 +71,12 @@
         {/if}
       </div>
     </form>
-    <button
-      {disabled}
-      class="btn btn-success"
-      on:click|preventDefault={() => submit()}>
+
+    <Button on:click={e => submit(e)} primary {disabled} {loading}>
       Submit
-    </button>
+    </Button>
     <br />
-    {#each errorss as errors}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>{errors.msg}</strong>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    {/each}
+
     <span>
       Don't Have an Account?
       <Link to="register">Register Here</Link>
