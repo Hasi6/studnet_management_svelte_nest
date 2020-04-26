@@ -34,7 +34,7 @@
     alert-dismissible
     fade
     show`}
-      style="justify-content: space-between"
+      style="justify-content: space-between; display:flex"
       role="alert">
       <strong>{error.msg}</strong>
       <button
