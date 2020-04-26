@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import WelcomeMessage from "./WelcomeMessage/WelcomeMessage";
   import chatIdStore from "../../../app/Store/chat/chatId.store";
+  import MessagesComponent from "./MessagesComponent/MessagesComponent.svelte";
 
   let chatId;
   let unsubscribe;
@@ -22,7 +23,7 @@
 </style>
 
 {#if chatId}
-  <h1>{chatId}</h1>
+  <MessagesComponent />
 {:else}
   <WelcomeMessage />
 {/if}
