@@ -20,7 +20,8 @@
   .alert_div {
     width: 300px;
     position: absolute;
-    right: 10vw;
+    right: -10vw;
+    top: 1vh;
   }
 </style>
 
@@ -33,9 +34,13 @@
     alert-dismissible
     fade
     show`}
+      style="justify-content: space-between"
       role="alert">
       <strong>{error.msg}</strong>
-      <button type="button" on:click={() => errorStore.removeErrors(error.id)}>
+      <button
+        style=" background:none"
+        type="button"
+        on:click={() => errorStore.removeErrors(error.id)}>
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

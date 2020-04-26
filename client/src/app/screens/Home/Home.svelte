@@ -1,5 +1,6 @@
 <script>
   import MarkUp from "../MarkUp";
+  import Chat from "../../../components/HomePage/Chat/Chat.svelte";
 </script>
 
 <style>
@@ -7,7 +8,5 @@
 </style>
 
 <MarkUp>
-  <div slot="content">
-    <h1>Home</h1>
-  </div>
+  <div slot="chatList" />
 </MarkUp>

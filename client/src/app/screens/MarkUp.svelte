@@ -3,7 +3,7 @@
   import { onMount, onDestroy } from "svelte";
   import authStore from "../Store/auth/auth.store";
   import errorStore from "../Store/errors/errors.store.js";
-  import { Sidepanel, Button, ButtonGroup } from "svelte-mui";
+  import { Row, Col, Button } from "svelte-chota";
   export let rightVisible = true;
 
   let authenticated;
@@ -36,28 +36,20 @@
   };
 </script>
 
-<button
-  class="btn btn-success"
-  on:click={() => errorStore.addErrors({ msg: 'Hasi', type: 'success' })}>
-  Add Error
-</button>
-
 {#if authenticated && authenticated.auth}
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="login">Login</Link>
-    <Link to="register">Register</Link>
-    <button class="btn btn-warning" on:click={() => logoutUser()}>
-      Logout
-    </button>
-    <button class="btn btn-primary" on:click={setRightVisible}>Click</button>
-    <slot name="content" />
-    {JSON.stringify(authenticated)}
-  </nav>
-  <Sidepanel right bind:visible={rightVisible}>
-    <div class="logo" style="padding-left: 1rem;">Help</div>
-    <p>
-      <i style="padding: 12px;">Blank</i>
-    </p>
-  </Sidepanel>
+  <Row>
+    <Col size="4" sizeMD="4" sizeLG="4" sizeSM="4" sizeXS="4">
+      <Button
+        class="btn btn-success"
+        on:click={() => errorStore.addErrors({ msg: 'Hasi', type: 'success' })}>
+        Add Error
+      </Button>
+
+      <slot name="chatList" />
+
+    </Col>
+    <Col size="8" sizeMD="8" sizeLG="8" sizeSM="8" sizeXS="8">
+      <slot name="messages" />
+    </Col>
+  </Row>
 {/if}
