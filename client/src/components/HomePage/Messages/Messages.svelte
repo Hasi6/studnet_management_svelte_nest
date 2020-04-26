@@ -1,6 +1,20 @@
 <script>
+  import { onMount, onDestroy } from "svelte";
   import WelcomeMessage from "./WelcomeMessage/WelcomeMessage";
-  export let chatId = "Hasi";
+  import chatIdStore from "../../../app/Store/chat/chatId.store";
+
+  let chatId;
+  let unsubscribe;
+
+  onMount(() => {
+    unsubscribe = chatIdStore.subscribe(chid => {
+      chatId = chid;
+    });
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <style>

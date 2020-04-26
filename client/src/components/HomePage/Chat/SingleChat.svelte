@@ -1,8 +1,14 @@
 <script>
   import { Input, Field, Button, Card } from "svelte-chota";
+  import chatIdStore from "../../../app/Store/chat/chatId.store";
+  import { v4 as uuid } from "uuid";
 
   let name =
     "Hasis;hf;al gh fa;slgf a;sga; .ksfvafsk. vfas.kf hv ask.fhv.asfhv";
+
+  const changeChatId = () => {
+    chatIdStore.addChatId(uuid());
+  };
 </script>
 
 <style>
@@ -18,7 +24,9 @@
   }
 </style>
 
-<Card style="margin-bottom: 10px; cursor:pointer">
+<Card
+  style="margin-bottom: 10px; cursor:pointer"
+  on:click={() => changeChatId()}>
   <div class="singleChat">
     <div style="flex: 1">
       <img
