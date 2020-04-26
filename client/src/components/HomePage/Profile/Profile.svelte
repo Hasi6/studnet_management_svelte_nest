@@ -1,5 +1,5 @@
 <script>
-  export let setProfile;
+  export let setType;
 </script>
 
 <style>
@@ -13,7 +13,7 @@
 <i
   class="fas fa-arrow-left"
   style="cursor:pointer"
-  on:click={() => setProfile(false)} />
+  on:click={() => setType('chat')} />
 <div class="profile">
   <h1>Profile</h1>
   <img

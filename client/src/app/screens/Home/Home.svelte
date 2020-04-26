@@ -6,11 +6,12 @@
   import SearchBar from "../../../components/HomePage/SearchBar/SearchBar.svelte";
   import Messages from "../../../components/HomePage/Messages/Messages.svelte";
   import Profile from "../../../components/HomePage/Profile/Profile.svelte";
+  import AddChat from "../../../components/HomePage/AddChat/AddChat.svelte";
 
-  let profile = false;
+  let type = "chat";
 
-  const setProfile = arg => {
-    profile = arg;
+  const setType = arg => {
+    type = arg;
   };
 </script>
 
@@ -20,10 +21,12 @@
 
 <MarkUp>
   <div slot="chatList">
-    {#if profile}
-      <Profile {setProfile} />
+    {#if type === 'profile'}
+      <Profile {setType} />
+    {:else if type === 'addChat'}
+      <AddChat {setType} />
     {:else}
-      <Chat {setProfile} />
+      <Chat {setType} />
     {/if}
   </div>
   <div slot="messages" style="overflow:auto">
