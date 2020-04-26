@@ -22,6 +22,10 @@
     selectedUsers = [...selectedUsers, user];
   };
 
+  const removeSelectedUsers = user => {
+    selectedUsers = selectedUsers.filter(u => u !== user);
+  };
+
   onMount(() => {
     getChatList();
   });
@@ -45,6 +49,6 @@
 <div class="groupChat">
   <h1>Add Group Chat</h1>
   <SearchBar />
-  <SelectedUsers {selectedUsers} />
+  <SelectedUsers {selectedUsers} {removeSelectedUsers} />
   <Users {setSelectedUsers} />
 </div>

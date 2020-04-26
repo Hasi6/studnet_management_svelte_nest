@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { Card } from "svelte-chota";
+
   import SingleUser from "./SingleUser.svelte";
 
   export let setSelectedUsers;
