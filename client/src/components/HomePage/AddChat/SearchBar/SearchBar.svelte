@@ -1,5 +1,7 @@
 <script>
   import { Input, Field, Button } from "svelte-chota";
+
+  export let setSearchKey;
 </script>
 
 <div>
@@ -7,7 +9,7 @@
 
     <Input
       placeholder="Search Users"
-      on:input={e => editChat(e.target.value)} />
+      on:input={e => setSearchKey(e.target.value)} />
     <Button>
       <i class="fas fa-search" />
     </Button>

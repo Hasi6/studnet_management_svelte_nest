@@ -9,8 +9,7 @@ export class UserResolver {
     ) { }
 
     @Query()
-    async searchUser(@Args("searchKey") searchKey: string) {
-        console.log(await this.userService.getUserByAnyFields(searchKey))
+    searchUser(@Args("searchKey") searchKey: string) {
         return this.userService.getUserByAnyFields(searchKey)
     }
 

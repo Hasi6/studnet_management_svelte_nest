@@ -3,6 +3,8 @@
   import { Card } from "svelte-chota";
   import SingleUser from "./SingleUser.svelte";
 
+  export let users;
+
   let unsubscribe;
   let chats = [];
 
@@ -12,11 +14,11 @@
 </script>
 
 <Card style="height: 350px; overflow:auto">
-  <SingleUser />
-  <SingleUser />
-  <SingleUser />
-  <SingleUser />
-  <SingleUser />
-  <SingleUser />
-  <SingleUser />
+  {#await $users}
+    Loading....
+  {:then result}
+    {JSON.stringify(users)}
+  {:catch error}
+    {error.message}
+  {/await}
 </Card>
