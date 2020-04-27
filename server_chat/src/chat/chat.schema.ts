@@ -11,6 +11,10 @@ export const ChatSchema = new Schema({
         ref: 'users',
         required: true,
     },
+    lastMessage: {
+        type: String,
+        default: "Say Hi"
+    },
     groupName: {
         type: String
     }

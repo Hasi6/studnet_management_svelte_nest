@@ -43,15 +43,14 @@
   $: (async () => {
     try {
       if (user) {
-        console.log(user._id);
         const res = await mutate(client, {
           mutation: getUserChatList,
           variables: { userId: user._id }
         });
 
         console.log(res);
+        chatStore.addChats(res.data.chats);
       }
-      chatStore.addChats(res.data.chats);
     } catch (err) {
       console.log(err.message);
     }

@@ -27,9 +27,7 @@
 <AppBar />
 <SearchBar />
 <Card style="height: 500px; overflow:auto">
-  <SingleChat />
-  <SingleChat />
-  <SingleChat />
-  <SingleChat />
-  <SingleChat />
+  {#each chats as chat}
+    <SingleChat {chat} />
+  {/each}
 </Card>

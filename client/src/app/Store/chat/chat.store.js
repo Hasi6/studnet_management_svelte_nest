@@ -8,8 +8,8 @@ const chatStore = () => {
   const chats = writable([]);
 
   const addChats = newChats => {
-    chats.update(oldChats => {
-      return [...oldChats, newChats];
+    chats.update(() => {
+      return newChats;
     });
   };
 
