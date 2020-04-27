@@ -64,6 +64,17 @@ export class UserRepo {
         }
     }
 
+    // Get User By Any Field
+    public getUserByAnyField = async (searchKey: any): Promise<IUser[] | null> => {
+        try {
+            return await this.user.find({ $or: [{ email: searchKey }, { username: searchKey }] })
+        } catch (err) {
+
+            logger.verbose(`User Repo Get User By Email Or Username Error ${err.message}`)
+            throw new InternalServerErrorException();
+        }
+    }
+
     // Get User By Token
     public getUserByToken = async (token: string): Promise<IUser | null> => {
         try {

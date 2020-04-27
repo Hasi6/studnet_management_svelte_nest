@@ -114,4 +114,11 @@ export class UserService {
         return await this.userRepo.resetUserPassword(token, password, newToken)
     }
 
+
+    // ********************************* Get User Section ******************************************
+    // Get User By Any Field
+    public getUserByAnyFields = async (searchKey: string): Promise<IUser[]> => {
+        const regex = new RegExp(searchKey, "gi")
+        return await this.userRepo.getUserByAnyField(regex)
+    }
 }

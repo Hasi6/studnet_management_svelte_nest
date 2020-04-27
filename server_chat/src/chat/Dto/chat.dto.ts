@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsArray, IsOptional } from 'class-validator';
 
-export class CreateChat {
+export class CreateChatDto {
     @IsNotEmpty()
     fullChatId: string;
     @IsArray()

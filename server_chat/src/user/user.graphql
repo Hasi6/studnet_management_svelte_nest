@@ -1,0 +1,16 @@
+type User {
+	username: String!
+	email: String!
+	image: String!
+	chatIdList: [String]!
+	onlineStatus: Boolean!
+}
+
+
+type Query {
+	searchUser(searchKey: String): [User]
+}
+
+# type Mutation {
+# departments(facultyId: String!): [Departments] 
+# }

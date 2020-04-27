@@ -1,7 +1,5 @@
 import { Resolver, Mutation, Args } from "@nestjs/graphql";
 import { DepartmentService } from './department.service';
-import { UseGuards } from "@nestjs/common";
-import { AuthGuard } from '../user/AuthGuard';
 
 @Resolver('Departments')
 export class DepartmentResolver {
@@ -16,7 +14,6 @@ export class DepartmentResolver {
     // }
 
     @Mutation()
-    @UseGuards(AuthGuard)
     departments(@Args("facultyId") facultyId: string) {
         return this.departmentService.findDepartmentsByFacultyId(facultyId)
     }
