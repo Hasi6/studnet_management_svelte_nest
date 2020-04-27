@@ -11,13 +11,17 @@ import { MessageSchema } from './message.schema';
 import { MessagesRepo } from './message.repo';
 import { MessageResolver } from './message.resolver';
 import { MessagesGateway } from '../messages.gateway';
+import { ChatService } from '../chat/chat.service';
+import { ChatRepo } from '../chat/chat.repo';
+import { ChatSchema } from './../chat/chat.schema';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     MongooseModule.forFeature([
       { name: 'messages', schema: MessageSchema },
-      { name: 'users', schema: UsersSchema }
+      { name: 'users', schema: UsersSchema },
+      { name: 'chats', schema: ChatSchema }
     ]),
     JwtModule.register({
       secret: 'jwtSecret',
@@ -27,6 +31,6 @@ import { MessagesGateway } from '../messages.gateway';
     })
   ],
   controllers: [MessagesController],
-  providers: [MessagesService, UserService, UserRepo, MessagesRepo, MessageResolver, MessagesGateway]
+  providers: [MessagesService, UserService, UserRepo, ChatService, ChatRepo, MessagesRepo, MessageResolver, MessagesGateway]
 })
 export class MessagesModule { }

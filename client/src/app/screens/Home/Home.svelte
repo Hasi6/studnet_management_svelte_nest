@@ -24,19 +24,29 @@
   import chatStore from "../../Store/chat/chat.store.js";
   import { getUserChatList } from "../../graphql/mutations/getUserChatLits.mutations.js";
   import { client } from "../../helpers/apolloClient.js";
+  import socketStore from "../../../app/Store/socket/socket.store.js";
   let type = "addChat";
 
   let unsubscribe;
   let userUnsubscribe;
   let chatUnsubscribe;
   let user;
+  let socketUnsubscribe;
+  let chatSocket;
 
   const setState = () => {
     unsubscribe = screenStore.subscribe(res => {
       type = res;
     });
+    socketUnsubscribe = socketStore.subscribe(res => {
+      chatSocket = res.chatSocket;
+    });
     userUnsubscribe = authStore.subscribe(res => {
       user = res.user;
+      if (res.user) {
+        chatSocket.emit("join", { userId: res.user._id });
+        chatSocket.on("message", res => console.log(res));
+      }
     });
   };
 
@@ -63,6 +73,7 @@
   onDestroy(() => {
     unsubscribe();
     userUnsubscribe();
+    socketUnsubscribe();
   });
 </script>
 

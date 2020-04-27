@@ -7,6 +7,7 @@
   import AddMessage from "./AddMessage/AddMessage.svelte";
   import { client } from "../../../../app/helpers/apolloClient";
   import { getMessages } from "../../../../app/graphql/mutations/getMessages.mutation.js";
+  import authStore from "../../../../app/Store/auth/auth.store.js";
 
   import socketStore from "../../../../app/Store/socket/socket.store.js";
 
@@ -17,9 +18,21 @@
   let chatId;
   let unsubscribe;
   let socketUnsubscribe;
+  let authUnsubscribe;
   let chatSocket;
+  let user;
 
   let messages = [];
+
+  const setUser = () => {
+    authUnsubscribe = authStore.subscribe(res => {
+      user = res.user;
+    });
+
+    socketUnsubscribe = socketStore.subscribe(res => {
+      chatSocket = res.chatSocket;
+    });
+  };
 
   $: (async () => {
     if (chatId) {
@@ -45,18 +58,15 @@
     searchKey = e;
   };
 
-  const setSocket = () => {
-    socketUnsubscribe = socketStore.subscribe(res => {
-      chatSocket = res.chatSocket;
-      console.log(chatSocket);
-    });
-  };
+  // const setSocket = () => {
+
+  // };
 
   onMount(() => {
     unsubscribe = chatIdStore.subscribe(chid => {
       chatId = chid;
     });
-    setSocket();
+    setUser();
   });
 
   onDestroy(() => {
