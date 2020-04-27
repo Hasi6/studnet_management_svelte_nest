@@ -24,10 +24,10 @@
     try {
       const res = await mutate(client, {
         mutation: getDepartments,
-        variables: { facultyId: "faculty" }
+        variables: { facultyId: "5e97274a36fc930c20fb6f90" }
       });
       if (res && res.data && res.data.departments) {
-        departments = res.data.departments;
+        console.log(res.data.departments);
       }
     } catch (err) {
       console.log(err.message);
