@@ -24,7 +24,7 @@
     try {
       const res = await mutate(client, {
         mutation: getDepartments,
-        variables: { facultyId: faculty }
+        variables: { facultyId: "faculty" }
       });
       if (res && res.data && res.data.departments) {
         departments = res.data.departments;
@@ -46,8 +46,7 @@
     confirmPassword.length > 4 &&
     password === confirmPassword &&
     email &&
-    username &&
-    department
+    username
       ? false
       : true;
 
@@ -57,9 +56,7 @@
     const body = {
       username,
       email,
-      password,
-      faculty,
-      department
+      password
     };
 
     authStore.registerUser(body);

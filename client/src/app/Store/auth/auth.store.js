@@ -83,7 +83,11 @@ const authStore = () => {
 
   // Register User
   const registerUser = async body => {
-    const res = await apiRequests(`${endPoint}/api/auth/login`, "post", body); //axios.post(`${endPoint}/api/auth/register`, body);
+    const res = await apiRequests(
+      `${endPoint}/api/auth/register`,
+      "post",
+      body
+    ); //axios.post(`${endPoint}/api/auth/register`, body);
     if (res && res.status === 201) {
       errorStore.addErrors({
         msg: "Successfully Registered",

@@ -46,10 +46,12 @@ export class UserService {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
-        const output = `<a href="${endPoint}/verifyAccount${token}">Click Here to Verify Your Account</a>`;
-        this.email.sendEmail(email, output, "Active Your Account")
-
-        return await this.userRepo.createUser(user);
+        const res = await this.userRepo.createUser(user);
+        if (res === "User Created") {
+            const output = `<a href="${endPoint}/verifyAccount${token}">Click Here to Verify Your Account</a>`;
+            this.email.sendEmail(email, output, "Active Your Account")
+        }
+        return res;
     }
 
 

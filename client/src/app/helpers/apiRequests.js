@@ -12,8 +12,8 @@ export const apiRequests = async (url, method, data, headers) => {
       newErrors = errors.message.splice(",");
     } catch (err) {
       newErrors = [errors.message];
-      return null;
     }
+
     if (newErrors.length > 0) {
       newErrors.map(error => {
         errorStore.addErrors({ msg: error, type: "danger", id: uuid() });
