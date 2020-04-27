@@ -21,6 +21,7 @@ import { ProfileModule } from './profile/profile.module';
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
+      context: ({ req }) => ({ headers: req.headers }),
       typePaths: ['./**/*.graphql']
     }),
     FacultiesModule,

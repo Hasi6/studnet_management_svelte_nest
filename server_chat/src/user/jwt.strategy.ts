@@ -17,6 +17,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     public validate = async (payload: IJwtToken): Promise<IUser> => {
+
+        console.log(payload)
+
         const { email } = payload
         const user = await this.userRepo.getUserByEmail(email)
 
