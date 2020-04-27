@@ -1,11 +1,40 @@
 <script>
   import { Input, Field, Button, Card } from "svelte-chota";
+  import { onMount, onDestroy } from "svelte";
+  import { Modal } from "sveltestrap";
   import { v4 as uuid } from "uuid";
+  import NewChatAddForm from "../NewChatAddForm/NewChatAddForm.svelte";
+  import screenStore from "../../../../app/Store/screen/screen.store.js";
+  import chatIdStore from "../../../../app/Store/chat/chatId.store.js";
+  import authStore from "../../../../app/Store/auth/auth.store.js";
+  import AddMessage from "../../../HomePage/Messages/MessagesComponent/AddMessage/AddMessage.svelte";
 
   export let user;
 
-  let name =
-    "Hasis;hf;al gh fa;slgf a;sga; .ksfvafsk. vfas.kf hv ask.fhv.asfhv";
+  let loggedUser;
+  let unsubscribe;
+
+  const setLoggedUser = () => {
+    unsubscribe = authStore.subscribe(res => {
+      loggedUser = res.user;
+    });
+  };
+
+  let visible = false;
+
+  const toggle = () => (visible = !visible);
+
+  let message = "";
+
+  const sendMessage = () => {};
+
+  onMount(() => {
+    setLoggedUser();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <style>
@@ -21,11 +50,7 @@
   }
 </style>
 
-<Card
-  style="margin-bottom: 10px; cursor:pointer"
-  on:click={() => {
-    alert();
-  }}>
+<Card style="margin-bottom: 10px; cursor:pointer" on:click={() => toggle()}>
   <div class="singleChat">
     <div style="flex: 1">
       <img src={user.image} alt={user.username} />
@@ -39,3 +64,9 @@
     </div>
   </div>
 </Card>
+
+<Modal isOpen={visible} {toggle}>
+  <h3>Send a Message to {user.username}</h3>
+  <AddMessage />
+
+</Modal>
