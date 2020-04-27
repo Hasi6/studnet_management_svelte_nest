@@ -1,9 +1,19 @@
 <script>
   import { Input, Field, Button, Card } from "svelte-chota";
+  import { onMount, onDestroy } from "svelte";
   import { Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
   import EmojiSelector from "svelte-emoji-selector";
   import { mdiSend, mdiPlus } from "@mdi/js";
   import { Dialog, Textfield } from "svelte-mui";
+  import chatStore from "../../../../../app/Store/chat/chat.store.js";
+  import { apiRequests } from "../../../../../app/helpers/apiRequests.js";
+  import { endPoint } from "../../../../../config";
+
+  export let chatId;
+  let chatList = [];
+  let unsubscribe;
+  let fullChatId;
+
   let open = false;
   const toggle = () => (open = !open);
 
@@ -15,10 +25,34 @@
     message = `${message} ${e.detail}`;
   };
 
-  const sendMessage = () => {
-    alert(message);
+  const sendMessage = async () => {
+    fullChatId = chatList.filter(chat => chat._id === chatId)[0].fullChatId;
+    const body = {
+      chatId,
+      fullChatId,
+      message
+    };
+    console.log(localStorage.getItem("token"));
+    const res = await apiRequests(`${endPoint}/api/message`, "post", body, {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    });
+    console.log(res);
     message = "";
   };
+
+  const getChatList = () => {
+    unsubscribe = chatStore.subscribe(res => {
+      chatList = res;
+    });
+  };
+
+  onMount(() => {
+    getChatList();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <style>

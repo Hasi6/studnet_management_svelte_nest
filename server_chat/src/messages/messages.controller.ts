@@ -3,7 +3,7 @@ import { Controller, Post, UseGuards, UsePipes, ValidationPipe, Body, Req } from
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/message.dto';
 
-@Controller('messages')
+@Controller('api/message')
 export class MessagesController {
 
     constructor(

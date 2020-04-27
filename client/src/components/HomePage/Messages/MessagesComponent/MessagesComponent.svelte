@@ -55,6 +55,6 @@
 <div>
   <MessagesHeader {searchKey} {setSearchKey} />
   <MessageCard {chatId} {messages} />
-  <AddMessage />
+  <AddMessage {chatId} />
 </div>
 {chatId} {searchKey}

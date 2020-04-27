@@ -22,6 +22,7 @@
     position: absolute;
     right: -10vw;
     top: 1vh;
+    z-index: 10000;
   }
 </style>
 

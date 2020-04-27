@@ -5,7 +5,7 @@ export class CreateMessageDto {
     chatId: string;
     @IsNotEmpty()
     fullChatId: string;
-    @IsNotEmpty()
+    @IsOptional()
     message: string;
     @IsOptional()
     image: string;
