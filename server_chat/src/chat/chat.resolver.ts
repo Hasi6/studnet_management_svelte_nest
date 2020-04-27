@@ -1,5 +1,5 @@
 import { IUser } from './../user/user.model';
-import { Resolver, Mutation, Args, ResolveProperty, Parent } from "@nestjs/graphql";
+import { Resolver, Mutation, Args, Parent, ResolveField } from "@nestjs/graphql";
 import { ChatService } from './chat.service';
 import { UserService } from '../user/user.service';
 
@@ -21,7 +21,7 @@ export class ChatResolver {
         return this.chatService.getChatByUserId(userId)
     }
 
-    @ResolveProperty()
+    @ResolveField()
     async users(@Parent() chat) {
         let users: IUser[] = []
         const res = await chat.userIds.map(async (userId: string) => {
