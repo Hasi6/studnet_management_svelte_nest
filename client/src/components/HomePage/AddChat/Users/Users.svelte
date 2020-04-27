@@ -33,8 +33,11 @@
       <Icon src={mdiLoading} color="orange" spin="0.5" size="3" />
     </div>
   {:then result}
-
-    {#if searchKey.length > 2}{JSON.stringify(result)}{:else}No Users Found{/if}
+    {#if searchKey.length > 2}
+      {#each result.data.searchUser as user}
+        <SingleUser {user} />
+      {/each}
+    {:else}No Users Found{/if}
   {:catch error}
     {error.message}
   {/await}

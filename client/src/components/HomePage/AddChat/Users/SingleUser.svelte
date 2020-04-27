@@ -2,6 +2,8 @@
   import { Input, Field, Button, Card } from "svelte-chota";
   import { v4 as uuid } from "uuid";
 
+  export let user;
+
   let name =
     "Hasis;hf;al gh fa;slgf a;sga; .ksfvafsk. vfas.kf hv ask.fhv.asfhv";
 </script>
@@ -26,13 +28,11 @@
   }}>
   <div class="singleChat">
     <div style="flex: 1">
-      <img
-        src="https://avatars1.githubusercontent.com/u/37216970?s=88&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4"
-        alt="" />
+      <img src={user.image} alt={user.username} />
     </div>
     <div style="flex:2">
-      <p>Hasi</p>
-      <p>{name.substr(0, 10)}{name.length > 10 ? '...' : ''}</p>
+      <p>{user.username}</p>
+      <p>{user.email.substr(0, 10)}{user.email.length > 10 ? '...' : ''}</p>
     </div>
     <div style="flex:1">
       <p>Typing...</p>
