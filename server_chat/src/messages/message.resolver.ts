@@ -17,8 +17,13 @@ export class MessageResolver {
     //     return this.departmentService.d
     // }
 
-    @Query()
-    async messages(@Args("chatId") chatId: string) {
+    // @Query()
+    // messages(@Args("chatId") chatId: string) {
+    //     return this.messagesService.getMessagesByChatId(chatId)
+    // }
+
+    @Mutation()
+    messages(@Args("chatId") chatId: string) {
         return this.messagesService.getMessagesByChatId(chatId)
     }
 

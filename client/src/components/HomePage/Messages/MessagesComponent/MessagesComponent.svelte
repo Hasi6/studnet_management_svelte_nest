@@ -6,7 +6,7 @@
   import MessageCard from "./MessageCard/MessageCard.svelte";
   import AddMessage from "./AddMessage/AddMessage.svelte";
   import { client } from "../../../../app/helpers/apolloClient";
-  import { getMessages } from "../../../../app/graphql/queries/getMessages.query";
+  import { getMessages } from "../../../../app/graphql/mutations/getMessages.mutation.js";
 
   setClient(client);
   const getCliet = getClient();
@@ -15,28 +15,21 @@
   let chatId;
   let unsubscribe;
 
-  let messages = [
-    {
-      _id: "3434",
-      message: "Hello Hasi",
-      chatId: "343434",
-      sender: "3434"
-    },
-    {
-      _id: "3434",
-      message: "Hello Hasi",
-      chatId: "343434",
-      sender: "1212"
-    }
-  ];
+  let messages = [];
 
   $: (async () => {
     if (chatId) {
-      messages = await query(getCliet, {
-        query: getMessages,
-        variables: { chatId }
-      });
-      console.log(messages);
+      try {
+        const res = await mutate(client, {
+          mutation: getMessages,
+          variables: { chatId }
+        });
+        if (res && res.data && res.data.messages) {
+          messages = res.data.messages;
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
     }
   })();
 

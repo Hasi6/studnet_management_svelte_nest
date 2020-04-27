@@ -14,7 +14,7 @@
       user = res.user;
     });
 
-    isMe = message.sender === "1212" ? true : false;
+    isMe = message.sender === user._id ? true : false;
   });
 
   onDestroy(() => {
@@ -33,12 +33,7 @@
 
   <div class="message">
 
-    <p style="width:auto">
-      Hey Tiro Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque
-      sapiente suscipit natus sed illum, corporis facilis porro eos dolores
-      neque obcaecati voluptatibus itaque nemo voluptates nostrum cupiditate ex
-      at blanditiis.
-    </p>
+    <p style="width:auto">{message.message}</p>
     <Button
       dropdown=""
       autoclose
