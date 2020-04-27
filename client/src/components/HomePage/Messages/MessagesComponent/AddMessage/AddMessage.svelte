@@ -10,6 +10,8 @@
   import { endPoint } from "../../../../../config";
 
   export let chatId;
+  export let setMessages;
+
   let chatList = [];
   let unsubscribe;
   let fullChatId;
@@ -36,7 +38,10 @@
     const res = await apiRequests(`${endPoint}/api/message`, "post", body, {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     });
-    console.log(res);
+    if (res) {
+      setMessages(res.data);
+    }
+
     message = "";
   };
 

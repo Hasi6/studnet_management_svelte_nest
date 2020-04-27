@@ -18,9 +18,26 @@
   const autoScroll = () => {
     const objDiv = document.querySelector(".messageCard");
     if (objDiv) {
+      console.log(objDiv.scrollHeight);
       objDiv.scrollTop = objDiv.scrollHeight;
+      console.log("scroll");
     }
   };
+
+  setTimeout(() => {
+    autoScroll();
+  });
+
+  $: (() => {
+    console.log(messages);
+    const objDiv = document.querySelector(".messageCard");
+    setTimeout(() => {
+      if (objDiv) {
+        console.log(objDiv.scrollHeight);
+        objDiv.scrollTop = objDiv.scrollHeight - 100;
+      }
+    });
+  })();
 
   const getChatId = () => {
     unsubscribe = chatIdStore.subscribe(chat => {
@@ -30,9 +47,9 @@
   };
 
   onMount(() => {
-    autoScroll();
     getChatId();
     scrollTop();
+    autoScroll();
   });
 
   onDestroy(() => {

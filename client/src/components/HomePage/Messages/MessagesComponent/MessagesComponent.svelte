@@ -33,6 +33,10 @@
     }
   })();
 
+  const setMessages = message => {
+    messages = [...messages, message];
+  };
+
   const setSearchKey = e => {
     searchKey = e;
   };
@@ -55,6 +59,6 @@
 <div>
   <MessagesHeader {searchKey} {setSearchKey} />
   <MessageCard {chatId} {messages} />
-  <AddMessage {chatId} />
+  <AddMessage {chatId} {setMessages} />
 </div>
 {chatId} {searchKey}

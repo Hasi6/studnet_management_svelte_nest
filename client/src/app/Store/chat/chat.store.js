@@ -19,10 +19,6 @@ const chatStore = () => {
     });
   };
 
-  const findChat = chatId => {
-    console.log(chats);
-  };
-
   const removeChats = id => {
     chats.update(chat => {
       return chat.filter(ch => ch._id !== id);
@@ -33,8 +29,7 @@ const chatStore = () => {
     subscribe: chats.subscribe,
     addChats,
     updateChat,
-    removeChats,
-    findChat
+    removeChats
   };
 };
 
