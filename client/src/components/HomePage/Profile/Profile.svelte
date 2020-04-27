@@ -1,5 +1,5 @@
 <script>
-  export let setType;
+  import screenStore from "../../../app/Store/screen/screen.store.js";
 </script>
 
 <style>
@@ -13,7 +13,7 @@
 <i
   class="fas fa-arrow-left"
   style="cursor:pointer"
-  on:click={() => setType('chat')} />
+  on:click={() => screenStore.setScreen('chat')} />
 <div class="profile">
   <h1>Profile</h1>
   <img

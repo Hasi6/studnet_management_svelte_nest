@@ -5,8 +5,7 @@
   import GroupChat from "./GroupChat/GroupChat.svelte";
   import { client } from "../../../app/helpers/apolloClient.js";
   import { getUsers } from "../../../app/graphql/queries/getUsers.query.js";
-
-  export let setType;
+  import screenStore from "../../../app/Store/screen/screen.store.js";
 
   setClient(client);
 
@@ -40,12 +39,12 @@
 <i
   class="fas fa-arrow-left"
   style="cursor:pointer"
-  on:click={() => setType('chat')} />
+  on:click={() => screenStore.setScreen('chat')} />
 <div class="addChat">
   <h1>Add Chat</h1>
   <SearchBar {setSearchKey} />
   <hr />
-  <GroupChat {setType} />
+  <GroupChat />
   <hr />
 
   <Users {searchKey} />

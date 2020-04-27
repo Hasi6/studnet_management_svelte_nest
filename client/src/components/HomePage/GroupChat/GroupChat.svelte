@@ -4,8 +4,7 @@
   import Users from "./Users/Users.svelte";
   import SelectedUsers from "./SelectedUsers/SelectedUsers.svelte";
   import SearchBar from "../../HomePage/SearchBar/SearchBar.svelte";
-
-  export let setType;
+  import screenStore from "../../../app/Store/screen/screen.store.js";
 
   let unsubscribe;
   let chatList = [];
@@ -45,7 +44,7 @@
 <i
   class="fas fa-arrow-left"
   style="cursor:pointer"
-  on:click={() => setType('addChat')} />
+  on:click={() => screenStore.setScreen('addChat')} />
 <div class="groupChat">
   <h1>Add Group Chat</h1>
   <SearchBar />

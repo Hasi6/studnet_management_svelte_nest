@@ -1,8 +1,7 @@
 <script>
   import { Input, Field, Button, Card } from "svelte-chota";
   import { v4 as uuid } from "uuid";
-
-  export let setType;
+  import screenStore from "../../../../app/Store/screen/screen.store.js";
 
   let name =
     "Hasis;hf;al gh fa;slgf a;sga; .ksfvafsk. vfas.kf hv ask.fhv.asfhv";
@@ -24,7 +23,7 @@
 <Card
   style="margin-bottom: 10px; cursor:pointer"
   on:click={() => {
-    setType('addGroup');
+    screenStore.setScreen('addGroup');
   }}>
   <div class="singleChat">
     <img

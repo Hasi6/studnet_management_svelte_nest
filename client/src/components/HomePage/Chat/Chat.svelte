@@ -6,8 +6,6 @@
   import AppBar from "../AppBar/AppBar.svelte";
   import SearchBar from "../SearchBar/SearchBar.svelte";
 
-  export let setType;
-
   let unsubscribe;
   let chats = [];
 
@@ -26,7 +24,7 @@
   });
 </script>
 
-<AppBar {setType} />
+<AppBar />
 <SearchBar />
 <Card style="height: 500px; overflow:auto">
   <SingleChat />

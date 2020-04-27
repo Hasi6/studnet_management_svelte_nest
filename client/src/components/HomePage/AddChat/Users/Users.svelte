@@ -34,10 +34,11 @@
     </div>
   {:then result}
     {#if searchKey.length > 2}
+      {#if result.data.searchUser.length === 0}No Users Found{/if}
       {#each result.data.searchUser as user}
         <SingleUser {user} />
       {/each}
-    {:else}No Users Found{/if}
+    {/if}
   {:catch error}
     {error.message}
   {/await}

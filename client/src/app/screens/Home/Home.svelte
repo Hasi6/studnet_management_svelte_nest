@@ -1,5 +1,6 @@
 <script>
   import { Card } from "svelte-chota";
+  import { onMount, onDestroy } from "svelte";
   import {
     fade,
     scale,
@@ -17,12 +18,25 @@
   import Profile from "../../../components/HomePage/Profile/Profile.svelte";
   import AddChat from "../../../components/HomePage/AddChat/AddChat.svelte";
   import GroupChat from "../../../components/HomePage/GroupChat/GroupChat.svelte";
+  import screenStore from "../../Store/screen/screen.store.js";
 
   let type = "addChat";
 
-  const setType = arg => {
-    type = arg;
+  let unsubscribe;
+
+  const setScreen = () => {
+    unsubscribe = screenStore.subscribe(res => {
+      type = res;
+    });
   };
+
+  onMount(() => {
+    setScreen();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
 <style>
@@ -33,19 +47,19 @@
   <div slot="chatList">
     {#if type === 'profile'}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>
-        <Profile {setType} />
+        <Profile />
       </div>
     {:else if type === 'addChat'}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>
-        <AddChat {setType} />
+        <AddChat />
       </div>
     {:else if type === 'addGroup'}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>
-        <GroupChat {setType} />
+        <GroupChat />
       </div>
     {:else}
       <div in:fly={{ y: 200, duration: 500 }} out:fade>
-        <Chat {setType} />
+        <Chat />
       </div>
     {/if}
   </div>
