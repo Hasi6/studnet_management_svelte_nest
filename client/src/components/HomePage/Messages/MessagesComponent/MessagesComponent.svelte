@@ -8,12 +8,16 @@
   import { client } from "../../../../app/helpers/apolloClient";
   import { getMessages } from "../../../../app/graphql/mutations/getMessages.mutation.js";
 
+  import socketStore from "../../../../app/Store/socket/socket.store.js";
+
   setClient(client);
   const getCliet = getClient();
 
   let searchKey = "Hasi";
   let chatId;
   let unsubscribe;
+  let socketUnsubscribe;
+  let chatSocket;
 
   let messages = [];
 
@@ -41,14 +45,23 @@
     searchKey = e;
   };
 
+  const setSocket = () => {
+    socketUnsubscribe = socketStore.subscribe(res => {
+      chatSocket = res.chatSocket;
+      console.log(chatSocket);
+    });
+  };
+
   onMount(() => {
     unsubscribe = chatIdStore.subscribe(chid => {
       chatId = chid;
     });
+    setSocket();
   });
 
   onDestroy(() => {
     unsubscribe();
+    socketUnsubscribe();
   });
 </script>
 

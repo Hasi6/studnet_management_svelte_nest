@@ -16,6 +16,7 @@
     "graphql": "^15.0.0",
     "jwt-decode": "^2.2.0",
     "smelte": "^1.0.12",
+    "socket.io-client": "^2.3.0",
     "svelte-apollo": "^0.3.0",
     "svelte-chota": "^1.7.1",
     "svelte-emoji-selector": "^1.0.1",

@@ -10,6 +10,7 @@ import { UserRepo } from '../user/user.repo';
 import { MessageSchema } from './message.schema';
 import { MessagesRepo } from './message.repo';
 import { MessageResolver } from './message.resolver';
+import { MessagesGateway } from '../messages.gateway';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { MessageResolver } from './message.resolver';
     })
   ],
   controllers: [MessagesController],
-  providers: [MessagesService, UserService, UserRepo, MessagesRepo, MessageResolver]
+  providers: [MessagesService, UserService, UserRepo, MessagesRepo, MessageResolver, MessagesGateway]
 })
 export class MessagesModule { }
