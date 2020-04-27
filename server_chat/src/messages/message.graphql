@@ -1,0 +1,12 @@
+type Message {
+	_id: String!
+	sender: String!
+	fullChatId: String!
+	chatId: String
+	message: String
+	image: String
+}
+
+type Query {
+	messages(chatId: String): [Message]
+}

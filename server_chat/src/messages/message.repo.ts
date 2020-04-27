@@ -37,7 +37,7 @@ export class MessagesRepo {
     // Get Messages By Chat Id
     public getMessagesByChatId = async (chatId: string) => {
         try {
-            return this.message.find({ chatId })
+            return await this.message.find({ chatId })
         } catch (err) {
 
             if (err.name === "CastError") {

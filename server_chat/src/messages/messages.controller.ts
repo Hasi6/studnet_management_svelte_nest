@@ -13,10 +13,11 @@ export class MessagesController {
 
     @Post("/")
     @UseGuards(AuthGuard())
-    // @UsePipes(ValidationPipe)
+    @UsePipes(ValidationPipe)
     async createMessage(@Body() createMessageDto: CreateMessageDto, @Req() req: any) {
-        // return await this.messagesService.createMessages()
-        console.log(req.user)
+        const user = req.user._id
+        return await this.messagesService.createMessages(user, createMessageDto)
+
     }
 
 }
