@@ -1,8 +1,9 @@
 <script>
-  import UnAuthProtect from "../UnAuthProtect.svelte";
-  import { validateEmail } from "../../../helpers/emailValidator.js";
   import { Link } from "svelte-routing";
   import { setClient, getClient, query, mutate } from "svelte-apollo";
+  import { Button } from "svelte-chota";
+  import UnAuthProtect from "../UnAuthProtect.svelte";
+  import { validateEmail } from "../../../helpers/emailValidator.js";
   import { client } from "../../../helpers/apolloClient.js";
   import { getFaculties } from "../../../graphql/queries/getFaculties.query.js";
   import { getDepartments } from "../../../graphql/mutations/getDepartments.mutation.js";
@@ -17,12 +18,7 @@
   let email = "";
   let password = "";
   let confirmPassword = "";
-  let faculty;
-  let departments = [];
-  let department;
   let disabled = true;
-
-  $: console.log(department);
 
   $: (async () => {
     try {
@@ -55,7 +51,9 @@
       ? false
       : true;
 
-  const submit = () => {
+  const submit = e => {
+    e.preventDefault();
+
     const body = {
       username,
       email,
@@ -96,43 +94,6 @@
             username should be 4 to 12 characters
           </div>
         {/if}
-
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Faculty</label>
-
-          <select
-            class="custom-select mr-sm-2"
-            id="inlineFormCustomSelect"
-            bind:value={faculty}>
-            <option value={null}>Select Faculty</option>
-
-            {#await $faculties}
-              Loading....
-            {:then result}
-              {#each result.data.faculties as faculty}
-                <option value={faculty._id}>{faculty.name}</option>
-              {/each}
-            {:catch error}
-              {error.message}
-            {/await}
-          </select>
-        </div>
-        <div class="form-group col-md-6">
-          <label>Department</label>
-
-          <select
-            class="custom-select mr-sm-2"
-            id="inlineFormCustomSelect"
-            bind:value={department}>
-
-            {#each departments as dep}
-              <option value={dep._id}>{dep.name}</option>
-            {/each}
-
-          </select>
-        </div>
 
       </div>
 
@@ -179,17 +140,12 @@
         {/if}
       </div>
     </form>
-    <button
-      class="btn btn-success"
-      {disabled}
-      on:click|preventDefault={() => submit()}>
-      Register
-    </button>
+    <Button success {disabled} on:click={e => submit(e)}>Register</Button>
     <br />
 
     <span>
-      Don't Have an Account?
-      <Link to="register">Register Here</Link>
+      Already Have an Account?
+      <Link to="login">Register Here</Link>
     </span>
 
   </div>

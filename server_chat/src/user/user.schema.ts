@@ -12,12 +12,6 @@ export const UsersSchema = new Schema(
             required: true,
             unique: true
         },
-        faculty: {
-            type: String,
-        },
-        department: {
-            type: String,
-        },
         image: {
             type: String,
             required: true

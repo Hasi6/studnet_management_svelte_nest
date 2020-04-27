@@ -1,12 +1,16 @@
 <script>
   import { Input, Button, Nav, Tag } from "svelte-chota";
   import { mdiDotsHorizontal } from "@mdi/js";
+  import authStore from "../../../app/Store/auth/auth.store.js";
   export let setType;
 </script>
 
 <style>
   img {
     border-radius: 50%;
+    cursor: pointer;
+  }
+  p {
     cursor: pointer;
   }
 </style>
@@ -32,7 +36,7 @@
         <p>Profile</p>
         <p>Settings</p>
         <hr />
-        <p>Logout</p>
+        <p on:click={() => authStore.logOutUser()}>Logout</p>
       </Button>
     </a>
   </Nav>
