@@ -6,8 +6,6 @@
   import authStore from "../../../app/Store/auth/auth.store.js";
   export let chat;
 
-  let name =
-    "Hasis;hf;al gh fa;slgf a;sga; .ksfvafsk. vfas.kf hv ask.fhv.asfhv";
   let unsubscribe;
   let user;
   let otherUser;
@@ -19,7 +17,7 @@
   };
 
   const changeChatId = () => {
-    chatIdStore.addChatId(uuid());
+    chatIdStore.addChatId(chat._id);
   };
 
   onMount(() => {

@@ -9,6 +9,21 @@
   let chatId;
   let unsubscribe;
 
+  let messages = [
+    {
+      _id: "3434",
+      message: "Hello Hasi",
+      chatId: "343434",
+      sender: "3434"
+    },
+    {
+      _id: "3434",
+      message: "Hello Hasi",
+      chatId: "343434",
+      sender: "1212"
+    }
+  ];
+
   const setSearchKey = e => {
     searchKey = e;
   };
@@ -30,7 +45,7 @@
 
 <div>
   <MessagesHeader {searchKey} {setSearchKey} />
-  <MessageCard {chatId} />
+  <MessageCard {chatId} {messages} />
   <AddMessage />
 </div>
 {chatId} {searchKey}

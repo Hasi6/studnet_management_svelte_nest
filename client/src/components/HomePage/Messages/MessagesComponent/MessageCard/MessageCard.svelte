@@ -4,6 +4,8 @@
   import SingleMessage from "./SingleMessage/SingleMessage.svelte";
   import chatIdStore from "../../../../../app/Store/chat/chatId.store";
 
+  export let messages;
+
   let chatId;
   let unsubscribe;
 
@@ -48,45 +50,12 @@
 {chatId}
 <Card>
   <div class="messageCard" on:scroll={scrollTop}>
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
-    <SingleMessage isMe={true} />
-    <SingleMessage isMe={false} />
+
+    {#if messages}
+      {#each messages as message}
+        <SingleMessage {message} />
+      {/each}
+    {/if}
+
   </div>
 </Card>

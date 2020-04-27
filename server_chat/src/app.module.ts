@@ -9,6 +9,7 @@ import { DepartmentModule } from './department/department.module';
 import { CoursesModule } from './courses/courses.module';
 import { ProfileModule } from './profile/profile.module';
 import { ChatModule } from './chat/chat.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { ChatModule } from './chat/chat.module';
     DepartmentModule,
     CoursesModule,
     ProfileModule,
-    ChatModule
+    ChatModule,
+    MessagesModule
   ],
   controllers: [],
   providers: [],
