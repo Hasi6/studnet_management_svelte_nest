@@ -1,12 +1,26 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { Card } from "svelte-chota";
+  import { Card, Icon } from "svelte-chota";
+  import { mdiLanguageJavascript, mdiLoading } from "@mdi/js";
   import SingleUser from "./SingleUser.svelte";
+  import { setClient, getClient, query, mutate } from "svelte-apollo";
+  import { client } from "../../../../app/helpers/apolloClient.js";
+  import { getUsers } from "../../../../app/graphql/queries/getUsers.query.js";
 
-  export let users;
+  let users;
+  export let searchKey;
+  const getCliet = getClient();
 
-  let unsubscribe;
-  let chats = [];
+  $: if (searchKey.length > 2) {
+    users = query(getCliet, {
+      query: getUsers,
+      variables: { searchKey }
+    });
+  }
+
+  $: if (searchKey.length < 2) {
+    users = undefined;
+  }
 
   onMount(() => {});
 
@@ -15,9 +29,12 @@
 
 <Card style="height: 350px; overflow:auto">
   {#await $users}
-    Loading....
+    <div style="text-align:center">
+      <Icon src={mdiLoading} color="orange" spin="0.5" size="3" />
+    </div>
   {:then result}
-    {JSON.stringify(users)}
+
+    {#if searchKey.length > 2}{JSON.stringify(result)}{:else}No Users Found{/if}
   {:catch error}
     {error.message}
   {/await}

@@ -16,10 +16,12 @@
 
   let searchKey = "";
 
-  $: users = query(getCliet, {
-    query: getUsers,
-    variables: { searchKey }
-  });
+  $: if (searchKey) {
+    users = query(getCliet, {
+      query: getUsers,
+      variables: { searchKey }
+    });
+  }
 
   const setSearchKey = key => {
     searchKey = key;
@@ -46,5 +48,5 @@
   <GroupChat {setType} />
   <hr />
 
-  <Users {users} />
+  <Users {searchKey} />
 </div>
