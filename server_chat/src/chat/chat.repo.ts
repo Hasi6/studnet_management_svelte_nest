@@ -40,6 +40,35 @@ export class ChatRepo {
 
 
     // ************************************* Get Chat ******************************************
+    // Get Chat By Id
+    public getChatById = async (chatId: string) => {
+        try {
+            return this.chat.findById(chatId)
+        } catch (err) {
+            logger.error(`Chat Repo Get Chat By Id Error ${err.message}`)
+            return null;
+        }
+    }
+
+    // Get Chat By Full Chat Id
+    public getChatByFullChatId = async (fullChatId: string) => {
+        try {
+            return this.chat.findOne({ fullChatId })
+        } catch (err) {
+            logger.error(`Chat Repo Get Chat By Full Chat Id Error ${err.message}`)
+            return null;
+        }
+    }
+
+    // Get Chat By User Id
+    public getChatByUserId = async (userId: string) => {
+        try {
+            return this.chat.find({ userIds: userId })
+        } catch (err) {
+            logger.error(`Chat Repo Get Chat By User Id Error ${err.message}`)
+            return null;
+        }
+    }
 
 
     // ************************************* Edi Chat ******************************************
