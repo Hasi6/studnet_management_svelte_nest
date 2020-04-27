@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 import { writable } from "svelte/store";
+// import { apiRequests } from "../../helpers/apiRequests";
+// import { endPoint } from "../../../config";
 
 const chatStore = () => {
   // Initial State

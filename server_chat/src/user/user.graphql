@@ -7,11 +7,16 @@ type User {
 	onlineStatus: Boolean!
 }
 
+type Chat {
+	_id: String!
+	users: [User]
+}
+
 
 type Query {
 	searchUser(searchKey: String): [User]
 }
 
-# type Mutation {
-# departments(facultyId: String!): [Departments] 
-# }
+type Mutation {
+	getChatList(userId: String!): String 
+}
