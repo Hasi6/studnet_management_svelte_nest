@@ -3,7 +3,7 @@
   import WelcomeMessage from "./WelcomeMessage/WelcomeMessage";
   import chatIdStore from "../../../app/Store/chat/chatId.store";
   import MessagesComponent from "./MessagesComponent/MessagesComponent.svelte";
-
+  export let newMessage;
   let chatId;
   let unsubscribe;
 
@@ -23,7 +23,7 @@
 </style>
 
 {#if chatId}
-  <MessagesComponent />
+  <MessagesComponent {newMessage} />
 {:else}
   <WelcomeMessage />
 {/if}

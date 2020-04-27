@@ -33,6 +33,7 @@
   let user;
   let socketUnsubscribe;
   let chatSocket;
+  let newMessage;
 
   const setState = () => {
     unsubscribe = screenStore.subscribe(res => {
@@ -45,7 +46,7 @@
       user = res.user;
       if (res.user) {
         chatSocket.emit("join", { userId: res.user._id });
-        chatSocket.on("message", res => console.log(res));
+        chatSocket.on("message", res => (newMessage = res.msg));
       }
     });
   };
@@ -102,6 +103,6 @@
     {/if}
   </div>
   <div slot="messages" style="overflow:auto">
-    <Messages />
+    <Messages {newMessage} />
   </div>
 </MarkUp>

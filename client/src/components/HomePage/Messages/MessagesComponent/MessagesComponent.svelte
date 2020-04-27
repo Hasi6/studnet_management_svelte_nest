@@ -14,6 +14,7 @@
   setClient(client);
   const getCliet = getClient();
 
+  export let newMessage;
   let searchKey = "Hasi";
   let chatId;
   let unsubscribe;
@@ -33,6 +34,10 @@
       chatSocket = res.chatSocket;
     });
   };
+
+  $: if (newMessage && newMessage.chatId === chatId) {
+    messages = [...messages, newMessage];
+  }
 
   $: (async () => {
     if (chatId) {

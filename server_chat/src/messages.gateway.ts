@@ -2,6 +2,7 @@ import { SubscribeMessage, WebSocketGateway, OnGatewayInit, OnGatewayConnection,
 import { Socket, Server } from 'socket.io';
 import { Logger } from '@nestjs/common';
 import { ChatService } from './chat/chat.service';
+import { IChat } from './chat/chat.model';
 
 @WebSocketGateway({ namespace: '/chat' })
 export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -30,8 +31,14 @@ export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGa
 
   @SubscribeMessage('join')
   async handleMessage(client: any, payload: any) {
-    const chatId = await this.chatService.getChatByUserId(payload.userId)
-    console.log(chatId)
-    client.emit("message", "Hello World")
+    const chatIds = await this.chatService.getChatByUserId(payload.userId)
+    chatIds.map((chat: IChat) => client.join(chat._id))
   }
+
+
+  sendMessage(msg: any) {
+    console.log(msg)
+    this.wss.to(msg.chatId).emit("message", { msg })
+  }
+
 }

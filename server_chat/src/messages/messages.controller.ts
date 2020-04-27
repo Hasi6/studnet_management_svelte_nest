@@ -2,12 +2,14 @@ import { AuthGuard } from '@nestjs/passport';
 import { Controller, Post, UseGuards, UsePipes, ValidationPipe, Body, Req } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/message.dto';
+import { MessagesGateway } from '../messages.gateway';
 
 @Controller('api/message')
 export class MessagesController {
 
     constructor(
-        private readonly messagesService: MessagesService
+        private readonly messagesService: MessagesService,
+        private readonly messagesGateway: MessagesGateway
     ) { }
 
 
@@ -16,7 +18,9 @@ export class MessagesController {
     @UsePipes(ValidationPipe)
     async createMessage(@Body() createMessageDto: CreateMessageDto, @Req() req: any) {
         const user = req.user._id
-        return await this.messagesService.createMessages(user, createMessageDto)
+        const msg = await this.messagesService.createMessages(user, createMessageDto)
+        this.messagesGateway.sendMessage(msg)
+        return msg
 
     }
 
