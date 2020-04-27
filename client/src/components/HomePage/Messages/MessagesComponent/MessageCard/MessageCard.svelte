@@ -10,7 +10,7 @@
   let unsubscribe;
 
   const scrollTop = e => {
-    if (document.querySelector(".messageCard").scrollTop < 300) {
+    if (document.querySelector(".messageCard").scrollTop === 0) {
       console.log("Hasi");
     }
   };

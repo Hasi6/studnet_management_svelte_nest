@@ -19,7 +19,6 @@ export class MessageResolver {
 
     @Query()
     async messages(@Args("chatId") chatId: string) {
-        console.log(chatId)
         return this.messagesService.getMessagesByChatId(chatId)
     }
 
