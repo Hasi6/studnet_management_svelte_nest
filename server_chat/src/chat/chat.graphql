@@ -1,3 +1,11 @@
+type Chat {
+	_id: String!
+	users: [User]
+	fullChatId: String!
+	groupName: String
+}
+
+
 type Mutation {
-	chats(facultyId: String): String
+	chats(userId: String): [Chat]
 }

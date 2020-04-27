@@ -7,10 +7,6 @@ type User {
 	onlineStatus: Boolean!
 }
 
-type Chat {
-	_id: String!
-	users: [User]
-}
 
 
 type Query {

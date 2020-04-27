@@ -1,8 +1,9 @@
-import { Resolver, Mutation, Args } from "@nestjs/graphql";
+import { IUser } from './../user/user.model';
+import { Resolver, Mutation, Args, ResolveProperty, Parent } from "@nestjs/graphql";
 import { ChatService } from './chat.service';
 import { UserService } from '../user/user.service';
 
-@Resolver('Chats')
+@Resolver('Chat')
 export class ChatResolver {
 
     constructor(
@@ -16,8 +17,20 @@ export class ChatResolver {
     // }
 
     @Mutation()
-    chats(@Args("userId") userId: string) {
-        return "Hasi"
+    async chats(@Args("userId") userId: string) {
+        return this.chatService.getChatByUserId(userId)
+    }
+
+    @ResolveProperty()
+    async users(@Parent() chat) {
+        let users: IUser[] = []
+        const res = await chat.userIds.map(async (userId: string) => {
+            const user = await this.userService.getUserById(userId)
+            users = [...users, user]
+        })
+        await Promise.all(res)
+
+        return users
     }
 
 

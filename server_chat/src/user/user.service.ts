@@ -121,4 +121,9 @@ export class UserService {
         const regex = new RegExp(searchKey, "gi")
         return await this.userRepo.getUserByAnyField(regex)
     }
+
+    // Get User By Id
+    public getUserById = async (_id: string) => {
+        return this.userRepo.getUserById(_id)
+    }
 }
