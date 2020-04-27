@@ -18,7 +18,20 @@ export class ChatService {
     }
 
     // ***************************** Get Chat Section **********************************************
+    // Get Chat By Id
+    public getChatById = async (chatId: string) => {
+        return this.chatRepo.getChatById(chatId)
+    }
 
+    // Get Chat By Full Chat Id
+    public getChatByFullChatId = async (fullChatId: string) => {
+        return this.chatRepo.getChatByFullChatId(fullChatId)
+    }
+
+    // Get Chat By User Id
+    public getChatByUserId = async (userId: string) => {
+        return this.chatRepo.getChatByUserId(userId)
+    }
 
     // ***************************** Edit Chat Section **********************************************
 
