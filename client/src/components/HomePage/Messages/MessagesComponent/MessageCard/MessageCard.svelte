@@ -18,9 +18,7 @@
   const autoScroll = () => {
     const objDiv = document.querySelector(".messageCard");
     if (objDiv) {
-      console.log(objDiv.scrollHeight);
       objDiv.scrollTop = objDiv.scrollHeight;
-      console.log("scroll");
     }
   };
 
@@ -29,11 +27,10 @@
   });
 
   $: (() => {
-    console.log(messages);
+    let see = messages;
     const objDiv = document.querySelector(".messageCard");
     setTimeout(() => {
       if (objDiv) {
-        console.log(objDiv.scrollHeight);
         objDiv.scrollTop = objDiv.scrollHeight - 100;
       }
     });

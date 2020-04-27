@@ -1,12 +1,47 @@
 <script>
   import { Input, Button, Nav, Tag, Field } from "svelte-chota";
+  import { onMount, onDestroy } from "svelte";
   import { mdiDotsHorizontal } from "@mdi/js";
+  import chatStore from "../../../../../app/Store/chat/chat.store.js";
+  import chatIdStore from "../../../../../app/Store/chat/chatId.store.js";
+  import authStore from "../../../../../app/Store/auth/auth.store.js";
   export let searchKey;
   export let setSearchKey;
+  let chatId;
 
-  setTimeout(() => {
-    setSearchKey("Hasi123");
-  }, 5000);
+  let unsubscribe;
+  let authUnsubscribe;
+  let chat;
+  let otherUser;
+  let user;
+  let chatUnsucbscribe;
+
+  const setState = () => {
+    chatUnsucbscribe = chatIdStore.subscribe(res => {
+      chatId = res;
+    });
+
+    unsubscribe = chatStore.subscribe(res => {
+      chat = res.filter(ch => ch._id === chatId)[0];
+    });
+
+    authUnsubscribe = authStore.subscribe(res => {
+      user = res.user;
+
+      otherUser =
+        chat.users[0]._id === res.user._id ? chat.users[1] : chat.users[0];
+    });
+  };
+
+  onMount(() => {
+    setState();
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+    chatUnsucbscribe();
+    authUnsubscribe();
+  });
 </script>
 
 <style>
@@ -18,12 +53,15 @@
 </style>
 
 <Nav class="navbar">
-  <img
-    slot="left"
-    style="height:100px"
-    src="https://avatars0.githubusercontent.com/u/37216970?s=460&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4"
-    alt="userimage" />
-  <p slot="left">Name</p>
+  <div slot="left">
+    {#if otherUser}
+      <img
+        style="height:100px"
+        src={otherUser.image}
+        alt={otherUser.username} />
+      <p>{otherUser.username}</p>
+    {/if}
+  </div>
   <p slot="right">
     <Field gapless>
 

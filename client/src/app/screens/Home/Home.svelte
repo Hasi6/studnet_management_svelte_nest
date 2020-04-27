@@ -22,6 +22,7 @@
   import screenStore from "../../Store/screen/screen.store.js";
   import authStore from "../../Store/auth/auth.store.js";
   import chatStore from "../../Store/chat/chat.store.js";
+  import errorStore from "../../Store/errors/errors.store.js";
   import { getUserChatList } from "../../graphql/mutations/getUserChatLits.mutations.js";
   import { client } from "../../helpers/apolloClient.js";
   import socketStore from "../../../app/Store/socket/socket.store.js";
@@ -46,7 +47,16 @@
       user = res.user;
       if (res.user) {
         chatSocket.emit("join", { userId: res.user._id });
-        chatSocket.on("message", res => (newMessage = res.msg));
+        chatSocket.on("message", res => {
+          newMessage = res.msg;
+          if (newMessage.sender !== user._id) {
+            errorStore.addErrors({
+              msg: newMessage.message,
+              type: "success",
+              id: newMessage._id
+            });
+          }
+        });
       }
     });
   };

@@ -33,6 +33,10 @@
     socketUnsubscribe = socketStore.subscribe(res => {
       chatSocket = res.chatSocket;
     });
+
+    unsubscribe = chatIdStore.subscribe(chid => {
+      chatId = chid;
+    });
   };
 
   $: if (newMessage && newMessage.chatId === chatId) {
@@ -63,20 +67,14 @@
     searchKey = e;
   };
 
-  // const setSocket = () => {
-
-  // };
-
   onMount(() => {
-    unsubscribe = chatIdStore.subscribe(chid => {
-      chatId = chid;
-    });
     setUser();
   });
 
   onDestroy(() => {
     unsubscribe();
     socketUnsubscribe();
+    authUnsubscribe();
   });
 </script>
 
@@ -85,8 +83,8 @@
 </style>
 
 <div>
-  <MessagesHeader {searchKey} {setSearchKey} />
+  <MessagesHeader {searchKey} {setSearchKey} {chatId} />
   <MessageCard {chatId} {messages} />
-  <AddMessage {chatId} {setMessages} />
+  <AddMessage {chatId} />
 </div>
 {chatId} {searchKey}
