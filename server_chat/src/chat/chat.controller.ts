@@ -28,9 +28,9 @@ export class ChatController {
             _id: newChat._id,
             fullChatId: newChat.fullChatId,
             userIds: newChat.userIds,
-            users: allUsers
+            users: allUsers,
+            lastMessage: newChat.lastMessage
         }
-        console.log(newlyAddedChat)
         this.chatsGateway.addNewChat(newlyAddedChat)
         return newlyAddedChat;
     }

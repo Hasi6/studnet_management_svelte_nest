@@ -35,6 +35,12 @@ export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGa
     chatIds.map((chat: IChat) => client.join(chat._id))
   }
 
+  @SubscribeMessage('newChatAdded')
+  async joinToNewChat(client: any, payload: any) {
+    console.log(payload)
+    client.join(payload.chatId)
+  }
+
 
   // Send Messages
   sendMessage(msg: any) {

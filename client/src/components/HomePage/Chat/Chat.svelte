@@ -10,8 +10,11 @@
 
   let unsubscribe;
   let socketUnsubscribe;
+  let chatSocketUnsubscribe;
   let authUnsubscribe;
   let newChatSocket;
+  let chatSocket;
+
   let user;
   let chats = [];
 
@@ -27,10 +30,10 @@
 
       socketUnsubscribe = socketStore.subscribe(res => {
         newChatSocket = res.newChatSocket;
-
-        newChatSocket.on("newChatAdded", res => {
-          console.log(res);
-          chatStore.addNewChat(res.chat);
+        chatSocket = res.chatSocket;
+        newChatSocket.on("newChatAdded", re => {
+          chatStore.addNewChat(re.chat);
+          chatSocket.emit("newChatAdded", { chatId: re.chat._id });
         });
       });
     });

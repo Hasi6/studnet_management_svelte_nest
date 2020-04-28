@@ -52,6 +52,10 @@
 
   const sendMessage = () => {};
 
+  const setToggle = () => {
+    toggle();
+  };
+
   onMount(() => {
     setState();
   });
@@ -95,6 +99,6 @@
 
 <Modal isOpen={visible} {toggle}>
   <h3>Send a Message to {user.username}</h3>
-  <AddMessage {user} />
+  <AddMessage {user} {setToggle} />
 
 </Modal>

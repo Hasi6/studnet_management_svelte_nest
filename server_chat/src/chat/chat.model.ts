@@ -3,4 +3,5 @@ export interface IChat {
     userIds: string[];
     fullChatId: string;
     groupName?: string;
+    lastMessage: string
 }

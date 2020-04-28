@@ -11,7 +11,7 @@
   import authStore from "../../../../app/Store/auth/auth.store.js";
 
   export let user;
-
+  export let setToggle;
   let authUnsubscribe;
   let fullChatId;
   let loggedUser;
@@ -58,9 +58,10 @@
     const res = await apiRequests(`${endPoint}/api/chat`, "post", body, {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     });
-    // if (res && res.data) {
-    //   sendMessage(res.data._id, res.data.fullChatId);
-    // }
+    if (res && res.data) {
+      sendMessage(res.data._id, res.data.fullChatId);
+    }
+    setToggle();
   };
 
   onMount(() => {
