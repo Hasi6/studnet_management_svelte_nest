@@ -8,7 +8,7 @@
   import chatIdStore from "../../../../app/Store/chat/chatId.store.js";
   import authStore from "../../../../app/Store/auth/auth.store.js";
   import chatStore from "../../../../app/Store/chat/chat.store.js";
-  import AddMessage from "../../../HomePage/Messages/MessagesComponent/AddMessage/AddMessage.svelte";
+  import AddMessage from "../AddMessage/AddMessage.svelte";
 
   export let user;
 
@@ -74,25 +74,27 @@
   }
 </style>
 
-<Card
-  style="margin-bottom: 10px; cursor:pointer"
-  on:click={() => nevigateOrToggle()}>
-  <div class="singleChat">
-    <div style="flex: 1">
-      <img src={user.image} alt={user.username} />
+{#if user && loggedUser && user._id !== loggedUser._id}
+  <Card
+    style="margin-bottom: 10px; cursor:pointer"
+    on:click={() => nevigateOrToggle()}>
+    <div class="singleChat">
+      <div style="flex: 1">
+        <img src={user.image} alt={user.username} />
+      </div>
+      <div style="flex:2">
+        <p>{user.username}</p>
+        <p>{user.email.substr(0, 10)}{user.email.length > 10 ? '...' : ''}</p>
+      </div>
+      <div style="flex:1">
+        <p>Typing...</p>
+      </div>
     </div>
-    <div style="flex:2">
-      <p>{user.username}</p>
-      <p>{user.email.substr(0, 10)}{user.email.length > 10 ? '...' : ''}</p>
-    </div>
-    <div style="flex:1">
-      <p>Typing...</p>
-    </div>
-  </div>
-</Card>
+  </Card>
+{/if}
 
 <Modal isOpen={visible} {toggle}>
   <h3>Send a Message to {user.username}</h3>
-  <AddMessage />
+  <AddMessage {user} />
 
 </Modal>

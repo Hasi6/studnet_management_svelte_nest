@@ -29,6 +29,7 @@
         newChatSocket = res.newChatSocket;
 
         newChatSocket.on("newChatAdded", res => {
+          console.log(res);
           chatStore.addNewChat(res.chat);
         });
       });

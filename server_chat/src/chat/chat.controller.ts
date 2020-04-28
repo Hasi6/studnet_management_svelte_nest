@@ -5,7 +5,7 @@ import { CreateChatDto } from './Dto/chat.dto';
 import { ChatService } from './chat.service';
 import { ChatsGateway } from '../chats.gateway';
 
-@Controller('chat')
+@Controller('api/chat')
 export class ChatController {
 
     constructor(
