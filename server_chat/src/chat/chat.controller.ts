@@ -18,17 +18,21 @@ export class ChatController {
     @Post("/")
     @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
-    async createChat(@Body() createChatDto: CreateChatDto): Promise<IChat> {
-        const newChat: any = await this.chatService.createChat(createChatDto)
+    async createChat(@Body() createChatDto: CreateChatDto): Promise<any> {
+        const newChat: IChat = await this.chatService.createChat(createChatDto)
         const users = await newChat.userIds.map(async (user: string) => {
-            console.log(await this.userService.getUserById(user))
             return await this.userService.getUserById(user);
         });
-        await Promise.all(users)
-        console.log(users)
-        newChat.users = users
-        this.chatsGateway.addNewChat(newChat)
-        return newChat;
+        const allUsers = await Promise.all(users)
+        const newlyAddedChat = {
+            _id: newChat._id,
+            fullChatId: newChat.fullChatId,
+            userIds: newChat.userIds,
+            users: allUsers
+        }
+        console.log(newlyAddedChat)
+        this.chatsGateway.addNewChat(newlyAddedChat)
+        return newlyAddedChat;
     }
 
 

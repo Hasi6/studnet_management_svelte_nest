@@ -32,7 +32,7 @@ export class ChatsGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
 
 
   // Add New Chat
-  addNewChat(chat: IChat) {
+  addNewChat(chat: any) {
     chat.userIds.map(user => this.wss.to(user.toString()).emit("newChatAdded", { chat }))
   }
 

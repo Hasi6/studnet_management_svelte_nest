@@ -58,9 +58,9 @@
     const res = await apiRequests(`${endPoint}/api/chat`, "post", body, {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     });
-    if (res && res.data) {
-      sendMessage(res.data._id, res.data.fullChatId);
-    }
+    // if (res && res.data) {
+    //   sendMessage(res.data._id, res.data.fullChatId);
+    // }
   };
 
   onMount(() => {
