@@ -25,8 +25,6 @@
   const setSearchKey = key => {
     searchKey = key;
   };
-
-  $: console.log(users);
 </script>
 
 <style>

@@ -3,19 +3,24 @@ import { Controller, Post, UseGuards, UsePipes, ValidationPipe, Body } from '@ne
 import { IChat } from './chat.model';
 import { CreateChatDto } from './Dto/chat.dto';
 import { ChatService } from './chat.service';
+import { ChatsGateway } from '../chats.gateway';
 
 @Controller('chat')
 export class ChatController {
 
     constructor(
-        private readonly chatService: ChatService
+        private readonly chatService: ChatService,
+        private readonly chatsGateway: ChatsGateway
     ) { }
 
     @Post("/")
     @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
     async createChat(@Body() createChatDto: CreateChatDto): Promise<IChat> {
-        return await this.chatService.createChat(createChatDto)
+
+        const newChat = await this.chatService.createChat(createChatDto)
+        this.chatsGateway.addNewChat(newChat)
+        return newChat;
     }
 
 

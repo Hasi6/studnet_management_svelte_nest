@@ -7,20 +7,40 @@
   import screenStore from "../../../../app/Store/screen/screen.store.js";
   import chatIdStore from "../../../../app/Store/chat/chatId.store.js";
   import authStore from "../../../../app/Store/auth/auth.store.js";
+  import chatStore from "../../../../app/Store/chat/chat.store.js";
   import AddMessage from "../../../HomePage/Messages/MessagesComponent/AddMessage/AddMessage.svelte";
 
   export let user;
 
   let loggedUser;
   let unsubscribe;
-
-  const setLoggedUser = () => {
+  let chatUnsubscribe;
+  let chats = [];
+  const setState = () => {
     unsubscribe = authStore.subscribe(res => {
       loggedUser = res.user;
+    });
+    chatUnsubscribe = chatStore.subscribe(res => {
+      chats = res;
     });
   };
 
   let visible = false;
+
+  const nevigateOrToggle = () => {
+    let currentFullChatId =
+      user._id > loggedUser._id
+        ? `${user._id}-${loggedUser._id}`
+        : `${loggedUser._id}-${user._id}`;
+    const isHere = chats.some(chat => chat.fullChatId === currentFullChatId);
+
+    if (isHere) {
+      chatIdStore.addChatId(currentFullChatId);
+      screenStore.setScreen("chat");
+      return;
+    }
+    toggle();
+  };
 
   const toggle = () => (visible = !visible);
 
@@ -29,7 +49,7 @@
   const sendMessage = () => {};
 
   onMount(() => {
-    setLoggedUser();
+    setState();
   });
 
   onDestroy(() => {
@@ -50,7 +70,9 @@
   }
 </style>
 
-<Card style="margin-bottom: 10px; cursor:pointer" on:click={() => toggle()}>
+<Card
+  style="margin-bottom: 10px; cursor:pointer"
+  on:click={() => nevigateOrToggle()}>
   <div class="singleChat">
     <div style="flex: 1">
       <img src={user.image} alt={user.username} />
