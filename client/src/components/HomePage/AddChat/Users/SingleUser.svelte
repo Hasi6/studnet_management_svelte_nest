@@ -35,7 +35,11 @@
     const isHere = chats.some(chat => chat.fullChatId === currentFullChatId);
 
     if (isHere) {
-      chatIdStore.addChatId(currentFullChatId);
+      let chatId = chats.filter(
+        chat => chat.fullChatId === currentFullChatId
+      )[0]._id;
+
+      chatIdStore.addChatId(chatId);
       screenStore.setScreen("chat");
       return;
     }

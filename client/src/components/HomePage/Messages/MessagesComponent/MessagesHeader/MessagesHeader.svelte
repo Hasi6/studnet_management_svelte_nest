@@ -19,10 +19,13 @@
   const setState = () => {
     chatUnsucbscribe = chatIdStore.subscribe(res => {
       chatId = res;
+      console.log(res);
     });
 
     unsubscribe = chatStore.subscribe(res => {
+      console.log(res);
       chat = res.filter(ch => ch._id === chatId)[0];
+      console.log(chat);
     });
 
     authUnsubscribe = authStore.subscribe(res => {

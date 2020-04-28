@@ -36,7 +36,7 @@
     if (e === "") {
       fliterdChats = oldChats;
     }
-    chatStore.updateChat(fliterdChats);
+    // chatStore.updateChat(fliterdChats);
   };
 </script>
 
