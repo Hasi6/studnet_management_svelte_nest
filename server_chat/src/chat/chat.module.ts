@@ -10,6 +10,7 @@ import { UserService } from '../user/user.service';
 import { UserRepo } from '../user/user.repo';
 import { UsersSchema } from '../user/user.schema';
 import { JwtModule } from '@nestjs/jwt';
+import { ChatsGateway } from '../chats.gateway';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { JwtModule } from '@nestjs/jwt';
     })
   ],
   controllers: [ChatController],
-  providers: [ChatService, ChatRepo, ChatResolver, UserService, UserRepo,],
+  providers: [ChatService, ChatRepo, ChatResolver, UserService, UserRepo, ChatsGateway],
   exports: [ChatRepo, ChatResolver]
 })
 export class ChatModule { }

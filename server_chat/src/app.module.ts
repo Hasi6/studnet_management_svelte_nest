@@ -10,7 +10,6 @@ import { CoursesModule } from './courses/courses.module';
 import { ProfileModule } from './profile/profile.module';
 import { ChatModule } from './chat/chat.module';
 import { MessagesModule } from './messages/messages.module';
-import { MessagesGateway } from './messages.gateway';
 
 @Module({
   imports: [

@@ -36,8 +36,11 @@ export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGa
   }
 
 
+  // Send Messages
   sendMessage(msg: any) {
     this.wss.to(msg.chatId).emit("message", { msg })
   }
+
+
 
 }
