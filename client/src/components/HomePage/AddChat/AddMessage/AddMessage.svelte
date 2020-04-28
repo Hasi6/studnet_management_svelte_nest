@@ -41,7 +41,7 @@
   };
 
   const getUser = () => {
-    authStore.subscribe(res => {
+    authUnsubscribe = authStore.subscribe(res => {
       loggedUser = res.user;
     });
   };
@@ -68,7 +68,7 @@
   });
 
   onDestroy(() => {
-    unsubscribe();
+    authUnsubscribe();
   });
 </script>
 

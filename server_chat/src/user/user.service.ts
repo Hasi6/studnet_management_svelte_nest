@@ -124,6 +124,6 @@ export class UserService {
 
     // Get User By Id
     public getUserById = async (_id: string) => {
-        return this.userRepo.getUserById(_id)
+        return await this.userRepo.getUserById(_id)
     }
 }
