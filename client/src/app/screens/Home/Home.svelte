@@ -34,6 +34,7 @@
   let user;
   let socketUnsubscribe;
   let chatSocket;
+  let newChatSocket;
   let newMessage;
 
   const setState = () => {
@@ -42,11 +43,13 @@
     });
     socketUnsubscribe = socketStore.subscribe(res => {
       chatSocket = res.chatSocket;
+      newChatSocket = res.newChatSocket;
     });
     userUnsubscribe = authStore.subscribe(res => {
       user = res.user;
       if (res.user) {
         chatSocket.emit("join", { userId: res.user._id });
+        newChatSocket.emit("joinToNewChat", { userId: res.user._id });
         chatSocket.on("message", res => {
           newMessage = res.msg;
           if (newMessage.sender !== user._id) {

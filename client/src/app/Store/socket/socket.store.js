@@ -6,7 +6,8 @@ const endPoint = "http://localhost:5000";
 const socketStore = () => {
   // Initial State
   const socket = writable({
-    chatSocket: io.connect(`${endPoint}/chat`)
+    chatSocket: io.connect(`${endPoint}/chat`),
+    newChatSocket: io.connect(`${endPoint}/newChat`)
   });
 
   // Set Loading
