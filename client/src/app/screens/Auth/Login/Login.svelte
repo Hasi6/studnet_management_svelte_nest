@@ -8,6 +8,7 @@
   import { endPoint } from "../../../../config";
   import authStore from "../../../Store/auth/auth.store.js";
   import loadingStore from "../../../Store/loading/loading.store.js";
+  import { alertToaster } from "simple_alert_toaster";
 
   let email = "";
   let password = "";
@@ -19,6 +20,10 @@
   let loadingUnsubscribe;
 
   $: console.log(loading);
+
+  $: setInterval(() => {
+    alertToaster("test", "test", "success");
+  }, 1000);
 
   onMount(() => {
     loadingUnsubscribe = loadingStore.subscribe(loginLoading => {
@@ -61,7 +66,7 @@
 </style>
 
 <UnAuthProtect>
-  <div slot="content" class="container login_form">
+  <div slot="content" class="container login_form ">
     <form>
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
