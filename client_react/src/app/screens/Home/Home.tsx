@@ -5,6 +5,7 @@ const Home: FC = (): JSX.Element => {
   return (
     <AuthorizedWrapper>
       <h1>Home Page</h1>
+      <div className="alertDiv"></div>
     </AuthorizedWrapper>
   );
 };
