@@ -17,7 +17,7 @@ const errorStore = () => {
       errors.update(errors => {
         return errors.filter(error => error.id !== id);
       });
-    }, time || 100000);
+    }, time || 10000);
   };
 
   const removeErrors = id => {

@@ -3,6 +3,7 @@ export const fileUploadFirebase = async (
   files,
   path,
   setPercentage,
+  success,
   setErrors
 ) => {
   let urls = [];
@@ -31,7 +32,7 @@ export const fileUploadFirebase = async (
             .then(async url => {
               urls = [...urls, url];
               if (files.length === urls.length) {
-                alert("Hasi");
+                success();
                 return urls;
               }
             })

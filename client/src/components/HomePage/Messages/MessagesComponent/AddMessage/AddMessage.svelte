@@ -11,6 +11,7 @@
   import { storage } from "../../../../../config/firebase.js";
   // import fileUploadFirebase from "firebase_fileupload";
   import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
+  import errorStore from "../../../../../app/Store/errors/errors.store.js";
 
   export let chatId;
 
@@ -25,8 +26,14 @@
     percentage = pers;
   };
 
+  $: console.log(percentage);
+
   const setErrors = err => {
-    errors = err;
+    errorStore.addErrors({ msg: err, type: "danger" });
+  };
+
+  const success = () => {
+    errorStore.addErrors({ msg: "File Uploaded", type: "success" });
   };
 
   let open = false;
@@ -42,6 +49,7 @@
       [image],
       "test",
       setPercentage,
+      success,
       setErrors
     );
     console.log(res);
