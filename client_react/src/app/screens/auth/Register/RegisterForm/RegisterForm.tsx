@@ -48,11 +48,14 @@ const RegisterForm: FC<propTypes> = ({
             />
           </Grid>
         </Grid>
-        <Field
-          name="birthDay"
-          component={CalenderComponent}
-          viewDate="01/03/3020"
-        />
+        <br />
+        <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
+          <Field
+            name="birthDay"
+            component={CalenderComponent}
+            label="Birth Day"
+          />
+        </Grid>
       </form>
     </div>
   );
@@ -77,6 +80,7 @@ const validate = combineValidators({
       message: "Last Name must be between 4 and 10 characters"
     })
   )(),
+  birthDay: isRequired({ message: "Birth Day is Required" }),
   email: isRequired({ message: "Email Required" }),
   password: composeValidators(
     isRequired({ message: "Password is Required" }),

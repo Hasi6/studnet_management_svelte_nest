@@ -17,11 +17,20 @@ interface propTypes {
 
 const CalenderComponent: FC<propTypes> = ({
   input,
+  label,
   meta: { touched, error }
 }): JSX.Element => {
   return (
     <>
-      <Calendar {...input} />
+      <span className="p-float-label">
+        <Calendar {...input} />
+        {!touched && <label htmlFor="in">{label}</label>}
+        {touched && error && (
+          <label style={{ textAlign: "center", color: "darkRed" }}>
+            {error}
+          </label>
+        )}
+      </span>
     </>
   );
 };
