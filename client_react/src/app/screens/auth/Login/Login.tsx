@@ -21,7 +21,6 @@ interface propTypes {
 }
 
 const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
-  console.log("Has");
   const onSubmit = (e: IAuthUser) => {
     loginUser(e);
   };
