@@ -1,3 +1,19 @@
 .loginSection {
-  width: 1000px;
+    min-width: 1000px;
+    background-color: rgb(28, 101, 196);
+
+    .login {
+        display: flex;
+        margin: 10px;
+
+        span {
+            margin: 15px !important;
+
+            label {
+                color: black;
+            }
+        }
+
+        Button {}
+    }
 }

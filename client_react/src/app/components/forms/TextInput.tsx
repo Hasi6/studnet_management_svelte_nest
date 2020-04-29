@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import TextField from "@material-ui/core/TextField";
+import { InputText } from "primereact/inputtext";
 
 interface propTypes {
   onChange: Function;
@@ -24,18 +24,20 @@ const TextInput: FC<propTypes> = ({
 }): JSX.Element => {
   return (
     <>
-      <TextField
-        color={touched && !!error ? "secondary" : "primary"}
-        {...input}
-        label={label}
-        fullWidth={fullWidth}
-        variant="outlined"
-        type={type}
-        margin="normal"
-      />
-      {touched && error && (
-        <label style={{ textAlign: "center", color: "darkRed" }}>{error}</label>
-      )}
+      <span className="p-float-label">
+        <InputText
+          color={touched && !!error ? "secondary" : "primary"}
+          {...input}
+          label={label}
+          type={type}
+        />
+        {!touched && <label htmlFor="in">{label}</label>}
+        {touched && error && (
+          <label style={{ textAlign: "center", color: "darkRed" }}>
+            {error}
+          </label>
+        )}
+      </span>
     </>
   );
 };
