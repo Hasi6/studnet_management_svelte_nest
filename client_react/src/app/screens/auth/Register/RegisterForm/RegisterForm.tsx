@@ -12,6 +12,7 @@ import { reduxForm, Field } from "redux-form";
 import { registerUser } from "../../../../redux/actions/auth/auth.actions";
 import TextInput from "../../../../components/forms/TextInput";
 import CalenderComponent from "../../../../components/forms/Calander";
+import SingleSelection from "../../../../components/forms/SingleSelect";
 
 interface propTypes {
   registerUser: Function;
@@ -51,11 +52,43 @@ const RegisterForm: FC<propTypes> = ({
         <br />
         <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
           <Field
+            name="email"
+            component={TextInput}
+            label="Email"
+            type="email"
+          />
+        </Grid>
+        <br />
+        <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
+          <Field
             name="birthDay"
             component={CalenderComponent}
             label="Birth Day"
           />
         </Grid>
+        <br />
+        <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
+          <Field
+            name="password"
+            component={TextInput}
+            label="Password"
+            type="password"
+          />
+        </Grid>
+        <br />
+        <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
+          <Field
+            name="gender"
+            component={SingleSelection}
+            label="Gender"
+            options={[
+              { label: "Male", value: "Male", key: "Male" },
+              { label: "Female", value: "Female", key: "Female" },
+              { label: "Other", value: "Other", key: "Other" }
+            ]}
+          />
+        </Grid>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
@@ -80,6 +113,7 @@ const validate = combineValidators({
       message: "Last Name must be between 4 and 10 characters"
     })
   )(),
+  gender: isRequired({ message: "Gender is Required" }),
   birthDay: isRequired({ message: "Birth Day is Required" }),
   email: isRequired({ message: "Email Required" }),
   password: composeValidators(

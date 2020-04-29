@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import { Calendar } from "primereact/calendar";
+import { TextField } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 interface propTypes {
   onChange: Function;
@@ -20,11 +22,36 @@ const CalenderComponent: FC<propTypes> = ({
   label,
   meta: { touched, error }
 }): JSX.Element => {
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      container: {
+        display: "flex",
+        flexWrap: "wrap"
+      },
+      textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200
+      }
+    })
+  );
+
+  const classes = useStyles();
+
   return (
     <>
       <span className="p-float-label">
-        <Calendar {...input} />
-        {!touched && <label htmlFor="in">{label}</label>}
+        <TextField
+          {...input}
+          id="date"
+          label="Birthday"
+          type="date"
+          defaultValue="2017-05-24"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
         {touched && error && (
           <label style={{ textAlign: "center", color: "darkRed" }}>
             {error}

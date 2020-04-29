@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { InputText } from "primereact/inputtext";
-import { TextField } from "@material-ui/core";
+import { Dropdown } from "primereact/dropdown";
+import { Select, MenuItem, InputLabel } from "@material-ui/core";
 
 interface propTypes {
   onChange: Function;
@@ -14,26 +14,33 @@ interface propTypes {
   setFocus: Function;
   input: any;
   meta: any;
+  options: any;
 }
 
-const TextInput: FC<propTypes> = ({
+const SingleSelection: FC<propTypes> = ({
   input,
   label,
   fullWidth,
   type,
+  options,
   meta: { touched, error }
 }): JSX.Element => {
   return (
     <>
       <span className="p-float-label">
-        {!touched && <label htmlFor="in">{label}</label>}
-        <TextField
+        <Select
+          style={{ width: "80px" }}
           {...input}
-          color={touched && !!error ? "secondary" : "primary"}
-          fullWidth={fullWidth}
-          type={type}
-          margin="normal"
-        />
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+        >
+          {options.map((option: any) => (
+            <MenuItem key={option.key} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        {!touched && <label htmlFor="in">{label}</label>}
         {touched && error && (
           <label style={{ textAlign: "center", color: "darkRed" }}>
             {error}
@@ -44,4 +51,4 @@ const TextInput: FC<propTypes> = ({
   );
 };
 
-export default TextInput;
+export default SingleSelection;
