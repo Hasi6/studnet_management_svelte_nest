@@ -5393,10 +5393,10 @@ firebase@^7.14.2:
     "@firebase/storage" "0.3.32"
     "@firebase/util" "0.2.45"
 
-firebase_fileupload@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/firebase_fileupload/-/firebase_fileupload-1.0.2.tgz#40d00ea7572488976f53ef0979221a00446479aa"
-  integrity sha512-ztai80BIStBbfDNMYsViHpkq2kN5gq9QPFUcpjpgmufZ0Bw3tNpti3nRrndguZIxbLXIjXgArr6+NUfj4UjsMg==
+firebase_fileupload@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/firebase_fileupload/-/firebase_fileupload-1.1.2.tgz#72688070ea2f2a38372f5ca56729ff8e49916d53"
+  integrity sha512-5adW48VNh59ejkehgbgzfCQDL0ub0lLwRlGVlv1ZYGYnR7Q6p+Q2NsrnK1QRFddO5nCYaGByOs0w1JCYL6dJjg==
 
 flat-cache@^1.2.1:
   version "1.3.4"

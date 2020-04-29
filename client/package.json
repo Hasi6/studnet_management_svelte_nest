@@ -14,7 +14,7 @@
     "core-js": "^2.6.5",
     "emoji-mart": "^3.0.0",
     "firebase": "^7.14.2",
-    "firebase_fileupload": "^1.0.2",
+    "firebase_fileupload": "^1.1.2",
     "graphql": "^15.0.0",
     "jwt-decode": "^2.2.0",
     "smelte": "^1.0.12",

@@ -9,8 +9,8 @@
   import { apiRequests } from "../../../../../app/helpers/apiRequests.js";
   import { endPoint } from "../../../../../config";
   import { storage } from "../../../../../config/firebase.js";
-  // import fileUploadFirebase from "firebase_fileupload";
-  import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
+  import fileUploadFirebase from "firebase_fileupload";
+  // import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
   import errorStore from "../../../../../app/Store/errors/errors.store.js";
 
   export let chatId;
@@ -32,7 +32,8 @@
     errorStore.addErrors({ msg: err, type: "danger" });
   };
 
-  const success = () => {
+  const success = urls => {
+    console.log(urls);
     errorStore.addErrors({ msg: "File Uploaded", type: "success" });
   };
 
