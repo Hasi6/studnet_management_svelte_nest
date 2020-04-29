@@ -19,8 +19,6 @@ const AuthorizedWrapper: FC = ({ children }) => {
     { label: "Settings", icon: "pi pi-fw pi-cog" }
   ];
 
-  console.log(activeItem);
-
   return (
     <>
       <Sidebar visible={visible} onHide={() => setVisible(!visible)}>
