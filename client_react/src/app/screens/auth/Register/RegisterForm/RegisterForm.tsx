@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import {
   combineValidators,
   isRequired,
@@ -51,12 +51,7 @@ const RegisterForm: FC<propTypes> = ({
         </Grid>
         <br />
         <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
-          <Field
-            name="email"
-            component={TextInput}
-            label="Email"
-            type="email"
-          />
+          <Field name="email" component={TextInput} label="Email" type="text" />
         </Grid>
         <br />
         <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
@@ -88,7 +83,7 @@ const RegisterForm: FC<propTypes> = ({
             ]}
           />
         </Grid>
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

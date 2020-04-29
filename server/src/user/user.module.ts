@@ -8,6 +8,8 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { UserRepo } from './user.repo';
 import { JwtStrategy } from './jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user.entity';
 
 
 
@@ -22,7 +24,8 @@ import { JwtStrategy } from './jwt.strategy';
       signOptions: {
         expiresIn: 60 * 60 * 24 * 10
       }
-    })
+    }),
+    TypeOrmModule.forFeature([User])
   ],
   controllers: [UserController],
   providers: [UserService, UserRepo, JwtStrategy],

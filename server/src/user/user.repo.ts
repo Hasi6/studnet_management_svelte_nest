@@ -1,16 +1,22 @@
-import { InternalServerErrorException, Logger, BadRequestException } from '@nestjs/common';
+import { InternalServerErrorException, Logger, BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 
 import { IUser } from './user.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { Repository } from 'typeorm';
 
 
 const logger: Logger = new Logger()
 
+@Injectable()
 export class UserRepo {
     constructor(
         @InjectModel('users')
-        private readonly user: Model<IUser>
+        private readonly user: Model<IUser>,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
     ) { }
 
     // ***************************** Create User *******************************************
@@ -46,7 +52,8 @@ export class UserRepo {
     // Get User By Email
     public getUserByEmail = async (email: string) => {
         try {
-            return await this.user.findOne({ email });
+            // return await this.user.findOne({ email });
+            return await this.userRepository.findOne({ email })
         } catch (err) {
             logger.verbose(`User Repo Get User By Id Error ${err.message}`)
             throw new InternalServerErrorException()
