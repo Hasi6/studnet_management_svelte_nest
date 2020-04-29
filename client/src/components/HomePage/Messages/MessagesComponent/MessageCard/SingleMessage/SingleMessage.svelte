@@ -5,6 +5,8 @@
   import authStore from "../../../../../../app/Store/auth/auth.store.js";
   export let message;
 
+  console.log(message);
+
   let unsubscribe;
   let user;
   let isMe;
@@ -33,7 +35,12 @@
 
   <div class="message">
 
-    <p style="width:auto">{message.message}</p>
+    {#if message.message}
+      <p style="width:auto">{message.message}</p>
+    {/if}
+    {#if message.image}
+      <img src={message.image} alt="image" />
+    {/if}
     <Button
       dropdown=""
       autoclose

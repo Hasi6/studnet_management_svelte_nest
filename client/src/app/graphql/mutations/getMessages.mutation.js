@@ -5,6 +5,7 @@ export const getMessages = gql`
     messages(chatId: $chatId) {
       sender
       message
+      image
       _id
       fullChatId
       chatId

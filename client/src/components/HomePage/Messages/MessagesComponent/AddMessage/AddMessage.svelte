@@ -21,6 +21,7 @@
   let image;
   let errors;
   let percentage;
+  let loading;
 
   const setPercentage = pers => {
     percentage = pers;
@@ -35,6 +36,7 @@
   const success = urls => {
     console.log(urls);
     errorStore.addErrors({ msg: "File Uploaded", type: "success" });
+    sendMessage(urls[0]);
   };
 
   let open = false;
@@ -45,6 +47,7 @@
   let message;
 
   const uploadImage = async () => {
+    loading = true;
     const res = await fileUploadFirebase(
       storage,
       [image],
@@ -53,25 +56,25 @@
       success,
       setErrors
     );
-    console.log(res);
   };
 
   const addEmoji = e => {
     message = `${message} ${e.detail}`;
   };
 
-  const sendMessage = async () => {
+  const sendMessage = async url => {
     fullChatId = chatList.filter(chat => chat._id === chatId)[0].fullChatId;
     const body = {
       chatId,
       fullChatId,
-      message
+      message: message || null,
+      image: url || null
     };
     console.log(localStorage.getItem("token"));
     const res = await apiRequests(`${endPoint}/api/message`, "post", body, {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     });
-
+    loading = false;
     message = "";
   };
 
@@ -140,6 +143,7 @@
 
     </div>
     <Button
+      {loading}
       success
       iconRight={mdiSend}
       style="margin:10px"
