@@ -8,12 +8,26 @@
   import chatStore from "../../../../../app/Store/chat/chat.store.js";
   import { apiRequests } from "../../../../../app/helpers/apiRequests.js";
   import { endPoint } from "../../../../../config";
+  import { storage } from "../../../../../config/firebase.js";
+  // import fileUploadFirebase from "firebase_fileupload";
+  import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
 
   export let chatId;
 
   let chatList = [];
   let unsubscribe;
   let fullChatId;
+  let image;
+  let errors;
+  let percentage;
+
+  const setPercentage = pers => {
+    percentage = pers;
+  };
+
+  const setErrors = err => {
+    errors = err;
+  };
 
   let open = false;
   const toggle = () => (open = !open);
@@ -21,6 +35,17 @@
   export let visible = false;
 
   let message;
+
+  const uploadImage = async () => {
+    const res = await fileUploadFirebase(
+      storage,
+      [image],
+      "test",
+      setPercentage,
+      setErrors
+    );
+    console.log(res);
+  };
 
   const addEmoji = e => {
     message = `${message} ${e.detail}`;
@@ -97,13 +122,19 @@
     <div class="dropper">
       <input
         type="file"
-        on:change={e => console.log(e.target.files)}
+        on:change={e => {
+          image = e.target.files[0];
+        }}
         multiple={false}
         accept="image/*" />
       <span>Drag Files Here</span>
 
     </div>
-    <Button success loading iconRight={mdiSend} style="margin:10px">
+    <Button
+      success
+      iconRight={mdiSend}
+      style="margin:10px"
+      on:click={() => uploadImage()}>
       Send
     </Button>
   </div>

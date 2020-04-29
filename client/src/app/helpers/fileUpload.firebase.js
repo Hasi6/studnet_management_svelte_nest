@@ -1,10 +1,14 @@
-import { storage } from "../../config/firebase";
-
-export const fileUploadFirebase = async (files, setPercentage) => {
+export const fileUploadFirebase = async (
+  storage,
+  files,
+  path,
+  setPercentage,
+  setErrors
+) => {
   let urls = [];
   await files.map(file => {
     storage()
-      .ref(`post_images/${file.name}`)
+      .ref(`${path}/${file.name}`)
       .put(file)
       .on(
         "state_changed",
@@ -15,21 +19,23 @@ export const fileUploadFirebase = async (files, setPercentage) => {
           setPercentage(percentage);
         },
         error => {
-          console.log(error);
+          setErrors(error.message);
           return null;
         },
         async () => {
           // error
           await storage()
-            .ref(`post_images/`)
+            .ref(`${path}/`)
             .child(file.name)
             .getDownloadURL()
             .then(async url => {
               urls = [...urls, url];
               if (files.length === urls.length) {
+                alert("Hasi");
                 return urls;
               }
-            });
+            })
+            .catch(err => setErrors(err.message));
         }
       );
   });
