@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Grid } from "@material-ui/core";
-import { InputText } from "primereact/inputtext";
 import { connect } from "react-redux";
 import {
   combineValidators,
@@ -13,7 +12,6 @@ import { loginUser } from "../../../redux/actions/auth/auth.actions";
 import { reduxForm, Field } from "redux-form";
 import { IAuthUser } from "../../../model/User.model";
 
-import "./Login.scss";
 import TextInput from "../../../components/forms/TextInput";
 import { Button } from "@material-ui/core";
 

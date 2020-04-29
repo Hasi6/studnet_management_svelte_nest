@@ -1,5 +1,12 @@
-.loginSection {
+// Auth
+.authSection {
     min-width: 1000px;
+    background-color: red($color: #000000);
+}
+
+
+// Login
+.loginSection {
     background-color: rgb(28, 101, 196);
 
     .login {
@@ -14,6 +21,7 @@
             }
         }
 
-        Button {}
     }
 }
+
+// Register

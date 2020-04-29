@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 
+import { Grid } from "@material-ui/core";
+
 const Register: FC = (): JSX.Element => {
   return (
-    <div>
-      <h1>Register Section</h1>
+    <div className="">
+      <Grid container></Grid>
     </div>
   );
 };
