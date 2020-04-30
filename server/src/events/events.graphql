@@ -1,0 +1,22 @@
+type Location {
+	location: String!
+	lat: Float!
+	lng: Float!
+}
+
+
+
+
+type Events {
+	_id: String!
+	title: String!
+	location: Location!
+	description: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+
+type Query {
+	getEvents(page: Int!): [Events]
+}
