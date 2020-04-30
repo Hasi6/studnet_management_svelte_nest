@@ -7,6 +7,8 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { FacultiesModule } from './faculties/faculties.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { EventsModule } from './events/events.module';
+import { Events } from './events/events.entity';
 
 @Module({
   imports: [
@@ -18,11 +20,11 @@ import { User } from './user/user.entity';
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost:27017/studentManagement-svelte-nest',
+      url: 'mongodb://localhost:27017/uni_event_creator',
       synchronize: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      entities: [User]
+      entities: [User, Events]
     }),
     GraphQLModule.forRoot({
       debug: true,
@@ -32,6 +34,7 @@ import { User } from './user/user.entity';
     }),
     FacultiesModule,
     UserModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],
