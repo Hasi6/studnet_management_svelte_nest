@@ -5285,6 +5285,11 @@ filesize@^3.6.1:
   resolved "https://registry.npm.taobao.org/filesize/download/filesize-3.6.1.tgz#090bb3ee01b6f801a8a8be99d31710b3422bb317"
   integrity sha1-CQuz7gG2+AGoqL6Z0xcQs0Irsxc=
 
+fileupload_firebase@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fileupload_firebase/-/fileupload_firebase-1.0.0.tgz#fd398a22f8ec359b9e2a0152478ea0b6359289a5"
+  integrity sha512-382MeD32iycgivLKgrQ+N8KwbbjmHx1GIcGlbm0Hcn5TiXr5k4w1lbR98k3BJ6/dsvjheJctjboCxTbsnWMi/w==
+
 fill-range@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npm.taobao.org/fill-range/download/fill-range-4.0.0.tgz#d544811d428f98eb06a63dc402d2403c328c38f7"

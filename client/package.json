@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "core-js": "^2.6.5",
     "emoji-mart": "^3.0.0",
+    "fileupload_firebase": "^1.0.0",
     "firebase": "^7.14.2",
     "firebase_fileupload": "^1.1.2",
     "graphql": "^15.0.0",

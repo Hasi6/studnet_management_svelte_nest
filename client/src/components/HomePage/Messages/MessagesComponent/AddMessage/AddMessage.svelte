@@ -9,7 +9,7 @@
   import { apiRequests } from "../../../../../app/helpers/apiRequests.js";
   import { endPoint } from "../../../../../config";
   import { storage } from "../../../../../config/firebase.js";
-  import fileUploadFirebase from "firebase_fileupload";
+  import fileUploadFirebase from "fileupload_firebase";
   // import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
   import errorStore from "../../../../../app/Store/errors/errors.store.js";
 
