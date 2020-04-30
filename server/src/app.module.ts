@@ -6,9 +6,6 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 
 import { FacultiesModule } from './faculties/faculties.module';
 import { UserModule } from './user/user.module';
-import { DepartmentModule } from './department/department.module';
-import { CoursesModule } from './courses/courses.module';
-import { ProfileModule } from './profile/profile.module';
 import { User } from './user/user.entity';
 
 @Module({
@@ -35,9 +32,6 @@ import { User } from './user/user.entity';
     }),
     FacultiesModule,
     UserModule,
-    DepartmentModule,
-    CoursesModule,
-    ProfileModule
   ],
   controllers: [],
   providers: [],
