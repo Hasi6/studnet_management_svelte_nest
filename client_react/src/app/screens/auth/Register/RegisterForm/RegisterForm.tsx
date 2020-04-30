@@ -50,8 +50,27 @@ const RegisterForm: FC<propTypes> = ({
           </Grid>
         </Grid>
         <br />
-        <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
-          <Field name="email" component={TextInput} label="Email" type="text" />
+        <Grid container>
+          <Grid item md={6} sm={6} xs={6} xl={6} lg={6}>
+            <Field
+              name="email"
+              component={TextInput}
+              label="Email"
+              type="text"
+            />
+          </Grid>
+          <Grid item md={6} sm={6} xs={6} xl={6} lg={6}>
+            <Field
+              name="university"
+              component={SingleSelection}
+              label="University"
+              options={[
+                { label: "UOK", value: "UOK", key: "UOK" },
+                { label: "UOP", value: "UOP", key: "UOP" },
+                { label: "UOC", value: "UOC", key: "UOC" }
+              ]}
+            />
+          </Grid>
         </Grid>
         <br />
         <Grid item md={12} sm={12} xs={12} xl={12} lg={12}>
@@ -109,6 +128,7 @@ const validate = combineValidators({
     })
   )(),
   gender: isRequired({ message: "Gender is Required" }),
+  university: isRequired({ message: "University is Required" }),
   birthDay: isRequired({ message: "Birth Day is Required" }),
   email: isRequired({ message: "Email Required" }),
   password: composeValidators(

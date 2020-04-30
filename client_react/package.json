@@ -14,6 +14,7 @@
     "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "fileupload_firebase": "^1.0.1",
     "firebase": "^7.14.2",
     "firebase_fileupload": "^1.1.2",
     "graphql": "^15.0.0",
