@@ -1,6 +1,6 @@
 import { InternalServerErrorException, Logger, BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
-// import { Model } from 'mongoose';
+import { Model } from 'mongoose';
 
 import { IUser } from './user.model';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,10 +13,10 @@ const logger: Logger = new Logger()
 @Injectable()
 export class UserRepo {
     constructor(
-        // @InjectModel('users')
-        // private readonly user: Model<IUser>,
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>
+        @InjectModel('users')
+        private readonly userRepository: Model<IUser>,
+        // @InjectRepository(User)
+        // private readonly userRepository: Repository<User>
     ) {
     }
 
@@ -48,7 +48,7 @@ export class UserRepo {
     // Get User By Id
     public getUserById = async (_id: string) => {
         try {
-            return await this.userRepository.findOne(_id)
+            return await this.userRepository.findById(_id)
         } catch (err) {
             logger.verbose(`User Repo Get User By Id Error ${err.message}`)
             throw new InternalServerErrorException()
@@ -70,7 +70,7 @@ export class UserRepo {
     public getUserByEmailOrUsername = async (email: string): Promise<IUser | null> => {
         console.log(email)
         try {
-            return await this.userRepository.findOne({ where: { $or: [{ email }, { username: email }] } })
+            return await this.userRepository.findOne({ $or: [{ email }, { username: email }] })
         } catch (err) {
 
             logger.verbose(`User Repo Get User By Email Or Username Error ${err.message}`)

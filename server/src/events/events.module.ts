@@ -8,6 +8,9 @@ import { User } from '../user/user.entity';
 import { UserRepo } from '../user/user.repo';
 import { JwtModule } from '@nestjs/jwt';
 import { EventsRepo } from './events.repo';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UsersSchema } from '../user/user.schema';
+import { EventsSchema } from './events.schema';
 
 @Module({
   imports: [
@@ -17,6 +20,10 @@ import { EventsRepo } from './events.repo';
         expiresIn: 60 * 60 * 24 * 10
       }
     }),
+    MongooseModule.forFeature([
+      { name: 'users', schema: UsersSchema },
+      { name: 'events', schema: EventsSchema }
+    ]),
     TypeOrmModule.forFeature([Events, User])
   ],
   providers: [EventsService, EventsResolver, UserService, UserRepo, EventsRepo],

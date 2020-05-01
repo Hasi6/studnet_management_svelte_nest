@@ -30,6 +30,6 @@ export class EventsRepo {
     // *************************************** Get Event Section ***************************************************
     // Get Event By Id
     public getEventById = async (_id: string) => {
-        console.log(await (await this.eventsRepository.findOne(_id)).user)
+        console.log(await this.eventsRepository.findOne(_id))
     }
 }
