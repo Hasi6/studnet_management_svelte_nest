@@ -1,0 +1,27 @@
+import { InputType, Field } from "@nestjs/graphql";
+import { IsNotEmpty } from "class-validator";
+import { ILocation } from './events.model';
+
+@InputType()
+export class CreateEventInput {
+    @IsNotEmpty()
+    @Field()
+    title: string;
+
+    @IsNotEmpty()
+    @Field()
+    location: ILocation;
+
+    @IsNotEmpty()
+    @Field()
+    description: string;
+
+    @Column()
+    createdAt: Date;
+
+    @Column()
+    updatedAt: Date;
+
+    @ManyToOne()
+    user: User
+}

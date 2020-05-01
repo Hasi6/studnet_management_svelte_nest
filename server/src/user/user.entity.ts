@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Entity, Column, ObjectIdColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Entity, Column, ObjectIdColumn, OneToMany, PrimaryColumn, AfterUpdate } from 'typeorm';
 import { Events } from '../events/events.entity';
 
 @Entity()
 export class User {
 
     @ObjectIdColumn()
-    @PrimaryColumn()
     _id: string;
 
     @Column({ unique: true })
@@ -38,4 +37,9 @@ export class User {
 
     @OneToMany(type => Events, events => events.user)
     events: Events[]
+
+    @AfterUpdate()
+    updateDate() {
+        this.updatedAt = new Date()
+    }
 }

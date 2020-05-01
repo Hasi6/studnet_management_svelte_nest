@@ -17,13 +17,21 @@ export class UserRepo {
         // private readonly user: Model<IUser>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>
-    ) { }
+    ) {
+        this.verifyUserAccount("hasi123", "hasi123")
+    }
 
     // ***************************** Create User *******************************************
     // Create User
     public createUser = async (nUser: IUser): Promise<string> => {
         try {
-            await this.userRepository.create(nUser)
+
+            nUser.onlineStatus = false;
+            nUser.createdAt = new Date();
+            nUser.updatedAt = new Date();
+            nUser.verifyAccount = false;
+
+            await this.userRepository.save(nUser)
             return "User Created";
         } catch (err) {
             logger.verbose(`User Repo Create User Error ${err.message}`)
@@ -73,6 +81,7 @@ export class UserRepo {
     // Get User By Token
     public getUserByToken = async (token: string): Promise<IUser | null> => {
         try {
+            console.log(await this.userRepository.findOne({ token }))
             return await this.userRepository.findOne({ token })
         } catch (err) {
             logger.verbose(`User Repo Get User By Token Error ${err.message}`)
@@ -85,7 +94,7 @@ export class UserRepo {
     // Verify User Account
     public verifyUserAccount = async (token: string, newToken: string): Promise<boolean> => {
         try {
-            await this.userRepository.update({ token }, { verifyAccount: true, token: newToken });
+            await this.userRepository.update({ token }, { verifyAccount: false, token: newToken });
             return true;
         } catch (err) {
             logger.verbose(`User RepoVerify User Error ${err.message}`)
