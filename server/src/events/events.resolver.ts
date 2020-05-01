@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../user/AuthGuard';
 import { CreateEventInput } from './events.input';
@@ -22,8 +22,9 @@ export class EventsResolver {
 
     @Mutation()
     @UseGuards(AuthGuard)
-    createEvent(@Args('createEventInput') createEventInput: CreateEventInput) {
-        console.log(createEventInput)
+    createEvent(@Args('createEventInput') createEventInput: CreateEventInput, @Context() ctx: any) {
+        console.log(ctx.user)
+        // console.log(createEventInput)
         return createEventInput
     }
 

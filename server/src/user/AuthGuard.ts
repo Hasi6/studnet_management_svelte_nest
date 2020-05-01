@@ -14,13 +14,8 @@ export class AuthGuard implements CanActivate {
     public validate = async (token: string) => {
         try {
             const decode: any = await jwt.verify(token, "jwtSecret")
-            // console.log(decode)
-            // const user = await this.userRepo.getUserByEmail(email)
 
-            // if (!user) {
-            //     throw new UnauthorizedException()
-            // }
-            // return user;
+            return decode
 
         } catch (err) {
             throw new UnauthorizedException()
@@ -28,7 +23,7 @@ export class AuthGuard implements CanActivate {
     }
 
 
-    canActivate(context: ExecutionContext): boolean {
+    async canActivate(context: ExecutionContext): Promise<boolean> {
         const ctx: any = GqlExecutionContext.create(context).getContext();
 
         if (!ctx?.headers?.authorization) {
@@ -38,10 +33,11 @@ export class AuthGuard implements CanActivate {
         const token = ctx.headers.authorization.split(" ")
 
         if (token?.length > 0 && token[0] !== "Bearer") {
-            throw new UnauthorizedException("Invalid Token")
+            throw new UnauthorizedException("")
         }
 
-        this.validate(token[1])
+        const user = await this.validate(token[1])
+        ctx.user = user;
         return true
 
     }
