@@ -1,13 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ObjectIdColumn } from "typeorm";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Entity, Column, ObjectIdColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Events } from '../events/events.entity';
 
 @Entity()
 export class User {
 
     @ObjectIdColumn()
+    @PrimaryColumn()
     _id: string;
-
-    @PrimaryGeneratedColumn()
-    id: string;
 
     @Column({ unique: true })
     email: string;
@@ -24,9 +24,6 @@ export class User {
     @Column({ nullable: true })
     token: string;
 
-    @Column({ default: [] })
-    chatIdList: string[]
-
     @Column({ default: false })
     verifyAccount: boolean;
 
@@ -38,4 +35,7 @@ export class User {
 
     @Column({ default: Date.now() })
     updatedAt: Date;
+
+    @OneToMany(type => Events, events => events.user)
+    events: Events[]
 }

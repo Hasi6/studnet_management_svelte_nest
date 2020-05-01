@@ -1,5 +1,7 @@
-import { Entity, PrimaryColumn, ObjectIdColumn, Column } from "typeorm";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Entity, PrimaryColumn, ObjectIdColumn, Column, ManyToOne } from "typeorm";
 import { ILocation } from './events.model';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Events {
@@ -22,5 +24,8 @@ export class Events {
 
     @Column({ default: Date.now() })
     updatedAt: Date;
+
+    @ManyToOne(type => User, user => user.events)
+    user: User
 
 }

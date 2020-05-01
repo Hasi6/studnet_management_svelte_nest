@@ -1,6 +1,6 @@
 import { InternalServerErrorException, Logger, BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from 'mongoose';
+// import { Model } from 'mongoose';
 
 import { IUser } from './user.model';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,8 +13,8 @@ const logger: Logger = new Logger()
 @Injectable()
 export class UserRepo {
     constructor(
-        @InjectModel('users')
-        private readonly user: Model<IUser>,
+        // @InjectModel('users')
+        // private readonly user: Model<IUser>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>
     ) { }
@@ -23,8 +23,7 @@ export class UserRepo {
     // Create User
     public createUser = async (nUser: IUser): Promise<string> => {
         try {
-            const newUser = new this.user(nUser)
-            await newUser.save()
+            await this.userRepository.create(nUser)
             return "User Created";
         } catch (err) {
             logger.verbose(`User Repo Create User Error ${err.message}`)
@@ -42,7 +41,7 @@ export class UserRepo {
     // Get User By Id
     public getUserById = async (_id: string) => {
         try {
-            return await this.user.findById(_id)
+            return await this.userRepository.findOne(_id)
         } catch (err) {
             logger.verbose(`User Repo Get User By Id Error ${err.message}`)
             throw new InternalServerErrorException()
@@ -63,7 +62,7 @@ export class UserRepo {
     // Get User By Email Or Username
     public getUserByEmailOrUsername = async (email: string): Promise<IUser | null> => {
         try {
-            return await this.user.findOne({ $or: [{ email }, { username: email }] })
+            return await this.userRepository.findOne({ where: [{ email }, { username: email }] })
         } catch (err) {
 
             logger.verbose(`User Repo Get User By Email Or Username Error ${err.message}`)
@@ -74,7 +73,7 @@ export class UserRepo {
     // Get User By Token
     public getUserByToken = async (token: string): Promise<IUser | null> => {
         try {
-            return await this.user.findOne({ token })
+            return await this.userRepository.findOne({ token })
         } catch (err) {
             logger.verbose(`User Repo Get User By Token Error ${err.message}`)
             throw new InternalServerErrorException();
@@ -86,7 +85,7 @@ export class UserRepo {
     // Verify User Account
     public verifyUserAccount = async (token: string, newToken: string): Promise<boolean> => {
         try {
-            await this.user.updateOne({ token }, { $set: { verifyAccount: true, token: newToken } });
+            await this.userRepository.update({ token }, { verifyAccount: true, token: newToken });
             return true;
         } catch (err) {
             logger.verbose(`User RepoVerify User Error ${err.message}`)
@@ -97,7 +96,7 @@ export class UserRepo {
     // Reset Password
     public resetUserPassword = async (token: string, password: string, newToken): Promise<boolean> => {
         try {
-            await this.user.updateOne({ token }, { $set: { verifyAccount: true, password, token: newToken } });
+            await this.userRepository.update({ token }, { verifyAccount: true, password, token: newToken });
             return true;
         } catch (err) {
             logger.verbose(`User RepoVerify User Error ${err.message}`)

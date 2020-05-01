@@ -16,9 +16,9 @@ import { User } from './user.entity';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    MongooseModule.forFeature([
-      { name: 'users', schema: UsersSchema }
-    ]),
+    // MongooseModule.forFeature([
+    //   { name: 'users', schema: UsersSchema }
+    // ]),
     JwtModule.register({
       secret: 'jwtSecret',
       signOptions: {
