@@ -3,9 +3,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
 
 import { IUser } from './user.model';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
-import { Repository } from 'typeorm';
 
 
 const logger: Logger = new Logger()
