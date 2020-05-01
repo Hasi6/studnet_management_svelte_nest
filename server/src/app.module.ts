@@ -30,6 +30,7 @@ import { Events } from './events/events.entity';
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
+      context: ({ req }) => ({ headers: req.headers }),
       typePaths: ['./**/*.graphql']
     }),
     FacultiesModule,

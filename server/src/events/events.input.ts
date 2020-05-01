@@ -16,12 +16,4 @@ export class CreateEventInput {
     @Field()
     description: string;
 
-    @Column()
-    createdAt: Date;
-
-    @Column()
-    updatedAt: Date;
-
-    @ManyToOne()
-    user: User
 }

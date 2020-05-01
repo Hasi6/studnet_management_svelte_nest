@@ -1,13 +1,25 @@
+input CreateLocationInput {
+	location: String
+	lat: Float
+	lng: Float
+}
+
+
+
 type Location {
 	location: String!
 	lat: Float!
 	lng: Float!
 }
 
+input createEventInput {
+	title: String!
+	location: CreateLocationInput!
+	description: String!
+}
 
 
-
-type Events {
+type Event {
 	_id: String!
 	title: String!
 	location: Location!
@@ -18,5 +30,9 @@ type Events {
 
 
 type Query {
-	getEvents(page: Int!): [Events]
+	getEvents(page: Int!): [Event]
+}
+
+type Mutation {
+	createEvent(createEventInput: createEventInput): Event
 }
