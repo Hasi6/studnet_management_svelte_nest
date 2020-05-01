@@ -2,14 +2,15 @@ import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../user/AuthGuard';
 import { CreateEventInput } from './events.input';
+import { EventsService } from './events.service';
 
 @Resolver('Events')
 export class EventsResolver {
 
 
-    // constructor(
-
-    // ) { }
+    constructor(
+        private readonly eventsService: EventsService
+    ) { }
 
 
     @Query()
@@ -23,9 +24,7 @@ export class EventsResolver {
     @Mutation()
     @UseGuards(AuthGuard)
     createEvent(@Args('createEventInput') createEventInput: CreateEventInput, @Context() ctx: any) {
-        console.log(ctx.user)
-        // console.log(createEventInput)
-        return createEventInput
+        return this.eventsService.createEvent(ctx.user, createEventInput)
     }
 
 }

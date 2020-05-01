@@ -7,6 +7,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { UserRepo } from '../user/user.repo';
 import { JwtModule } from '@nestjs/jwt';
+import { EventsRepo } from './events.repo';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     TypeOrmModule.forFeature([Events, User])
   ],
-  providers: [EventsService, EventsResolver, UserService, UserRepo],
-  exports: [EventsService, EventsResolver, UserService, UserRepo],
+  providers: [EventsService, EventsResolver, UserService, UserRepo, EventsRepo],
+  exports: [EventsService, EventsResolver, UserService, UserRepo, EventsRepo],
 })
 export class EventsModule { }
