@@ -1,30 +1,48 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import * as jwt from 'jsonwebtoken'
 
 @Injectable()
-export class AuthGuard extends PassportStrategy(Strategy) implements CanActivate {
+export class AuthGuard implements CanActivate {
 
     constructor(
         private readonly userService: UserService
     ) {
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'jwtSecret'
-        });
+    }
+    // jwtSecret
+    public validate = async (token: string) => {
+        try {
+            const decode: any = await jwt.verify(token, "jwtSecret")
+            // console.log(decode)
+            // const user = await this.userRepo.getUserByEmail(email)
+
+            // if (!user) {
+            //     throw new UnauthorizedException()
+            // }
+            // return user;
+
+        } catch (err) {
+            throw new UnauthorizedException()
+        }
     }
 
 
     canActivate(context: ExecutionContext): boolean {
         const ctx: any = GqlExecutionContext.create(context).getContext();
-        console.log(ctx?.headers?.authorization)
 
         if (!ctx?.headers?.authorization) {
             throw new UnauthorizedException()
         }
 
-        return true;
+        const token = ctx.headers.authorization.split(" ")
+
+        if (token?.length > 0 && token[0] !== "Bearer") {
+            throw new UnauthorizedException("Invalid Token")
+        }
+
+        this.validate(token[1])
+        return true
+
     }
 }

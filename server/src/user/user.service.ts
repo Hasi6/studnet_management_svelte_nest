@@ -22,7 +22,8 @@ export class UserService {
     constructor(
         private readonly userRepo: UserRepo,
         private readonly jwt: JwtService
-    ) { }
+    ) {
+    }
 
 
     private email: Email = new Email();

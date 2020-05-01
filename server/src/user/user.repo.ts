@@ -18,7 +18,6 @@ export class UserRepo {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>
     ) {
-        this.verifyUserAccount("hasi123", "hasi123")
     }
 
     // ***************************** Create User *******************************************
@@ -69,8 +68,9 @@ export class UserRepo {
 
     // Get User By Email Or Username
     public getUserByEmailOrUsername = async (email: string): Promise<IUser | null> => {
+        console.log(email)
         try {
-            return await this.userRepository.findOne({ where: [{ email }, { username: email }] })
+            return await this.userRepository.findOne({ where: { $or: [{ email }, { username: email }] } })
         } catch (err) {
 
             logger.verbose(`User Repo Get User By Email Or Username Error ${err.message}`)
