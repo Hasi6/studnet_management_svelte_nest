@@ -109,6 +109,16 @@ export class UserRepo {
         }
     }
 
+    // Change User Data
+    public changeUserData = async (_id: string, userData: any) => {
+        try {
+            await this.user.updateOne({ _id }, { $set: userData })
+            return await this.getUserById(_id)
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
+    }
+
 
     // ***************************** Delete User *******************************************
 }

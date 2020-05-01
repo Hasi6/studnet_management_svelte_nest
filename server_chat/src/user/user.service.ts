@@ -100,6 +100,11 @@ export class UserService {
         return true;
     }
 
+    // Change User Data
+    public changeUserData = async (_id: string, userData: any) => {
+        return this.userRepo.changeUserData(_id, userData);
+    }
+
     // Reset Password
     public resetPassword = async (token: string, resetPasswordDto: ResetPassword) => {
         let { password } = resetPasswordDto

@@ -14,7 +14,7 @@ export class FacultiesResolver {
 
 
     @Query()
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     faculties() {
         pubSub.publish('commentAdded', "Hasi");
         return this.facultiesService.getAllFaculties()
