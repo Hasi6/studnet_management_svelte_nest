@@ -24,13 +24,8 @@ export class UserRepo {
     // Create User
     public createUser = async (nUser: IUser): Promise<string> => {
         try {
-
-            nUser.onlineStatus = false;
-            nUser.createdAt = new Date();
-            nUser.updatedAt = new Date();
-            nUser.verifyAccount = false;
-
-            await this.userRepository.save(nUser)
+            const newUser = new this.userRepository(nUser)
+            await newUser.save()
             return "User Created";
         } catch (err) {
             logger.verbose(`User Repo Create User Error ${err.message}`)

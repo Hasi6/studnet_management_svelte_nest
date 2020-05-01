@@ -12,7 +12,7 @@ import { Events } from './events/events.entity';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.NODE_ENV === 'production' ? "mongodb://localhost:27017/studentManagement-svelte-nest" : "mongodb://localhost:27017/studentManagement-svelte-nest", {
+    MongooseModule.forRoot(process.env.NODE_ENV === 'production' ? "mongodb://localhost:27017/uni_event_creator" : "mongodb://localhost:27017/uni_event_creator", {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
