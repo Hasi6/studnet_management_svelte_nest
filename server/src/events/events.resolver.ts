@@ -24,7 +24,7 @@ export class EventsResolver {
     @Mutation()
     @UseGuards(AuthGuard)
     createEvent(@Args('createEventInput') createEventInput: CreateEventInput, @Context() ctx: any) {
-        return this.eventsService.createEvent(ctx.user, createEventInput)
+        return this.eventsService.createEvent(ctx.user._id, createEventInput)
     }
 
 }

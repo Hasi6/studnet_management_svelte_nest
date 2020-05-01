@@ -4,7 +4,7 @@ import { Events } from '../events/events.entity';
 
 @Entity()
 export class User {
-
+    @PrimaryColumn()
     @ObjectIdColumn()
     _id: string;
 

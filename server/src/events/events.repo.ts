@@ -9,7 +9,11 @@ export class EventsRepo {
     constructor(
         @InjectRepository(Events)
         private readonly eventsRepository: Repository<Events>
-    ) { }
+    ) {
+
+        this.getEventById("5eabea609615995238647957")
+
+    }
 
 
     // *************************************** Create Event Section ***************************************************
@@ -21,5 +25,11 @@ export class EventsRepo {
         } catch (err) {
             throw new InternalServerErrorException()
         }
+    }
+
+    // *************************************** Get Event Section ***************************************************
+    // Get Event By Id
+    public getEventById = async (_id: string) => {
+        console.log(await (await this.eventsRepository.findOne(_id)).user)
     }
 }

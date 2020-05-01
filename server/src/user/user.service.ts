@@ -118,4 +118,15 @@ export class UserService {
         return await this.userRepo.resetUserPassword(token, password, newToken)
     }
 
+
+
+    // ************************************** Get Users Section ***********************************************
+    public getUserByEmail = async (email: string) => {
+        const user = await this.userRepo.getUserByEmail(email)
+
+        if (!user) {
+            throw new BadRequestException(`No User Found on ${email} Email address`)
+        }
+        return user
+    }
 }
