@@ -5,10 +5,13 @@
   import { Modal, ModalBody, ModalFooter, ModalHeader } from "sveltestrap";
   import { Input, Field, Button, Card } from "svelte-chota";
   import { mdiSend, mdiPlus } from "@mdi/js";
+  import fileUploadFirebase from "firebase_fileupload";
+  import { storage } from "../../../config/firebase.js";
 
   let user;
   let unsubscribe;
   let loading = false;
+  let image;
   const toggle = () => (open = !open);
 
   let open = false;
@@ -18,6 +21,25 @@
       console.log(res.user);
       user = res.user;
     });
+  };
+
+  const setErrors = error => {};
+
+  const success = urls => {
+    console.log(urls);
+  };
+
+  const setPercentage = percentage => {};
+
+  const uploadImage = () => {
+    fileUploadFirebase(
+      storage,
+      [image],
+      "profileImages",
+      setPercentage,
+      success,
+      setErrors
+    );
   };
 
   onMount(() => {
@@ -75,13 +97,20 @@
     <div class="dropper">
       <input
         type="file"
-        on:change={e => console.log(e.target.files)}
+        on:change={e => {
+          image = e.target.files[0];
+        }}
         multiple={false}
         accept="image/*" />
       <span>Drag Files Here</span>
 
     </div>
-    <Button success {loading} iconRight={mdiSend} style="margin:10px">
+    <Button
+      success
+      {loading}
+      iconRight={mdiSend}
+      style="margin:10px"
+      on:click={() => uploadImage()}>
       Send
     </Button>
   </div>

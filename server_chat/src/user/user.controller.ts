@@ -1,6 +1,7 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Put, Param } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Put, Param, UseGuards } from '@nestjs/common';
 import { CreateUserDto, LoginUserDto, RequestResetPasswordLink, ResetPassword } from './Dto/user.dto';
 import { UserService } from './user.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/auth')
 export class UserController {
@@ -41,6 +42,7 @@ export class UserController {
     }
 
     @Put("/editUser/:id")
+    @UseGuards(AuthGuard())
     changeUserDetails(@Param('id') id: string, @Body() userData: any) {
         console.log(id, userData)
         this.userService.changeUserData(id, userData)
