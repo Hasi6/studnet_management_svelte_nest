@@ -44,8 +44,7 @@ export class UserController {
     @Put("/editUser/:id")
     @UseGuards(AuthGuard())
     changeUserDetails(@Param('id') id: string, @Body() userData: any) {
-        console.log(id, userData)
-        this.userService.changeUserData(id, userData)
+        return this.userService.changeUserData(id, userData)
     }
 
 

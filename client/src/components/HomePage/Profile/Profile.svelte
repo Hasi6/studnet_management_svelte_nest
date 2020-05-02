@@ -7,6 +7,8 @@
   import { mdiSend, mdiPlus } from "@mdi/js";
   import fileUploadFirebase from "firebase_fileupload";
   import { storage } from "../../../config/firebase.js";
+  import { apiRequests } from "../../../app/helpers/apiRequests.js";
+  import { endPoint } from "../../../config";
 
   let user;
   let unsubscribe;
@@ -18,20 +20,34 @@
 
   const getState = () => {
     unsubscribe = authStore.subscribe(res => {
-      console.log(res.user);
       user = res.user;
     });
   };
 
   const setErrors = error => {};
 
-  const success = urls => {
-    console.log(urls);
+  const success = async urls => {
+    const body = { image: urls[0] };
+
+    const res = await apiRequests(
+      `${endPoint}/api/auth/editUser/${user._id}`,
+      "put",
+      body,
+      {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    );
+    loading = false;
+
+    if (res && res.data) {
+      user.image = res.data.image;
+    }
   };
 
   const setPercentage = percentage => {};
 
   const uploadImage = () => {
+    loading = true;
     fileUploadFirebase(
       storage,
       [image],
