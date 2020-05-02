@@ -43,7 +43,7 @@ export class UserController {
     @Put("/editUser/:id")
     changeUserDetails(@Param('id') id: string, @Body() userData: any) {
         console.log(id, userData)
-        // this.userService.changeUserData(id, userData)
+        this.userService.changeUserData(id, userData)
     }
 
 
