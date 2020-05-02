@@ -41,6 +41,7 @@
 
     if (res && res.data) {
       user.image = res.data.image;
+      localStorage.setItem("token", res.data.token);
     }
   };
 

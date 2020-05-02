@@ -77,6 +77,24 @@ export class UserService {
         return { token }
     }
 
+    // Generate New Token
+    private generateNewToken = async (_id: string): Promise<string> => {
+        const user: IUser = await this.userRepo.getUserById(_id);
+        if (!user) {
+            throw new BadRequestException("Invalid Credentials")
+        }
+
+        const payload: IJwtToken = {
+            _id: user._id,
+            email: user.email,
+            image: user.image,
+            username: user.username,
+            onLineStatus: user.onlineStatus
+        }
+        const token = this.jwt.sign(payload)
+        return token;
+    }
+
     // ********************************************** Edit User *************************************************
     //  Verify Account
     public verifyAccounts = async (token: string): Promise<boolean> => {
@@ -102,7 +120,11 @@ export class UserService {
 
     // Change User Data
     public changeUserData = async (_id: string, userData: any) => {
-        return this.userRepo.changeUserData(_id, userData);
+
+        const newToken = await this.generateNewToken(_id);
+        const userDetails = await this.userRepo.changeUserData(_id, userData);
+        userDetails.token = newToken;
+        return userDetails;
     }
 
     // Reset Password
