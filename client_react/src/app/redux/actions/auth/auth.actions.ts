@@ -10,7 +10,7 @@ const authEndPoint = `${endPoint}/api/auth`
 
 
 // Set Current User
-export const setCurrentUser = () => (dispatch: Dispatch) => {
+export const setCurrentUser = (): any => (dispatch: Dispatch) => {
     const token: string | null = localStorage.getItem('token');
     const authState: { auth: boolean, user: any } = decodeToken(token);
     dispatch({ type: AuthTypes.SET_CURRENT_USER, payload: authState })
@@ -20,13 +20,14 @@ export const setCurrentUser = () => (dispatch: Dispatch) => {
 
 
 // Login User
-export const loginUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
+export const loginUser = (user: IAuthUser, history: any) => async (dispatch: Dispatch) => {
     const res = await apiRequests("post", `${authEndPoint}/login`, user)
     if (res) {
         const authState: { auth: boolean, user: any } = decodeToken(res?.data?.token);
         dispatch({ type: AuthTypes.LOGIN_USER });
         dispatch({ type: AuthTypes.SET_CURRENT_USER, payload: authState })
         toastr.success("Welcome", authState.user.username)
+        history.push("/")
     }
 
 };

@@ -4,12 +4,14 @@ import { withRouter, Route, Switch } from "react-router-dom";
 // Screens
 import Home from "./screens/Home/Home";
 import Auth from "./screens/auth/Auth";
+import PrivateRoute from "./Routes/PrivateRoute";
+import UnPrivateRoute from "./Routes/UnPrivateRoute";
 
 const Routes = ({ location }: { location: any }): JSX.Element => {
   return (
     <Switch key={location.key}>
-      <Route path="/" exact component={Home} />
-      <Route path="/login" exact component={Auth} />
+      <PrivateRoute path="/" exact component={Home} />
+      <UnPrivateRoute path="/login" exact component={Auth} />
     </Switch>
   );
 };

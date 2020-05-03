@@ -14,6 +14,7 @@ import { IAuthUser } from "../../../model/User.model";
 
 import TextInput from "../../../components/forms/TextInput";
 import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 interface propTypes {
   loginUser: Function;
@@ -21,8 +22,10 @@ interface propTypes {
 }
 
 const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
+  const history = useHistory();
+
   const onSubmit = (e: IAuthUser) => {
-    loginUser(e);
+    loginUser(e, history);
   };
 
   return (

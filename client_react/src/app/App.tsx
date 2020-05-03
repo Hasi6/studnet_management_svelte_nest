@@ -7,11 +7,14 @@ import store from "./redux/store/store";
 import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 
 import Routes from "./Routes";
+import { setCurrentUser } from "./redux/actions/auth/auth.actions";
 
 const App: FC = (): JSX.Element => {
   useEffect(() => {
     toastr.error("Hasi", "Hasi");
   }, []);
+
+  store.dispatch(setCurrentUser());
 
   return (
     <Provider store={store}>
