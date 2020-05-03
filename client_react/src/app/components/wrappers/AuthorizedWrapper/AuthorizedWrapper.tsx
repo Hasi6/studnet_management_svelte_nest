@@ -25,15 +25,6 @@ const AuthorizedWrapper: FC = ({ children }) => {
         Content
       </Sidebar>
       <Button icon="pi pi-arrow-right" onClick={e => setVisible(!visible)} />
-      <TabMenu
-        model={items}
-        activeItem={activeItem}
-        onTabChange={e => setActiveItem(e.value)}
-      />
-      <Password
-        value={password}
-        onChange={(e: any) => setPassword(e.target.value)}
-      />
       {children}
     </>
   );
