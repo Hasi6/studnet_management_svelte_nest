@@ -1,4 +1,4 @@
-import React, { FC, createElement } from "react";
+import React, { createElement } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
