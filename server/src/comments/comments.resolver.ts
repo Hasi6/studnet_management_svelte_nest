@@ -1,4 +1,4 @@
-import { Resolver } from "@nestjs/graphql";
+import { Resolver, Args, Query } from "@nestjs/graphql";
 import { CommentsService } from './comments.service';
 
 @Resolver()
@@ -10,5 +10,9 @@ export class CommentsResolver {
     ) { }
 
 
+    @Query()
+    getComments(@Args('event') event: string) {
+        console.log(event)
+    }
 
 }

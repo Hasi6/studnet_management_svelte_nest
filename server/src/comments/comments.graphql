@@ -11,3 +11,8 @@ type Comment {
 	event: Event
 	comment: String!
 }
+
+
+type Query {
+	getComments(event: ID!): Comment
+}

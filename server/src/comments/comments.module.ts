@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersSchema } from '../user/user.schema';
 import { CommentsSchema } from './comments.schema';
 import { CommentsRepo } from './comments.repo';
+import { CommentsResolver } from './comments.resolver';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { CommentsRepo } from './comments.repo';
       ]
     )
   ],
-  providers: [CommentsService, CommentsRepo],
-  exports: [CommentsService, CommentsRepo],
+  providers: [CommentsService, CommentsRepo, CommentsResolver],
+  exports: [CommentsService, CommentsRepo, CommentsResolver],
 })
 export class CommentsModule { }
