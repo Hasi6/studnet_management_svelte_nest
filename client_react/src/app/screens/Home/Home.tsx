@@ -8,12 +8,13 @@ import GooglePlacesAutocomplete, {
 } from "react-google-places-autocomplete";
 // If you want to use the provided css
 import "react-google-places-autocomplete/dist/index.min.css";
+import EventsList from "../../components/singleEvent/EventsList";
 
 const Home: FC = (): JSX.Element => {
   return (
     <AuthorizedWrapper>
       <h1>Home Page</h1>
-
+      <EventsList />
       <GooglePlacesAutocomplete
         onSelect={async e => {
           console.log(e);
