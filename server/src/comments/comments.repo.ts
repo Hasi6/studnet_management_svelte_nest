@@ -1,18 +1,25 @@
-import { Injectable } from '@nestjs/common';
-import { CommentsRepo } from './comments.repo';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { InternalServerErrorException } from '@nestjs/common';
+import { IComments } from './comments.model';
 
-@Injectable()
-export class CommentsService {
+export class CommentsRepo {
 
     constructor(
-        private readonly commentsRepo: CommentsRepo
+        @InjectModel('comments')
+        private readonly comments: Model<IComments>,
     ) { }
+
 
     // ****************************************** Create Comment Section ***************************************************
     // Create Comments
-    public addComment = async (user: string, comment: any) => {
-        const newComment = { ...comment, user }
-        return await this.commentsRepo.addComment(newComment)
+    public addComment = async (comment: any) => {
+        try {
+            const newComment = this.comments(comment);
+            return await newComment.save();
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
     }
 
 
@@ -25,5 +32,6 @@ export class CommentsService {
 
 
     // ****************************************** Delete Comment Section ***************************************************
+
 
 }
