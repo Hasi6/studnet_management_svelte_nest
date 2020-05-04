@@ -75,4 +75,14 @@ export class CommentsRepo {
         }
     }
 
+    // Delete Comments By Post
+    public deleteCommentsByPost = async (post: string) => {
+        try {
+            await this.comments.deleteMany({ post })
+            return "Deleted"
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
+    }
+
 }
