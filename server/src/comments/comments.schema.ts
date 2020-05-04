@@ -1,7 +1,5 @@
 import { Schema } from "mongoose";
 
-
-
 export const CommentsSchema = new Schema(
     {
         user: {
