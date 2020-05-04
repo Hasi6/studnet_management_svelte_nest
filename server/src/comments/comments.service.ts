@@ -38,7 +38,11 @@ export class CommentsService {
 
 
     // ****************************************** Edit Comment Section ***************************************************
-
+    // Edit Comment
+    public editComment = async (_id: string, body: any) => {
+        await this.getCommentsById(_id);
+        return await this.commentsRepo.editComment(_id, body);
+    }
 
 
     // ****************************************** Delete Comment Section ***************************************************

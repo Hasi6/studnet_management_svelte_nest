@@ -53,7 +53,15 @@ export class CommentsRepo {
 
 
     // ****************************************** Edit Comment Section ***************************************************
-
+    // Edit Comment
+    public editComment = async (_id: string, body: string) => {
+        try {
+            await this.comments.updateOne({ _id }, { $set: body })
+            return this.comments.findById(_id)
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
 
 
     // ****************************************** Delete Comment Section ***************************************************
