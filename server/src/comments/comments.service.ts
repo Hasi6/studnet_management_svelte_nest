@@ -46,5 +46,9 @@ export class CommentsService {
 
 
     // ****************************************** Delete Comment Section ***************************************************
-
+    // Delete Comments By Id
+    public deleteCommentById = async (_id: string) => {
+        await this.commentsRepo.getCommentsById(_id);
+        return this.commentsRepo.deleteCommentById(_id);
+    }
 }

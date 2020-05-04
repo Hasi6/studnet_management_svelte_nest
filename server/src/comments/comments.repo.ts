@@ -65,6 +65,14 @@ export class CommentsRepo {
 
 
     // ****************************************** Delete Comment Section ***************************************************
-
+    // Delete Comments By Id
+    public deleteCommentById = async (_id: string) => {
+        try {
+            await this.comments.findByIdAndDelete(_id)
+            return "Deleted"
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
 
 }
