@@ -75,10 +75,10 @@ export class CommentsRepo {
         }
     }
 
-    // Delete Comments By Post
-    public deleteCommentsByPost = async (post: string) => {
+    // Delete Comments By Event
+    public deleteCommentsByEvent = async (event: string) => {
         try {
-            await this.comments.deleteMany({ post })
+            await this.comments.deleteMany({ event })
             return "Deleted"
         } catch (err) {
             throw new InternalServerErrorException();

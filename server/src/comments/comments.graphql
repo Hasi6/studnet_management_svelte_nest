@@ -1,0 +1,13 @@
+type User {
+	_id: String!
+	username: String!
+	image: String!
+	email: String!
+}
+
+
+type Comment {
+	user: User
+	event: Event
+	comment: String!
+}

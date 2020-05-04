@@ -7,9 +7,9 @@ export const CommentsSchema = new Schema(
             ref: "users",
             required: true,
         },
-        post: {
+        events: {
             type: Schema.Types.ObjectId,
-            ref: "posts",
+            ref: "events",
             required: true,
         },
         message: {

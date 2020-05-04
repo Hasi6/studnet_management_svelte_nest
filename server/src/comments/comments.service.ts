@@ -52,8 +52,8 @@ export class CommentsService {
         return this.commentsRepo.deleteCommentById(_id);
     }
 
-    // Delete Comment By Post
-    public deleteCommentsByPost = async (post: string) => {
-        return await this.commentsRepo.deleteCommentsByPost(post);
+    // Delete Comment By Event
+    public deleteCommentsByEvent = async (event: string) => {
+        return await this.commentsRepo.deleteCommentsByEvent(event);
     }
 }
