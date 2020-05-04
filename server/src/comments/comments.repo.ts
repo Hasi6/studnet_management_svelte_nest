@@ -33,6 +33,15 @@ export class CommentsRepo {
         }
     }
 
+    // Get Comments By Id
+    public getCommentsById = async (_id: string) => {
+        try {
+            return this.comments.findOne(_id)
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
+
 
     // ****************************************** Edit Comment Section ***************************************************
 

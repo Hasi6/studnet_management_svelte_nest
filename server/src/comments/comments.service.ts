@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { CommentsRepo } from './comments.repo';
 
 @Injectable()
@@ -19,7 +19,16 @@ export class CommentsService {
     // ****************************************** Get Comment Section ***************************************************
     // Get Comments By Post
     public getCommentsByPost = async (post: string) => {
-        return this.commentsRepo.getCommentsByPost(post)
+        return await this.commentsRepo.getCommentsByPost(post)
+    }
+
+    // Get Comments By Id
+    public getCommentsById = async (_id: string) => {
+        const comment = await this.commentsRepo.getCommentsById(_id);
+        if (!comment) {
+            throw new BadRequestException("No Post Found")
+        }
+        return comment;
     }
 
 
