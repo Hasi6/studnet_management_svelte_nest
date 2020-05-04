@@ -104,9 +104,15 @@
   <h1>Profile</h1>
   {#if user}
     <img src={user.image} alt="my_profile" />
+    <br />
+    <i class="fas fa-edit" style="cursor:pointer" on:click={() => toggle()} />
+    <br />
+    <div>
+      <h3>{user.username}</h3>
+      <i class="fas fa-edit" style="cursor:pointer" on:click={() => toggle()} />
+    </div>
   {/if}
-  <br />
-  <i class="fas fa-edit" style="cursor:pointer" on:click={() => toggle()} />
+
 </div>
 
 <Modal isOpen={open} {toggle} style="margin-top:500px">

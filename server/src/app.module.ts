@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { EventsModule } from './events/events.module';
 import { Events } from './events/events.entity';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { Events } from './events/events.entity';
     FacultiesModule,
     UserModule,
     EventsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
