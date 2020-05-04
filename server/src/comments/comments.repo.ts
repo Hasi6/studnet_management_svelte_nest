@@ -24,7 +24,14 @@ export class CommentsRepo {
 
 
     // ****************************************** Get Comment Section ***************************************************
-
+    // Get Comments By Post
+    public getCommentsByPost = async (post: string) => {
+        try {
+            return this.comments.find({ post })
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
 
 
     // ****************************************** Edit Comment Section ***************************************************

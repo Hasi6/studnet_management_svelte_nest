@@ -17,7 +17,10 @@ export class CommentsService {
 
 
     // ****************************************** Get Comment Section ***************************************************
-
+    // Get Comments By Post
+    public getCommentsByPost = async (post: string) => {
+        return this.commentsRepo.getCommentsByPost(post)
+    }
 
 
     // ****************************************** Edit Comment Section ***************************************************
