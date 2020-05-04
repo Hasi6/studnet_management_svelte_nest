@@ -31,6 +31,11 @@ export class CommentsService {
         return comment;
     }
 
+    // Get Comments By User
+    public getCommentsByUser = async (user: string) => {
+        return await this.commentsRepo.getCommentsByUser(user)
+    }
+
 
     // ****************************************** Edit Comment Section ***************************************************
 

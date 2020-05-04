@@ -42,6 +42,15 @@ export class CommentsRepo {
         }
     }
 
+    // Get Comments By User
+    public getCommentsByUser = async (user: string) => {
+        try {
+            return this.comments.find({ user })
+        } catch (err) {
+            throw new InternalServerErrorException()
+        }
+    }
+
 
     // ****************************************** Edit Comment Section ***************************************************
 
