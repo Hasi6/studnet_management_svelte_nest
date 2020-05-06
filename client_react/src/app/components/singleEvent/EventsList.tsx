@@ -1,26 +1,30 @@
 import React from "react";
 
-import "./test.scss";
+import "./EventsList.scss";
 
 const EventsList = () => {
   return (
     <section>
       <div className="leftBox">
         <div className="content">
-          <h1>Events And Shows</h1>
+          <h1>All Events And Shows</h1>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.
+            This shows you all to Upcoming Events in Any University is Sri
+            Lanka. If You wish to participate you can join the events. If that
+            events change we will inform you from an email of when you register
+            please provide a valid email Address
           </p>
         </div>
         <div className="events">
           <ul>
             <li>
-              <div className="time">
+              <div
+                className="time"
+                style={{
+                  background:
+                    "url('https://avatars0.githubusercontent.com/u/37216970?s=460&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4')"
+                }}
+              >
                 <h2>
                   24
                   <br />
