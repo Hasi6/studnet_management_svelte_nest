@@ -8,6 +8,8 @@
   let oldChats = null;
   let searchKey = "";
 
+  export let searchChats;
+
   const getChats = () => {
     unsubscribe = chatStore.subscribe(chat => {
       chats = chat;
@@ -29,15 +31,6 @@
   onDestroy(() => {
     unsubscribe();
   });
-
-  const editChat = e => {
-    let fliterdChats = [e];
-    searchKey = e;
-    if (e === "") {
-      fliterdChats = oldChats;
-    }
-    // chatStore.updateChat(fliterdChats);
-  };
 </script>
 
 <style>
@@ -47,7 +40,9 @@
 <div>
   <Field gapless>
 
-    <Input placeholder="Search Chat" on:input={e => editChat(e.target.value)} />
+    <Input
+      placeholder="Search Chat"
+      on:input={e => searchChats(e.target.value)} />
     <Button>
       <i class="fas fa-search" />
     </Button>

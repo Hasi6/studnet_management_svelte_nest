@@ -17,9 +17,9 @@ export const searchMessages = (e, messages, allMessages) => {
     return allMessages;
   }
   const str = e.toLowerCase().substring(0, 3);
-  const searchMessages = messages.filter(msg => {
+  const searchResult = messages.filter(msg => {
     const xSub = msg.message.substring(0, 3).toLowerCase();
     return msg.message.toLowerCase().includes(str) || checkName(xSub, str);
   });
-  return searchMessages;
+  return searchResult;
 };
