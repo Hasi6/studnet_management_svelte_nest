@@ -4,16 +4,32 @@
   import chatIdStore from "../../../app/Store/chat/chatId.store";
   import { v4 as uuid } from "uuid";
   import authStore from "../../../app/Store/auth/auth.store.js";
+  import socketStore from "../../../app/Store/socket/socket.store.js";
   export let chat;
 
   let unsubscribe;
   let user;
+  let socketUnsubscribe;
+  let chatSocket;
   let otherUser;
-  const getUser = () => {
+  let typing;
+
+  const getStore = () => {
     unsubscribe = authStore.subscribe(res => {
       user = res.user;
     });
     otherUser = chat.users[0]._id === user._id ? chat.users[1] : chat.users[0];
+
+    socketUnsubscribe = socketStore.subscribe(res => {
+      res.chatSocket.on("typing", res => {
+        if (res.chatId === chat._id && res.user !== user._id) {
+          typing = true;
+          setTimeout(() => {
+            typing = false;
+          }, 1000);
+        }
+      });
+    });
   };
 
   const changeChatId = () => {
@@ -21,11 +37,12 @@
   };
 
   onMount(() => {
-    getUser();
+    getStore();
   });
 
   onDestroy(() => {
     unsubscribe();
+    socketUnsubscribe();
   });
 </script>
 
@@ -57,7 +74,9 @@
         </p>
       </div>
       <div style="flex:1">
-        <p>Typing...</p>
+        {#if typing}
+          <p>Typing...</p>
+        {/if}
       </div>
     </div>
   </Card>

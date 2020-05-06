@@ -12,6 +12,8 @@
   import fileUploadFirebase from "fileupload_firebase";
   // import { fileUploadFirebase } from "../../../../../app/helpers/fileUpload.firebase.js";
   import errorStore from "../../../../../app/Store/errors/errors.store.js";
+  import socketStore from "../../../../../app/Store/socket/socket.store.js";
+  import authStore from "../../../../../app/Store/auth/auth.store.js";
 
   export let chatId;
 
@@ -22,19 +24,30 @@
   let errors;
   let percentage;
   let loading;
+  let socketUnsubscribe;
+  let chatSocket;
+  let athtUnsubscribe;
+  let user;
 
   const setPercentage = pers => {
     percentage = pers;
   };
 
-  $: console.log(percentage);
+  const setSocket = () => {
+    socketUnsubscribe = socketStore.subscribe(res => {
+      chatSocket = res.chatSocket;
+    });
+
+    athtUnsubscribe = authStore.subscribe(res => {
+      user = res.user;
+    });
+  };
 
   const setErrors = err => {
     errorStore.addErrors({ msg: err, type: "danger" });
   };
 
   const success = urls => {
-    console.log(urls);
     errorStore.addErrors({ msg: "File Uploaded", type: "success" });
     sendMessage(urls[0]);
   };
@@ -70,7 +83,6 @@
       message: message || null,
       image: url || null
     };
-    console.log(localStorage.getItem("token"));
     const res = await apiRequests(`${endPoint}/api/message`, "post", body, {
       Authorization: `Bearer ${localStorage.getItem("token")}`
     });
@@ -84,12 +96,19 @@
     });
   };
 
+  const sendTyping = () => {
+    chatSocket.emit("typing", { chatId, user: user._id });
+  };
+
   onMount(() => {
+    setSocket();
     getChatList();
   });
 
   onDestroy(() => {
     unsubscribe();
+    socketUnsubscribe();
+    athtUnsubscribe();
   });
 </script>
 
@@ -123,7 +142,10 @@
   <Field gapless style="margin-top:10px">
     <EmojiSelector on:emoji={e => addEmoji(e)} />
     <Button primary icon={mdiPlus} on:click={toggle} />
-    <Input placeholder="Send Messages" bind:value={message} />
+    <Input
+      placeholder="Send Messages"
+      bind:value={message}
+      on:keypress={() => sendTyping()} />
     <Button success icon={mdiSend} on:click={() => sendMessage()} />
   </Field>
 

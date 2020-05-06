@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 
 const screenStore = () => {
   // Initial State
-  const screen = writable("profile");
+  const screen = writable("chat");
 
   // Set Loading
   const setScreen = name => {

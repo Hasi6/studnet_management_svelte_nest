@@ -36,9 +36,15 @@ export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGa
   }
 
   @SubscribeMessage('newChatAdded')
-  async joinToNewChat(client: any, payload: any) {
-    console.log(payload)
+  joinToNewChat(client: any, payload: any) {
     client.join(payload.chatId)
+  }
+
+
+  // Send Typing
+  @SubscribeMessage('typing')
+  typing(client: any, payload: any) {
+    this.wss.to(payload.chatId).emit("typing", { user: payload.user, chatId: payload.chatId })
   }
 
 
@@ -46,6 +52,8 @@ export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGa
   sendMessage(msg: any) {
     this.wss.to(msg.chatId).emit("message", { msg })
   }
+
+
 
 
 
