@@ -8,6 +8,7 @@
   import { client } from "../../../../app/helpers/apolloClient";
   import { getMessages } from "../../../../app/graphql/mutations/getMessages.mutation.js";
   import authStore from "../../../../app/Store/auth/auth.store.js";
+  import { searchMessages } from "../../../../app/helpers/searchResultsHelper";
 
   import socketStore from "../../../../app/Store/socket/socket.store.js";
 
@@ -24,6 +25,7 @@
   let user;
 
   let messages = [];
+  let allMessages = [];
 
   const setUser = () => {
     authUnsubscribe = authStore.subscribe(res => {
@@ -41,6 +43,7 @@
 
   $: if (newMessage && newMessage.chatId === chatId) {
     messages = [...messages, newMessage];
+    allMessages = [...messages, newMessage];
   }
 
   $: (async () => {
@@ -52,6 +55,7 @@
         });
         if (res && res.data && res.data.messages) {
           messages = res.data.messages;
+          allMessages = res.data.messages;
         }
       } catch (err) {
         console.log(err.message);
@@ -61,10 +65,13 @@
 
   const setMessages = message => {
     messages = [...messages, message];
+    allMessages = [...messages, message];
   };
 
   const setSearchKey = e => {
     searchKey = e;
+    const result = searchMessages(e, allMessages, allMessages);
+    messages = result;
   };
 
   onMount(() => {

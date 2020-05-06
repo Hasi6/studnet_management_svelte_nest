@@ -18,8 +18,10 @@ export const searchMessages = (e, messages, allMessages) => {
   }
   const str = e.toLowerCase().substring(0, 3);
   const searchResult = messages.filter(msg => {
-    const xSub = msg.message.substring(0, 3).toLowerCase();
-    return msg.message.toLowerCase().includes(str) || checkName(xSub, str);
+    if (msg.message) {
+      const xSub = msg.message.substring(0, 3).toLowerCase();
+      return msg.message.toLowerCase().includes(str) || checkName(xSub, str);
+    }
   });
   return searchResult;
 };
