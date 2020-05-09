@@ -15,7 +15,15 @@ const initialState: EventsReducer = {
 const getEvents = (state: EventsReducer, { events }: { events: IEvents[] }) => {
     return {
         ...state,
-        events
+        events: [...state.events, ...events]
+    }
+}
+
+// Add New Event
+const addNewEvent = (state: EventsReducer, { event }: { event: IEvents }) => {
+    return {
+        ...state,
+        events: [...state.events, event]
     }
 }
 
@@ -24,4 +32,5 @@ const getEvents = (state: EventsReducer, { events }: { events: IEvents[] }) => {
 
 export default createReducer(initialState, {
     [EventTypes.GET_EVENTS]: getEvents,
+    [EventTypes.CREATE_EVENT]: addNewEvent,
 })

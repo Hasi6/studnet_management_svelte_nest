@@ -42,7 +42,6 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
 
       const data = { ...e, ...location };
       createEvents(data);
-      console.log(data);
     }
   };
 
