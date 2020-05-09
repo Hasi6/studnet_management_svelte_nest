@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { InputText } from "primereact/inputtext";
 import { TextField } from "@material-ui/core";
 
 interface propTypes {
@@ -14,6 +13,8 @@ interface propTypes {
   setFocus: Function;
   input: any;
   meta: any;
+  multiline?: boolean;
+  rows?: number;
 }
 
 const TextInput: FC<propTypes> = ({
@@ -21,17 +22,21 @@ const TextInput: FC<propTypes> = ({
   label,
   fullWidth,
   type,
+  multiline,
+  rows,
   meta: { touched, error }
 }): JSX.Element => {
   return (
     <>
-      <span className="p-float-label">
+      <span className="p-float-label" style={{ display: "flex" }}>
         {!touched && <label htmlFor="in">{label}</label>}
         <TextField
           {...input}
           color={touched && !!error ? "secondary" : "primary"}
           fullWidth={fullWidth}
           type={type}
+          multiline={multiline || false}
+          rows={rows || 0}
           margin="normal"
         />
         {touched && error && (

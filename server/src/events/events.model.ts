@@ -9,6 +9,7 @@ export interface IEvents {
     description: string;
     user: any;
     location: ILocation;
-    createdAt: Date;
-    updatedAt: Date;
+    dateTime: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

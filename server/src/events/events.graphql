@@ -16,6 +16,7 @@ input createEventInput {
 	title: String!
 	location: CreateLocationInput!
 	description: String!
+	dateTime: String!
 }
 
 

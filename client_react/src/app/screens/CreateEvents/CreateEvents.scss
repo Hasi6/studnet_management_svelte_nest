@@ -1,3 +1,17 @@
 .createEvent {
-    text-align: center;
+    text-align: center !important;
+    margin: auto !important;
+
+    form {
+        max-width: 400px;
+        margin: auto !important;
+    }
+}
+
+.p-float-label {
+    display: flex;
+}
+
+.MuiFormControl-root {
+    width: 100% !important;
 }

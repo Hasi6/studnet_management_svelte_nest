@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import AuthorizedWrapper from "../../components/wrappers/AuthorizedWrapper/AuthorizedWrapper";
 import SingleEvent from "../../components/singleEvent/SingleEvent";
-import { Grid } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByPlaceId
@@ -9,12 +9,19 @@ import GooglePlacesAutocomplete, {
 // If you want to use the provided css
 import "react-google-places-autocomplete/dist/index.min.css";
 import EventsList from "../../components/singleEvent/EventsList";
+import { connect } from "react-redux";
+import { logOutUser } from "../../redux/actions/auth/auth.actions";
 
-const Home: FC = (): JSX.Element => {
+interface propTypes {
+  logOutUser: Function;
+}
+
+const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
   return (
     <AuthorizedWrapper>
       <h1>Home Page</h1>
       <EventsList />
+      <Button onClick={() => logOutUser()}>Logout</Button>
       <GooglePlacesAutocomplete
         onSelect={async e => {
           console.log(e);
@@ -44,4 +51,4 @@ const Home: FC = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default connect(null, { logOutUser })(Home);

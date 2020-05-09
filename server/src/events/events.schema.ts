@@ -24,6 +24,10 @@ export const EventsSchema = new Schema(
             type: String,
             required: true,
         },
+        dateTime: {
+            type: String,
+            required: true,
+        },
         location: {
             type: LocationSchema,
             required: true,

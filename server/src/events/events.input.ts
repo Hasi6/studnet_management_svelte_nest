@@ -16,4 +16,8 @@ export class CreateEventInput {
     @Field()
     description: string;
 
+    @IsNotEmpty()
+    @Field()
+    dateTime: string;
+
 }

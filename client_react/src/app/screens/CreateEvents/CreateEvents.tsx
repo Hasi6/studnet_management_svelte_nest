@@ -9,8 +9,14 @@ import {
 import { connect } from "react-redux";
 
 import "./CreateEvents.scss";
+
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../components/forms/TextInput";
+import { Button } from "@material-ui/core";
+import GooglePlacesAutocomplete, {
+  getLatLng,
+  geocodeByPlaceId
+} from "react-google-places-autocomplete";
 
 interface propTypes {
   handleSubmit: Function;
@@ -25,12 +31,26 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
     <div className="createEvent">
       <h1>Create Events</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Field component={TextInput} name="title" label="Title" type="text" />
         <Field
           component={TextInput}
-          name="firstName"
-          label="First Name"
+          name="description"
+          label="Description"
+          multiline={true}
+          rows={4}
           type="text"
         />
+        <GooglePlacesAutocomplete
+          onSelect={async e => {
+            console.log(e);
+            const geoMetry = await geocodeByPlaceId(e.place_id);
+            console.log(await getLatLng(geoMetry[0]));
+          }}
+        />
+
+        <Button type="submit" variant="contained" color="primary">
+          Add Events
+        </Button>
       </form>
     </div>
   );
@@ -43,22 +63,22 @@ const mapStateToProps = (state: any) => {
 };
 
 const validate = combineValidators({
-  firstName: composeValidators(
-    isRequired({ message: "First Name is Required" }),
+  title: composeValidators(
+    isRequired({ message: "Title is Required" }),
     hasLengthGreaterThan(3)({
-      message: "First Name must be between 4"
+      message: "Title must be between 4"
     }),
-    hasLengthLessThan(10)({
-      message: "First Name must be between 4 and 10 characters"
+    hasLengthLessThan(20)({
+      message: "Title must be between 4 and 20 characters"
     })
   )(),
-  lastName: composeValidators(
-    isRequired({ message: "Last Name is Required" }),
-    hasLengthGreaterThan(3)({
-      message: "Last Name must be between 4"
+  description: composeValidators(
+    isRequired({ message: "Description is Required" }),
+    hasLengthGreaterThan(50)({
+      message: "Description must be Longer than 50 Characters"
     }),
-    hasLengthLessThan(10)({
-      message: "Last Name must be between 4 and 10 characters"
+    hasLengthLessThan(250)({
+      message: "Description must be Lower than 250 Characters"
     })
   )(),
   gender: isRequired({ message: "Gender is Required" }),
