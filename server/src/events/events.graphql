@@ -19,10 +19,17 @@ input createEventInput {
 	dateTime: String!
 }
 
+type User {
+	_id: String!
+	username: String!
+	email: String!
+	image: String!
+}
 
 type Event {
 	_id: String!
 	title: String!
+	user: User
 	location: Location!
 	description: String!
 	createdAt: String!

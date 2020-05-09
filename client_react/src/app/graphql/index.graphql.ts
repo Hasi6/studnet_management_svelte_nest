@@ -2,7 +2,7 @@ import { GraphQLClient } from "graphql-request";
 import { endPoint } from '../config/index';
 import { toastr } from 'react-redux-toastr';
 
-export const graphqlClient = async (query: any, variables: any) => {
+export const graphqlRequest = async (query: any, variables?: any) => {
     const token = await localStorage.getItem('token')
 
     const client = new GraphQLClient(`${endPoint}/graphql`, {
