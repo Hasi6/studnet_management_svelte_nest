@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   combineValidators,
   composeValidators,
@@ -13,6 +13,7 @@ import "./CreateEvents.scss";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../components/forms/TextInput";
 import { Button } from "@material-ui/core";
+import DataTimeFiled from "../../components/forms/DataTimeFiled";
 import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByPlaceId
@@ -23,6 +24,8 @@ interface propTypes {
 }
 
 const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
+  const [location, setLocation] = useState(null);
+
   const onSubmit = (e: any) => {
     console.log(e);
   };
@@ -42,13 +45,21 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
         />
         <GooglePlacesAutocomplete
           onSelect={async e => {
-            console.log(e);
+            let loc: any = { location: e.description };
             const geoMetry = await geocodeByPlaceId(e.place_id);
-            console.log(await getLatLng(geoMetry[0]));
+            loc = { ...loc, ...(await getLatLng(geoMetry[0])) };
+            setLocation(loc);
           }}
         />
         <br />
         <br />
+
+        <Field
+          component={DataTimeFiled}
+          name="dateTime"
+          label="Date and Time"
+        />
+
         <Button type="submit" variant="contained" color="primary">
           Add Events
         </Button>
@@ -82,7 +93,7 @@ const validate = combineValidators({
       message: "Description must be Lower than 250 Characters"
     })
   )(),
-  gender: isRequired({ message: "Gender is Required" }),
+  dateTime: isRequired({ message: "Date and Time is Required" }),
   university: isRequired({ message: "University is Required" }),
   birthDay: isRequired({ message: "Birth Day is Required" }),
   email: isRequired({ message: "Email Required" }),
