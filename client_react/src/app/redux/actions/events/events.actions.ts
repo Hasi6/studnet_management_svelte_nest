@@ -1,6 +1,6 @@
 import { createEvent } from '../../../graphql/mutations/createEvent';
 import { graphqlRequest } from '../../../graphql/index.graphql';
-// import { EventTypes } from '../../types/index.types';
+// import { EventTypes } from '../../types/index.types';niya
 import { Dispatch } from 'redux';
 import { toastr } from 'react-redux-toastr';
 

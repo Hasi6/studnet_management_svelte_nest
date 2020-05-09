@@ -1,6 +1,6 @@
 import { createReducer } from "../util/reducerUtil"
-import { AuthTypes, EventTypes } from '../../types/index.types';
-import { IUser, IEvents } from '../../../model/User.model';
+import { EventTypes } from '../../types/index.types';
+import { IEvents } from '../../../model/User.model';
 
 
 export interface EventsReducer {
@@ -12,8 +12,16 @@ const initialState: EventsReducer = {
 }
 
 // Get Events
+const getEvents = (state: EventsReducer, { events }: { events: IEvents[] }) => {
+    return {
+        ...state,
+        events
+    }
+}
+
+
 
 
 export default createReducer(initialState, {
-    [EventTypes.GET_EVENTS]: setCurrentUser,
+    [EventTypes.GET_EVENTS]: getEvents,
 })

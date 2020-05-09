@@ -14,6 +14,8 @@ import { reduxForm, Field } from "redux-form";
 import TextInput from "../../components/forms/TextInput";
 import { Button } from "@material-ui/core";
 import DataTimeFiled from "../../components/forms/DataTimeFiled";
+import { createEvents } from "../../redux/actions/events/events.actions";
+
 import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByPlaceId
@@ -21,10 +23,11 @@ import GooglePlacesAutocomplete, {
 
 interface propTypes {
   handleSubmit: Function;
+  createEvents: Function;
 }
 
-const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
-  const [location, setLocation] = useState(null);
+const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
+  const [location, setLocation] = useState({});
   const [locationValue, setLocationValue] = useState({
     type: false,
     error: "Enter a valid Location",
@@ -32,11 +35,14 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
   });
 
   const onSubmit = (e: any) => {
-    console.log(e);
     if (!location) {
       setLocationValue({ ...locationValue, type: true });
     } else {
       setLocationValue({ ...locationValue, type: false });
+
+      const data = { ...e, ...location };
+      createEvents(data);
+      console.log(data);
     }
   };
 
@@ -110,6 +116,6 @@ const validate = combineValidators({
   dateTime: isRequired({ message: "Date and Time is Required" })
 });
 
-export default connect(mapStateToProps)(
-  reduxForm({ form: "registerForm", validate })(CreateEvents)
-);
+export default connect(null, {
+  createEvents
+})(reduxForm({ form: "createEventForm", validate })(CreateEvents));
