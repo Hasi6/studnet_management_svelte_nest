@@ -47,7 +47,8 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
             console.log(await getLatLng(geoMetry[0]));
           }}
         />
-
+        <br />
+        <br />
         <Button type="submit" variant="contained" color="primary">
           Add Events
         </Button>
