@@ -27,10 +27,22 @@ const addNewEvent = (state: EventsReducer, { event }: { event: IEvents }) => {
     }
 }
 
+// Delete Event
+const deleteEvent = (state: EventsReducer, { _id }: { _id: string }) => {
+    const events = state.events.filter((evt: IEvents) => evt._id !== _id)
+
+    return {
+        ...state,
+        events
+    }
+
+}
+
 
 
 
 export default createReducer(initialState, {
     [EventTypes.GET_EVENTS]: getEvents,
     [EventTypes.CREATE_EVENT]: addNewEvent,
+    [EventTypes.DELETE_EVENT]: deleteEvent,
 })
