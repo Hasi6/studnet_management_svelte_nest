@@ -25,9 +25,19 @@ interface propTypes {
 
 const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
   const [location, setLocation] = useState(null);
+  const [locationValue, setLocationValue] = useState({
+    type: false,
+    error: "Enter a valid Location",
+    color: "red"
+  });
 
   const onSubmit = (e: any) => {
     console.log(e);
+    if (!location) {
+      setLocationValue({ ...locationValue, type: true });
+    } else {
+      setLocationValue({ ...locationValue, type: false });
+    }
   };
 
   return (
@@ -43,6 +53,9 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
           rows={4}
           type="text"
         />
+        {locationValue.type && (
+          <p style={{ color: locationValue.color }}>{locationValue.error}</p>
+        )}
         <GooglePlacesAutocomplete
           onSelect={async e => {
             let loc: any = { location: e.description };
@@ -59,7 +72,8 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit }) => {
           name="dateTime"
           label="Date and Time"
         />
-
+        <br />
+        <br />
         <Button type="submit" variant="contained" color="primary">
           Add Events
         </Button>
@@ -93,16 +107,7 @@ const validate = combineValidators({
       message: "Description must be Lower than 250 Characters"
     })
   )(),
-  dateTime: isRequired({ message: "Date and Time is Required" }),
-  university: isRequired({ message: "University is Required" }),
-  birthDay: isRequired({ message: "Birth Day is Required" }),
-  email: isRequired({ message: "Email Required" }),
-  password: composeValidators(
-    isRequired({ message: "Password is Required" }),
-    hasLengthGreaterThan(5)({
-      message: "Password needs to be at least 6 Characters"
-    })
-  )()
+  dateTime: isRequired({ message: "Date and Time is Required" })
 });
 
 export default connect(mapStateToProps)(
