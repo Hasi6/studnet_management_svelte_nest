@@ -12,3 +12,10 @@ export enum AsyncTypes {
     ASYNC_ACTION_FINISHED = "ASYNC_ACTION_FINISHED",
     ASYNC_ACTION_ERROR = "ASYNC_ACTION_ERROR",
 };
+
+// Event Types
+export enum EventTypes {
+    CREATE_EVENT = "CREATE_EVENT",
+    GET_EVENTS = "GET_EVENTS",
+    DELETE_EVENT = "DELETE_EVENT",
+}

@@ -121,6 +121,7 @@ export class UserService {
 
 
     // ************************************** Get Users Section ***********************************************
+    // Get User By Email
     public getUserByEmail = async (email: string) => {
         const user = await this.userRepo.getUserByEmail(email)
 
@@ -129,4 +130,10 @@ export class UserService {
         }
         return user
     }
+
+    // Get User By Id
+    public getUserById = async (_id: string) => {
+        return this.userRepo.getUserById(_id)
+    }
+
 }
