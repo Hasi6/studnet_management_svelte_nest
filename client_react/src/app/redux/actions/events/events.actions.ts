@@ -1,15 +1,40 @@
 import { createEvent } from '../../../graphql/mutations/createEvent';
 import { graphqlRequest } from '../../../graphql/index.graphql';
-// import { EventTypes } from '../../types/index.types';niya
+import { EventTypes } from '../../types/index.types';
 import { Dispatch } from 'redux';
 import { toastr } from 'react-redux-toastr';
 
+
+// Get Events
+export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
+    try {
+
+    } catch (err) {
+        toastr.error("Error", err.message);
+    }
+}
 
 // Create Events
 export const createEvents = (variables: any) => async (dispatch: Dispatch) => {
     try {
         const res = await graphqlRequest(createEvent, variables);
-        console.log(res)
+        dispatch({
+            type: EventTypes.CREATE_EVENT,
+            payload: { event: res.createEvent }
+        })
+    } catch (err) {
+        toastr.error("Error", err.message);
+    }
+}
+
+
+// Delete Event
+export const deleteEvent = (_id: string) => async (dispatch: Dispatch) => {
+    try {
+        dispatch({
+            type: EventTypes.DELETE_EVENT,
+            payload: { _id }
+        })
     } catch (err) {
         toastr.error("Error", err.message);
     }
