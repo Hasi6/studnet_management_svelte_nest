@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import {
   combineValidators,
   composeValidators,
@@ -7,14 +7,16 @@ import {
   hasLengthLessThan
 } from "revalidate";
 import { connect } from "react-redux";
+import { useDropzone } from "react-dropzone";
 
 import "./CreateEvents.scss";
 
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../components/forms/TextInput";
-import { Button } from "@material-ui/core";
+import { Button, Icon } from "@material-ui/core";
 import DataTimeFiled from "../../components/forms/DataTimeFiled";
 import { createEvents } from "../../redux/actions/events/events.actions";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 import GooglePlacesAutocomplete, {
   getLatLng,
@@ -28,10 +30,22 @@ interface propTypes {
 
 const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   const [location, setLocation] = useState({});
+  const [file, setFiles] = useState([]);
   const [locationValue, setLocationValue] = useState({
     type: false,
     error: "Enter a valid Location",
     color: "red"
+  });
+  const onDrop = useCallback(
+    acceptedFiles => {
+      setFiles(acceptedFiles);
+    },
+    [setFiles]
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: "image/*"
   });
 
   const onSubmit = (e: any) => {
@@ -77,6 +91,18 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
           name="dateTime"
           label="Date and Time"
         />
+        <br />
+        <br />
+
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <CloudUploadIcon color="secondary" fontSize="large" />
+          ) : (
+            <CloudUploadIcon fontSize="large" />
+          )}
+        </div>
+
         <br />
         <br />
         <Button type="submit" variant="contained" color="primary">
