@@ -38,9 +38,16 @@ type Event {
 	updatedAt: String!
 }
 
+type EventsWithPagination {
+	events: [Event]
+	all: Int!
+	pages: Int!
+	page: Int!
+}
+
 
 type Query {
-	getEvents(page: Int!): [Event]
+	getEvents(page: Int!): EventsWithPagination
 }
 
 type Mutation {

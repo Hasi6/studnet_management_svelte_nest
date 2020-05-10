@@ -17,4 +17,9 @@ export class EventsService {
         return await this.eventsRepo.createEvent(user, createEventInput)
     }
 
+    // ********************************************* Get Event Section *****************************************************
+    public getEventsWithPagination = async (page: number) => {
+        return await this.eventsRepo.getEventsWithPagination(page)
+    }
+
 }

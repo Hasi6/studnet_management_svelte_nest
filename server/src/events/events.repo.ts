@@ -33,17 +33,14 @@ export class EventsRepo {
     }
 
     // Get Events With Pagination
-    public getEventsWithPagination = (page: number) => {
+    public getEventsWithPagination = async (page: number) => {
         const perPage = 20;
-        const events = this.eventsRepository.find().skip(Math.abs(perPage * page - perPage))
+        const events = await this.eventsRepository.find().skip(Math.abs(perPage * page - perPage))
             .limit(perPage)
             .sort({ createdAt: -1 });
 
-        const allEvents = this.eventsRepository.find().countDocuments()
+        const allEvents = await this.eventsRepository.find().countDocuments()
         const pages = Math.abs(Math.ceil(allEvents / perPage))
-
         return { pages, page, all: allEvents, events }
-
-
     }
 }
