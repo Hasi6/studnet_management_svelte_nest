@@ -22,6 +22,7 @@ export interface ILocation {
 export interface IEvents {
     _id: string;
     title: string;
+    image: string;
     description: string;
     location: ILocation;
     createdAt: string;

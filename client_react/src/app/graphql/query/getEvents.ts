@@ -2,6 +2,7 @@ export const getEventsQuery = `
     query($page: Int!){
     getEvents(page: $page){
       events{
+        _id
       title
       location{
         location
@@ -14,6 +15,7 @@ export const getEventsQuery = `
         image
         email
       }
+      image
       description
       dateTime
       createdAt

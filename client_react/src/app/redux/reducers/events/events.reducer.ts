@@ -4,18 +4,27 @@ import { IEvents } from '../../../model/User.model';
 
 
 export interface EventsReducer {
-    events: IEvents[]
+    events: IEvents[],
+    pages: number,
+    page: number,
+    all: number
 }
 
 const initialState: EventsReducer = {
-    events: []
+    events: [],
+    pages: 0,
+    page: 0,
+    all: 0
 }
 
 // Get Events
-const getEvents = (state: EventsReducer, { events }: { events: IEvents[] }) => {
+const getEvents = (state: EventsReducer, { events, pages, page, all }: { events: IEvents[], page: number, pages: number, all: number }) => {
     return {
         ...state,
-        events: [...state.events, ...events]
+        events: [...state.events, ...events],
+        pages,
+        page,
+        all
     }
 }
 

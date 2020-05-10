@@ -10,7 +10,10 @@ import { getEventsQuery } from '../../../graphql/query/getEvents';
 export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
     try {
         const res = await graphqlRequest(getEventsQuery, variables);
-        console.log(res)
+        dispatch({
+            type: EventTypes.GET_EVENTS,
+            payload: res?.getEvents
+        })
     } catch (err) {
         toastr.error("Error", err.message);
     }

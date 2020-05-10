@@ -5,12 +5,14 @@ import { connect } from "react-redux";
 import "./EventsList.scss";
 import SingleEvent from "./SingleEvent";
 import { getEvents } from "../../redux/actions/events/events.actions";
+import { IEvents } from "../../model/User.model";
 
 interface propTypes {
   getEvents: Function;
+  events: IEvents[];
 }
 
-const EventsList: FC<propTypes> = ({ getEvents }): JSX.Element => {
+const EventsList: FC<propTypes> = ({ getEvents, events }): JSX.Element => {
   const [page, setPage] = useState(1);
 
   // Call Get Events Action
@@ -37,7 +39,9 @@ const EventsList: FC<propTypes> = ({ getEvents }): JSX.Element => {
         </div>
         <div className="events">
           <ul>
-            <SingleEvent />
+            {events.map((event: IEvents) => (
+              <SingleEvent key={event._id} event={event._id} />
+            ))}
           </ul>
         </div>
       </div>
@@ -45,4 +49,10 @@ const EventsList: FC<propTypes> = ({ getEvents }): JSX.Element => {
   );
 };
 
-export default connect(null, { getEvents })(EventsList);
+const mapStateToProps = (state: any) => {
+  return {
+    events: state?.events?.events
+  };
+};
+
+export default connect(mapStateToProps, { getEvents })(EventsList);

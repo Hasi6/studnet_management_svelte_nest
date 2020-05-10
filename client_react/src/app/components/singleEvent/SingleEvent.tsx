@@ -1,13 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
+import { connect } from "react-redux";
+import { IEvents } from "../../model/User.model";
 
-const SingleEvent = () => {
+interface propTypes {
+  event: string;
+  myEvt: IEvents;
+}
+
+const SingleEvent: FC<propTypes> = ({ event, myEvt }): JSX.Element => {
   return (
     <li>
       <div
         className="time"
         style={{
-          background:
-            "url('https://avatars0.githubusercontent.com/u/37216970?s=460&u=f5293b88d23b3694aa76b7149ce28480cbe2912e&v=4')"
+          background: `url(${myEvt.image})`
         }}
       >
         <h2>
@@ -30,4 +36,12 @@ const SingleEvent = () => {
   );
 };
 
-export default SingleEvent;
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    myEvt: state?.events?.events.filter(
+      (eve: IEvents) => eve._id === ownProps.event
+    )
+  };
+};
+
+export default connect(mapStateToProps)(SingleEvent);
