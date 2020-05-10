@@ -25,7 +25,6 @@ import { User } from './user.entity';
         expiresIn: 60 * 60 * 24 * 10
       }
     }),
-    TypeOrmModule.forFeature([User])
   ],
   controllers: [UserController],
   providers: [UserService, UserRepo, JwtStrategy],
