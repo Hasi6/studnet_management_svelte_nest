@@ -132,7 +132,11 @@ export class UserService {
 
     // Get User By Id
     public getUserById = async (_id: string) => {
-        return this.userRepo.getUserById(_id)
+        const user = await this.userRepo.getUserById(_id);
+        if (!user) {
+            throw new BadRequestException(`No User Found`)
+        }
+        return user
     }
 
 }

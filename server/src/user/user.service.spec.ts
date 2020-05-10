@@ -8,13 +8,12 @@ import { UsersSchema } from './user.schema';
 
 describe('User Service', () => {
 
-    let userRepo;
     let userService;
 
 
-    const mockUserRepo = () => {
-        getUsers: jest.fn()
-    }
+    // const mockUserRepo = () => {
+    //     getUsers: jest.fn()
+    // }
 
 
     beforeEach(async () => {
@@ -43,22 +42,34 @@ describe('User Service', () => {
         }).compile();
 
         userService = await module.get<UserService>(UserService);
-        userRepo = await module.get<UserRepo>(UserRepo);
     })
 
 
     describe('Get Users', () => {
-        it('Get User By Email', async () => {
-            // userService.getUserByEmail = jest.fn();
-            // expect(userService.getUserByEmail).not.toHaveBeenCalled()
-            const user = await userService.getUserByEmail('hasitha.chandula@gmail.com');
-            expect(user).not.toBeUndefined();
-            // expect(userService.getUserByEmail).toHaveBeenCalled()
 
-        });
+        describe('Get User By Email and Throw Errors', () => {
+            it('Get User By Email', async () => {
+                // userService.getUserByEmail = jest.fn();
+                // expect(userService.getUserByEmail).not.toHaveBeenCalled()
+                await expect(userService.getUserByEmail('hasitha.chandula@gmail.com')).resolves.not.toBeUndefined();
+                // expect(userService.getUserByEmail).toHaveBeenCalled()
 
-        it('Get User By Email Throw Error', async () => {
-            await expect(userService.getUserByEmail('hasitha.chandulas@gmail.com')).rejects.toThrow()
+            });
+
+            it('Get User By Email Throw Error', async () => {
+                await expect(userService.getUserByEmail('hasitha.chandulas@gmail.com')).rejects.toThrow()
+            })
         })
+
+        describe('Get User By Id and Throw Errors', () => {
+            it('Get User By Id', async () => {
+                await expect(userService.getUserById("5eac1d40790bac482cfbe39a")).resolves.not.toBeUndefined();
+            })
+
+            it('Get User By Id Throw Error', async () => {
+                await expect(userService.getUserById('5eac1d40790bac482cfbe49a')).rejects.toThrow()
+            })
+        })
+
     })
 })
