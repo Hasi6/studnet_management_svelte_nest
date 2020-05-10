@@ -23,6 +23,7 @@ export interface IEvents {
     _id: string;
     title: string;
     image: string;
+    dateTime: string;
     description: string;
     location: ILocation;
     createdAt: string;

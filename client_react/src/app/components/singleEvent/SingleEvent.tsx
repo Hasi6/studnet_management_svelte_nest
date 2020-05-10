@@ -13,22 +13,18 @@ const SingleEvent: FC<propTypes> = ({ event, myEvt }): JSX.Element => {
       <div
         className="time"
         style={{
-          background: `url(${myEvt.image})`
+          background: `url(${myEvt?.image})`
         }}
       >
-        <h2>
-          24
+        <h2 style={{ color: "black" }}>
+          {myEvt?.dateTime}
           <br />
           <span>June</span>
         </h2>
       </div>
       <div className="details">
-        <h3>Where does it come from</h3>
-        <p>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots in a piece of classical Latin literature from 45 BC, making
-          it over 2000 years old.
-        </p>
+        <h3>{myEvt?.title}</h3>
+        <p>{myEvt?.description}</p>
         <a href="https://codepen.io/collection/XdWJOQ/">View Details</a>
       </div>
       <div style={{ clear: "both" }}></div>
@@ -40,7 +36,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   return {
     myEvt: state?.events?.events.filter(
       (eve: IEvents) => eve._id === ownProps.event
-    )
+    )[0]
   };
 };
 
