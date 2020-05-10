@@ -17,6 +17,14 @@ class FriendsList {
         global.console.log(`${name} is called`)
     }
 
+    public removeFriend = (name: string) => {
+        const index = this.friends.indexOf(name);
+        if (index === -1) {
+            throw new Error('Friend Not Found');
+        }
+        this.friends.splice(index, 1);
+    }
+
 
 }
 
@@ -47,5 +55,23 @@ describe('FriendsList', () => {
         friendsList.addFriend('Hasi')
         expect(friendsList.friendCalled).toHaveBeenCalledWith('Hasi')
     })
+
+
+    describe('Remove Friend', () => {
+        // Remove a Friend From a List
+        it('Remove a Friend from a List', () => {
+            friendsList.addFriend('Test1');
+            friendsList.addFriend('Test2');
+            expect(friendsList.friends[1]).toEqual('Test2')
+            friendsList.removeFriend('Test2')
+            expect(friendsList.friends[1]).toBeUndefined()
+        });
+
+        it('Throw an Error', () => {
+
+            expect(() => friendsList.removeFriend('Test2')).toThrow()
+        })
+    })
+
 
 });
