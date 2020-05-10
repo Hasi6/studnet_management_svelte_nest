@@ -1,4 +1,4 @@
-export const getEvents = `{
+export const getEventsQuery = `
     query($page: Int!){
     getEvents(page: $page){
       events{
@@ -24,4 +24,4 @@ export const getEvents = `{
     page
     }
   }
-}`;
+`;
