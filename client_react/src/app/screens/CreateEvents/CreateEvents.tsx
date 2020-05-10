@@ -1,4 +1,5 @@
-import React, { FC, useState, useCallback } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, useState, useCallback, useEffect } from "react";
 import {
   combineValidators,
   composeValidators,
@@ -29,8 +30,14 @@ interface propTypes {
 }
 
 const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
+  useEffect(() => {
+    return () => {
+      files.forEach((file: any) => URL.revokeObjectURL(file.preview));
+    };
+  }, []);
+
   const [location, setLocation] = useState({});
-  const [file, setFiles] = useState([]);
+  const [files, setFiles] = useState([{ preview: "false" }]);
   const [locationValue, setLocationValue] = useState({
     type: false,
     error: "Enter a valid Location",
@@ -38,7 +45,13 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   });
   const onDrop = useCallback(
     acceptedFiles => {
-      setFiles(acceptedFiles);
+      setFiles(
+        acceptedFiles.map((file: any) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })
+        )
+      );
     },
     [setFiles]
   );
@@ -103,6 +116,15 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
           )}
         </div>
 
+        <br />
+        <br />
+        {files.length > 0 && files[0].preview !== "false" && (
+          <img
+            src={files[0]?.preview}
+            style={{ maxHeight: "200px", maxWidth: "200px" }}
+            alt="images"
+          />
+        )}
         <br />
         <br />
         <Button type="submit" variant="contained" color="primary">
