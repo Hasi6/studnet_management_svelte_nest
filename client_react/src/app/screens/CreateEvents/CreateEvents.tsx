@@ -18,11 +18,14 @@ import { Button, Icon } from "@material-ui/core";
 import DataTimeFiled from "../../components/forms/DataTimeFiled";
 import { createEvents } from "../../redux/actions/events/events.actions";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import fileUploadFirebase from "fileupload_firebase";
 
 import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByPlaceId
 } from "react-google-places-autocomplete";
+import CropperInput from "./CropperInput";
+import { storage } from "../../config/firebase";
 
 interface propTypes {
   handleSubmit: Function;
@@ -37,7 +40,8 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   }, []);
 
   const [location, setLocation] = useState({});
-  const [files, setFiles] = useState([{ preview: "false" }]);
+  const [files, setFiles] = useState([{ preview: "false", name: "default" }]);
+  const [image, setImage] = useState(null);
   const [locationValue, setLocationValue] = useState({
     type: false,
     error: "Enter a valid Location",
@@ -60,7 +64,6 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
     multiple: false,
     accept: "image/*"
   });
-
   const onSubmit = (e: any) => {
     if (!location) {
       setLocationValue({ ...locationValue, type: true });
@@ -70,6 +73,37 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
       const data = { ...e, ...location };
       createEvents(data);
     }
+  };
+
+  const setPresentage = (pre: any) => {
+    console.log(pre);
+  };
+
+  const setError = (pre: any) => {
+    console.log(pre);
+  };
+
+  const success = (pre: any) => {
+    console.log(pre);
+  };
+
+  const convertFile = (theBlob: any, fileName: string): File[] => {
+    theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return [theBlob];
+  };
+
+  console.log(files);
+
+  const firebaseUpload = () => {
+    fileUploadFirebase(
+      storage,
+      convertFile(image, files[0].name),
+      "test",
+      setPresentage,
+      success,
+      setError
+    );
   };
 
   return (
@@ -118,12 +152,21 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
 
         <br />
         <br />
+        {image && (
+          <div style={{ display: "flex", margin: 10 }}>
+            <div
+              id="image"
+              style={{
+                maxHeight: "200px",
+                maxWidth: "200px",
+                marginLeft: 10,
+                overflow: "hidden"
+              }}
+            />
+          </div>
+        )}
         {files.length > 0 && files[0].preview !== "false" && (
-          <img
-            src={files[0]?.preview}
-            style={{ maxHeight: "200px", maxWidth: "200px" }}
-            alt="images"
-          />
+          <CropperInput setImage={setImage} imagePreview={files[0].preview} />
         )}
         <br />
         <br />
@@ -131,6 +174,13 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
           Add Events
         </Button>
       </form>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => firebaseUpload()}
+      >
+        Add Events
+      </Button>
     </div>
   );
 };

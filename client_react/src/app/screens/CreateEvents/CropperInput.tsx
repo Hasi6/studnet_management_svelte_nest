@@ -4,10 +4,22 @@ import "cropperjs/dist/cropper.css";
 
 interface propTypes {
   imagePreview: string;
+  setImage: Function;
 }
 
 class CropperInput extends Component<propTypes> {
   cropper: any = createRef();
+
+  public cropImage = () => {
+    const { setImage } = this.props;
+    if (typeof this.cropper.current.getCroppedCanvas() === "undefined") {
+      return;
+    }
+
+    this.cropper.current.getCroppedCanvas().toBlob((blob: any) => {
+      setImage(blob);
+    }, "image/jpeg");
+  };
 
   render() {
     return (
@@ -15,13 +27,15 @@ class CropperInput extends Component<propTypes> {
         ref={this.cropper}
         src={this.props.imagePreview}
         style={{ height: 200, width: 200 }}
-        preview=".img-preview"
+        preview="#image"
         aspectRatio={16 / 9}
         viewMode={1}
         dragMode="move"
         guides={false}
         scalable={true}
-        crop={this._crop.bind(this)}
+        cropBoxMovable={true}
+        cropBoxResizable={true}
+        crop={this.cropImage}
       />
     );
   }
