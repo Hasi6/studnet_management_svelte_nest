@@ -14,7 +14,7 @@ import "./CreateEvents.scss";
 
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../components/forms/TextInput";
-import { Button, Icon } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import DataTimeFiled from "../../components/forms/DataTimeFiled";
 import { createEvents } from "../../redux/actions/events/events.actions";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -26,6 +26,8 @@ import GooglePlacesAutocomplete, {
 } from "react-google-places-autocomplete";
 import CropperInput from "./CropperInput";
 import { storage } from "../../config/firebase";
+import { toastr } from "react-redux-toastr";
+import { convertFile } from "../../config/helpers";
 
 interface propTypes {
   handleSubmit: Function;
@@ -42,11 +44,16 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   const [location, setLocation] = useState({});
   const [files, setFiles] = useState([{ preview: "false", name: "default" }]);
   const [image, setImage] = useState(null);
+  const [data, setData] = useState({});
+  const [imageError, setImageError] = useState(false);
   const [locationValue, setLocationValue] = useState({
     type: false,
     error: "Enter a valid Location",
     color: "red"
   });
+
+  let allDatas = {};
+
   const onDrop = useCallback(
     acceptedFiles => {
       setFiles(
@@ -64,43 +71,47 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
     multiple: false,
     accept: "image/*"
   });
-  const onSubmit = (e: any) => {
+
+  // On Submit
+  const onSubmit = async (e: any) => {
+    setImageError(false);
     if (!location) {
       setLocationValue({ ...locationValue, type: true });
+    } else if (!image) {
+      setImageError(true);
     } else {
       setLocationValue({ ...locationValue, type: false });
 
-      const data = { ...e, ...location };
-      createEvents(data);
+      await setData({ ...e, ...location });
+      allDatas = { ...e, ...location };
+      firebaseUpload();
     }
   };
 
-  const setPresentage = (pre: any) => {
+  // Set File Upload Percentage
+  const setPercentage = (pre: any) => {
     console.log(pre);
   };
 
-  const setError = (pre: any) => {
-    console.log(pre);
+  console.log(data);
+
+  // File Upload Fail
+  const setError = (err: any) => {
+    toastr.error("Error", err);
   };
 
-  const success = (pre: any) => {
-    console.log(pre);
+  // File Upload Success
+  const success = (urls: string[]) => {
+    createEvents({ ...allDatas, image: urls[0] });
   };
 
-  const convertFile = (theBlob: any, fileName: string): File[] => {
-    theBlob.lastModifiedDate = new Date();
-    theBlob.name = fileName;
-    return [theBlob];
-  };
-
-  console.log(files);
-
+  // Upload To Firebase Storage
   const firebaseUpload = () => {
     fileUploadFirebase(
       storage,
       convertFile(image, files[0].name),
       "test",
-      setPresentage,
+      setPercentage,
       success,
       setError
     );
@@ -165,6 +176,12 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
             />
           </div>
         )}
+        <br />
+        <br />
+        {imageError && <p style={{ color: "red" }}>Please Select A Image</p>}
+        <br />
+        <br />
+
         {files.length > 0 && files[0].preview !== "false" && (
           <CropperInput setImage={setImage} imagePreview={files[0].preview} />
         )}
@@ -174,21 +191,8 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
           Add Events
         </Button>
       </form>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => firebaseUpload()}
-      >
-        Add Events
-      </Button>
     </div>
   );
-};
-
-const mapStateToProps = (state: any) => {
-  return {
-    userId: state.auth?.user?._id
-  };
 };
 
 const validate = combineValidators({
