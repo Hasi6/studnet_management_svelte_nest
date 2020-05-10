@@ -15,6 +15,7 @@ type Location {
 input createEventInput {
 	title: String!
 	location: CreateLocationInput!
+	image: String!
 	description: String!
 	dateTime: String!
 }

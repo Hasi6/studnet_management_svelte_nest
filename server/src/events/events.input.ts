@@ -10,6 +10,10 @@ export class CreateEventInput {
 
     @IsNotEmpty()
     @Field()
+    image: string;
+
+    @IsNotEmpty()
+    @Field()
     location: ILocation;
 
     @IsNotEmpty()
