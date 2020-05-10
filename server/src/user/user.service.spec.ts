@@ -11,6 +11,12 @@ describe('User Service', () => {
     let userRepo;
     let userService;
 
+
+    const mockUserRepo = () => {
+        getUsers: jest.fn()
+    }
+
+
     beforeEach(async () => {
         const module = await Test.createTestingModule({
             imports: [
@@ -36,12 +42,23 @@ describe('User Service', () => {
             ]
         }).compile();
 
-        userService = await module.get(UserService);
-        userRepo = await module.get(UserRepo);
+        userService = await module.get<UserService>(UserService);
+        userRepo = await module.get<UserRepo>(UserRepo);
     })
 
 
-    it('test', () => {
+    describe('Get Users', () => {
+        it('Get User By Email', async () => {
+            // userService.getUserByEmail = jest.fn();
+            // expect(userService.getUserByEmail).not.toHaveBeenCalled()
+            const user = await userService.getUserByEmail('hasitha.chandula@gmail.com');
+            expect(user).not.toBeUndefined();
+            // expect(userService.getUserByEmail).toHaveBeenCalled()
 
+        });
+
+        it('Get User By Email Throw Error', async () => {
+            await expect(userService.getUserByEmail('hasitha.chandulas@gmail.com')).rejects.toThrow()
+        })
     })
 })

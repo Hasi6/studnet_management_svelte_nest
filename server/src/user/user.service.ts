@@ -1,5 +1,5 @@
 import { IUser, IJwtToken } from './user.model';
-import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as gravatar from 'gravatar';
 import * as bcrypt from 'bcryptjs';
@@ -124,7 +124,6 @@ export class UserService {
     // Get User By Email
     public getUserByEmail = async (email: string) => {
         const user = await this.userRepo.getUserByEmail(email)
-
         if (!user) {
             throw new BadRequestException(`No User Found on ${email} Email address`)
         }
