@@ -44,7 +44,6 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   const [location, setLocation] = useState({});
   const [files, setFiles] = useState([{ preview: "false", name: "default" }]);
   const [image, setImage] = useState(null);
-  const [data, setData] = useState({});
   const [imageError, setImageError] = useState(false);
   const [locationValue, setLocationValue] = useState({
     type: false,
@@ -81,8 +80,6 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
       setImageError(true);
     } else {
       setLocationValue({ ...locationValue, type: false });
-
-      await setData({ ...e, ...location });
       allDatas = { ...e, ...location };
       firebaseUpload();
     }
@@ -92,8 +89,6 @@ const CreateEvents: FC<propTypes> = ({ handleSubmit, createEvents }) => {
   const setPercentage = (pre: any) => {
     console.log(pre);
   };
-
-  console.log(data);
 
   // File Upload Fail
   const setError = (err: any) => {

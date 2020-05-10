@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import AuthorizedWrapper from "../../components/wrappers/AuthorizedWrapper/AuthorizedWrapper";
-import SingleEvent from "../../components/singleEvent/SingleEvent";
-import { Grid, Button } from "@material-ui/core";
+// import SingleEvent from "../../components/singleEvent/SingleEvent";
+import { Button } from "@material-ui/core";
 import GooglePlacesAutocomplete, {
   getLatLng,
   geocodeByPlaceId

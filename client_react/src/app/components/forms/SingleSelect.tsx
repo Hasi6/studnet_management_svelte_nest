@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import { Dropdown } from "primereact/dropdown";
-import { Select, MenuItem, InputLabel } from "@material-ui/core";
+import { Select, MenuItem } from "@material-ui/core";
 
 interface propTypes {
   onChange: Function;
