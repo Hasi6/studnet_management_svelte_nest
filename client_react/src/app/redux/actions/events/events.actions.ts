@@ -3,11 +3,12 @@ import { graphqlRequest } from '../../../graphql/index.graphql';
 import { EventTypes } from '../../types/index.types';
 import { Dispatch } from 'redux';
 import { toastr } from 'react-redux-toastr';
-import { getEventsQuery } from '../../../graphql/query/getEvents';
+import { getEventsQuery, getSingleEventQuery } from '../../../graphql/query/getEvents';
 
 
 // Get Events
 export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
+    console.log(variables)
     try {
         const res = await graphqlRequest(getEventsQuery, variables);
         dispatch({
@@ -22,8 +23,10 @@ export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
 
 // Get Single Event
 export const getSingleEvent = (variables: any, history: any) => async (dispatch: Dispatch) => {
+    console.log(variables)
+
     try {
-        const res = await graphqlRequest(getSingleEvent, variables)
+        const res = await graphqlRequest(getSingleEventQuery, variables)
         console.log(res)
     } catch (err) {
         toastr.error("Error", err.message)

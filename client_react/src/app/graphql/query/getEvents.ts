@@ -29,7 +29,7 @@ export const getEventsQuery = `
 `;
 
 
-export const getSingleEvent = `
+export const getSingleEventQuery = `
 query($id: ID!){
   getSingleEvent(id: $id){
     _id
