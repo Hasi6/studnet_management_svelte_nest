@@ -18,8 +18,14 @@ export class EventsService {
     }
 
     // ********************************************* Get Event Section *****************************************************
+    // Get Events With Pagination
     public getEventsWithPagination = async (page: number) => {
         return await this.eventsRepo.getEventsWithPagination(page)
+    }
+
+    // Get Single Event
+    public getSingleEvent = async(_id: string) => {
+        return await this.eventsRepo.getEventById(_id)
     }
 
 }

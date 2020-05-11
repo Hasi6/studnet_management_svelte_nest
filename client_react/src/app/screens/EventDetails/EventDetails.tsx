@@ -1,20 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { IEvents } from "../../model/User.model";
+import { getSingleEvent } from "../../redux/actions/events/events.actions";
 
 interface propTypes {
   event: IEvents[];
+  getSingleEvent: Function;
 }
 
-const EventDetails: FC<propTypes> = ({ event }): JSX.Element => {
+const EventDetails: FC<propTypes> = ({
+  event,
+  getSingleEvent
+}): JSX.Element => {
   const { id } = useParams();
   const history = useHistory();
-  console.log(event);
 
-  if (event.length === 0) {
-    history.push("/");
-  }
+  const getEvent = () => {
+    if (event.length === 0) {
+      getSingleEvent({ id }, history);
+    }
+  };
+
+  useEffect(() => {
+    getEvent();
+  }, [event]);
 
   return <div>{JSON.stringify(id)}</div>;
 };
@@ -26,4 +37,4 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(EventDetails);
+export default connect(mapStateToProps, { getSingleEvent })(EventDetails);

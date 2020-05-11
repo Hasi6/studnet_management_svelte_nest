@@ -49,6 +49,7 @@ type EventsWithPagination {
 
 type Query {
 	getEvents(page: Int!): EventsWithPagination
+	getSingleEvent(id: ID!): Event
 }
 
 type Mutation {

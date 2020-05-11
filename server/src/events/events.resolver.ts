@@ -16,9 +16,13 @@ export class EventsResolver {
 
 
     @Query()
-    @UseGuards(AuthGuard)
     getEvents(@Args('page') page: number) {
         return this.eventsService.getEventsWithPagination(page)
+    }
+
+    @Query()
+    getSingleEvent(@Args('id') id: string) {
+        return this.eventsService.getSingleEvent(id)
     }
 
 

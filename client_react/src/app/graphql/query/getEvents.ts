@@ -32,25 +32,23 @@ export const getEventsQuery = `
 export const getSingleEvent = `
 query($id: ID!){
   getSingleEvent(id: $id){
-    id
-      title
-      location{
-        location
-        lat
-        lng
-      }
-      user{
-        _id
-        username
-        image
-        email
-      }
+    _id
+    title
+    user{
+      _id
+      username
       image
-      description
-      dateTime
-      createdAt
-      updatedAt
+      email
+    }
+    image
+    location{
+      lat
+      location
+      lng
+    }
+    description
+    dateTime
+    createdAt
+    updatedAt
   }
-}
-
-`
+}`;

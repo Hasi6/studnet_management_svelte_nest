@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { connect } from "react-redux";
 import { IEvents } from "../../model/User.model";
+import { Link } from "react-router-dom";
 
 interface propTypes {
   event: string;
@@ -25,7 +26,7 @@ const SingleEvent: FC<propTypes> = ({ event, myEvt }): JSX.Element => {
       <div className="details">
         <h3>{myEvt?.title}</h3>
         <p>{myEvt?.description}</p>
-        <a href="https://codepen.io/collection/XdWJOQ/">View Details</a>
+        <Link to={`/event/${myEvt._id}`}>View Details</Link>
       </div>
       <div style={{ clear: "both" }}></div>
     </li>
