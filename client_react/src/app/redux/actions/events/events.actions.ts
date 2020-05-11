@@ -17,6 +17,18 @@ export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
     } catch (err) {
         toastr.error("Error", err.message);
     }
+};
+
+
+// Get Single Event
+export const getSingleEvent = (variables: any, history: any) => async (dispatch: Dispatch) => {
+    try {
+        const res = await graphqlRequest(getSingleEvent, variables)
+        console.log(res)
+    } catch (err) {
+        toastr.error("Error", err.message)
+        history.push("/test/test")
+    }
 }
 
 // Create Events
