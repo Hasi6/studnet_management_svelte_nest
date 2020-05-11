@@ -10,9 +10,14 @@ import { IEvents } from "../../model/User.model";
 interface propTypes {
   getEvents: Function;
   events: IEvents[];
+  pages: number;
 }
 
-const EventsList: FC<propTypes> = ({ getEvents, events }): JSX.Element => {
+const EventsList: FC<propTypes> = ({
+  getEvents,
+  events,
+  pages
+}): JSX.Element => {
   const [page, setPage] = useState(1);
 
   // Call Get Events Action
@@ -22,7 +27,9 @@ const EventsList: FC<propTypes> = ({ getEvents, events }): JSX.Element => {
   };
 
   useEffect(() => {
-    getNewEvents();
+    if (pages === 0 || page < pages) {
+      getNewEvents();
+    }
   }, []);
 
   return (
@@ -51,7 +58,8 @@ const EventsList: FC<propTypes> = ({ getEvents, events }): JSX.Element => {
 
 const mapStateToProps = (state: any) => {
   return {
-    events: state?.events?.events
+    events: state?.events?.events,
+    pages: state?.events?.pages
   };
 };
 
