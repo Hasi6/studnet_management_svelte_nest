@@ -27,10 +27,11 @@ export const getSingleEvent = (variables: any, history: any) => async (dispatch:
 
     try {
         const res = await graphqlRequest(getSingleEventQuery, variables)
-        console.log(res)
+        if (!res?.getSingleEvent) {
+            history.push("/notFound")
+        }
     } catch (err) {
-        toastr.error("Error", err.message)
-        history.push("/test/test")
+        toastr.error("Error", "Error")
     }
 }
 
