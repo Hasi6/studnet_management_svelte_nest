@@ -11,6 +11,7 @@ export class EventsRepo {
         @InjectModel('events')
         private readonly eventsRepository: Model<IEvents>,
     ) {
+        this.getEventById("5eba7bf778640931ac05bd0b")
     }
 
 
@@ -30,7 +31,8 @@ export class EventsRepo {
     // Get Event By Id
     public getEventById = async (_id: string) => {
         try {
-            return await this.eventsRepository.findById(_id);
+            console.log(await this.eventsRepository.findById(_id).populate('participants', ['image']))
+            return await this.eventsRepository.findById(_id).populate('participants', ['image']);
         } catch (err) {
             throw new InternalServerErrorException();
         }
@@ -57,6 +59,16 @@ export class EventsRepo {
     public addParticipants = async (_id: string, userId: string) => {
         try {
             await this.eventsRepository.updateOne({ _id }, { $addToSet: { participants: { $each: [userId] } } });
+            return true;
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
+    }
+
+    // Remove Participants To Event
+    public removeParticipants = async (_id: string, userId: string) => {
+        try {
+            await this.eventsRepository.updateOne({ _id }, { $pull: { participants: userId } });
             return true;
         } catch (err) {
             throw new InternalServerErrorException();

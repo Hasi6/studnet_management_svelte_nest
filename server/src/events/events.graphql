@@ -55,4 +55,5 @@ type Query {
 type Mutation {
 	createEvent(createEventInput: createEventInput): Event
 	addParticipant(id: ID!): Boolean
+	removeParticipant(id: ID!): Boolean
 }

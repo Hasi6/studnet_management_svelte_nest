@@ -39,6 +39,12 @@ export class EventsResolver {
         return this.eventsService.addParticipants(id, ctx.user._id);
     }
 
+    @Mutation()
+    @UseGuards(AuthGuard)
+    removeParticipant(@Args('id') id: string, @Context() ctx: any) {
+        return this.eventsService.removeParticipants(id, ctx.user._id);
+    }
+
     @ResolveField()
     user(@Parent() parent: any) {
         return this.userService.getUserById(parent.user);

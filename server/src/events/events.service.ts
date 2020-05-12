@@ -34,4 +34,9 @@ export class EventsService {
         return this.eventsRepo.addParticipants(_id, userId);
     }
 
+    // Remove Participant To Event
+    public removeParticipants = async (_id: string, userId: string) => {
+        return this.eventsRepo.removeParticipants(_id, userId);
+    }
+
 }
