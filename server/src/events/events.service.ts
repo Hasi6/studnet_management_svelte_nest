@@ -24,8 +24,14 @@ export class EventsService {
     }
 
     // Get Single Event
-    public getSingleEvent = async(_id: string) => {
+    public getSingleEvent = async (_id: string) => {
         return await this.eventsRepo.getEventById(_id)
+    }
+
+    // ********************************************* Edit Event Section *****************************************************
+    // Add Participant To Event
+    public addParticipants = async (_id: string, userId: string) => {
+        return this.eventsRepo.addParticipants(_id, userId);
     }
 
 }

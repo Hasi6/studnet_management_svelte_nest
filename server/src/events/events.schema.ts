@@ -20,6 +20,10 @@ export const EventsSchema = new Schema(
             type: String,
             required: true,
         },
+        participants: {
+            type: [Schema.Types.ObjectId],
+            default: []
+        },
         description: {
             type: String,
             required: true,

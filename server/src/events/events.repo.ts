@@ -29,18 +29,37 @@ export class EventsRepo {
     // *************************************** Get Event Section ***************************************************
     // Get Event By Id
     public getEventById = async (_id: string) => {
-        return await this.eventsRepository.findById(_id)
+        try {
+            return await this.eventsRepository.findById(_id);
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
     }
 
     // Get Events With Pagination
     public getEventsWithPagination = async (page: number) => {
-        const perPage = 20;
-        const events = await this.eventsRepository.find().skip(Math.abs(perPage * page - perPage))
-            .limit(perPage)
-            .sort({ createdAt: -1 });
+        try {
+            const perPage = 20;
+            const events = await this.eventsRepository.find().skip(Math.abs(perPage * page - perPage))
+                .limit(perPage)
+                .sort({ createdAt: -1 });
 
-        const allEvents = await this.eventsRepository.find().countDocuments()
-        const pages = Math.abs(Math.ceil(allEvents / perPage))
-        return { pages, page, all: allEvents, events }
+            const allEvents = await this.eventsRepository.find().countDocuments()
+            const pages = Math.abs(Math.ceil(allEvents / perPage))
+            return { pages, page, all: allEvents, events }
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
+    }
+
+    //*************************************** Edit Event Section ***************************************************
+    // Add Participants To Event
+    public addParticipants = async (_id: string, userId: string) => {
+        try {
+            await this.eventsRepository.updateOne({ _id }, { $addToSet: { participants: { $each: [userId] } } });
+            return true;
+        } catch (err) {
+            throw new InternalServerErrorException();
+        }
     }
 }
