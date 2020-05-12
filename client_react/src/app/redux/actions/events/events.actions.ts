@@ -1,5 +1,5 @@
 import { createEvent } from '../../../graphql/mutations/createEvent';
-import { graphqlRequest } from '../../../graphql/index.graphql';
+import { graphqlRequest, } from '../../../graphql/index.graphql';
 import { EventTypes } from '../../types/index.types';
 import { Dispatch } from 'redux';
 import { toastr } from 'react-redux-toastr';
@@ -23,7 +23,6 @@ export const getEvents = (variables: any) => async (dispatch: Dispatch) => {
 
 // Get Single Event
 export const getSingleEvent = (variables: any, history: any) => async (dispatch: Dispatch) => {
-    console.log(variables)
 
     try {
         const res = await graphqlRequest(getSingleEventQuery, variables)

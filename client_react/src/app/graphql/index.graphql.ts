@@ -12,7 +12,7 @@ export const graphqlRequest = async (query: any, variables?: any) => {
     try {
         return await client.request(query, variables)
     } catch (err) {
-        toastr.error("Error", err.message)
+        toastr.error("Error", "err.message")
         return null;
     }
 
