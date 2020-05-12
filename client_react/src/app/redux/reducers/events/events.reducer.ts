@@ -32,7 +32,8 @@ const getEvents = (state: EventsReducer, { events, pages, page, all }: { events:
 const addNewEvent = (state: EventsReducer, { event }: { event: IEvents }) => {
     return {
         ...state,
-        events: [...state.events, event]
+        events: [...state.events, event],
+        all: state.all + 1
     }
 }
 

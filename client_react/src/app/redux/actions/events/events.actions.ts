@@ -26,9 +26,15 @@ export const getSingleEvent = (variables: any, history: any) => async (dispatch:
 
     try {
         const res = await graphqlRequest(getSingleEventQuery, variables)
+
         if (!res?.getSingleEvent) {
             history.push("/notFound")
+            return;
         }
+        dispatch({
+            type: EventTypes.CREATE_EVENT,
+            payload: { event: res?.getSingleEvent }
+        })
     } catch (err) {
         toastr.error("Error", "Error")
     }

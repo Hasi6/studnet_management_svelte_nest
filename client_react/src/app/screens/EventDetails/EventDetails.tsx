@@ -17,7 +17,7 @@ import { getSingleEvent } from "../../redux/actions/events/events.actions";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 1000
+    maxWidth: "50vw"
   }
 });
 
@@ -43,39 +43,39 @@ const EventDetails: FC<propTypes> = ({
 
   useEffect(() => {
     getEvent();
-  }, [event]);
-
-  console.log(event);
+  }, []);
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image={event[0]?.image}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+    <div className="container">
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            height="300"
+            image={event[0]?.image}
+            title="Contemplative Reptile"
+          />
+
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {event[0]?.title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {event[0]?.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            Share
+          </Button>
+          <Button size="small" color="primary">
+            Learn More
+          </Button>
+        </CardActions>
+      </Card>
+    </div>
   );
 };
 
