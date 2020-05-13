@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { IEvents } from "../../model/User.model";
 import { getSingleEvent } from "../../redux/actions/events/events.actions";
+import LoadingComponent from "../../components/loading/LoadingComponent";
 
 const useStyles = makeStyles({
   root: {
@@ -41,62 +42,69 @@ const EventDetails: FC<propTypes> = ({
     }
   };
 
+  console.log(event);
+
   useEffect(() => {
     getEvent();
   }, []);
 
   return (
     <div className="container">
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="Contemplative Reptile"
-            image={event[0]?.image}
-            title="Contemplative Reptile"
-          />
+      {event.length === 0 && <LoadingComponent />}
 
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="h2"
-              style={{ float: "left" }}
-            >
-              {event[0]?.title}
-            </Typography>
-            <br />
-            <br />
-            <br />
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              component="h4"
-              style={{ float: "left" }}
-            >
-              {event[0]?.dateTime}
-            </Typography>
-            <br />
-            <br />
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              style={{ float: "left" }}
-            >
-              {event[0]?.description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+      {event.length > 0 && (
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              alt="Contemplative Reptile"
+              image={event[0]?.image}
+              title="Contemplative Reptile"
+            />
+
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="h2"
+                style={{ float: "left" }}
+              >
+                {event[0]?.title}
+              </Typography>
+              <br />
+              <br />
+              <br />
+
+              <Typography
+                variant="h6"
+                color="textSecondary"
+                component="h4"
+                style={{ float: "left" }}
+              >
+                {event[0]?.dateTime}
+              </Typography>
+              <br />
+              <br />
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                style={{ float: "left" }}
+              >
+                {event[0]?.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Share
+            </Button>
+            <Button size="small" color="primary">
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+      )}
     </div>
   );
 };
