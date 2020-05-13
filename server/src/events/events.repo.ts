@@ -10,7 +10,11 @@ export class EventsRepo {
     constructor(
         @InjectModel('events')
         private readonly eventsRepository: Model<IEvents>,
-    ) { }
+    ) {
+
+        this.getEventById("5eba7bf778640931ac05bd0b")
+
+    }
 
 
     // *************************************** Create Event Section ***************************************************
@@ -39,7 +43,7 @@ export class EventsRepo {
     public getEventsWithPagination = async (page: number) => {
         try {
             const perPage = 20;
-            const events = await this.eventsRepository.find().skip(Math.abs(perPage * page - perPage))
+            const events = await this.eventsRepository.find().populate('participants', ['image', 'username', '_id', 'email']).skip(Math.abs(perPage * page - perPage))
                 .limit(perPage)
                 .sort({ createdAt: -1 });
 

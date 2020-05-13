@@ -1,21 +1,16 @@
 import React, { FC } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Avatar,
-  ListItemAvatar,
-  ListItemText,
-  List,
-  Divider,
-  ListItem
-} from "@material-ui/core";
+import { List } from "@material-ui/core";
+import { connect } from "react-redux";
+import SingleParticipants from "./SingleParticipants/SingleParticipants";
+import { IEvents } from "../../../model/User.model";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
       maxWidth: "36ch",
-      backgroundColor: theme.palette.background.paper
+      backgroundColor: "grey"
     },
     inline: {
       display: "inline"
@@ -23,78 +18,30 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Participants: FC = (): JSX.Element => {
+interface propTypes {
+  id: string;
+  participants: any;
+}
+
+const Participants: FC<propTypes> = ({ id, participants }): JSX.Element => {
   const classes = useStyles();
 
   return (
     <List className={classes.root}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Brunch this weekend?"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Ali Connors
-              </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Summer BBQ"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                to Scott, Alex, Jennifer
-              </Typography>
-              {" — Wish I could come, but I'm out of town this…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="Oui Oui"
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Sandra Adams
-              </Typography>
-              {" — Do you have Paris recommendations? Have you ever…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+      {participants.map((parti: any) => (
+        <SingleParticipants parti={parti} />
+      ))}
     </List>
   );
 };
 
-export default Participants;
+const mapStateToProps = (state: any, ownProps: any) => {
+  const events = state?.events?.events.filter(
+    (eve: IEvents) => eve._id === ownProps.id
+  )[0];
+  return {
+    participants: events?.participants
+  };
+};
+
+export default connect(mapStateToProps)(Participants);

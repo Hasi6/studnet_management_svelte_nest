@@ -21,10 +21,10 @@ input createEventInput {
 }
 
 type User {
-	_id: String!
-	username: String!
-	email: String!
-	image: String!
+	_id: String
+	username: String
+	email: String
+	image: String
 }
 
 type Event {

@@ -11,6 +11,9 @@ export const getEventsQuery = `
       }
       participants{
         _id
+        username
+        email
+        image
       }
       user{
         _id
@@ -38,7 +41,10 @@ query($id: ID!){
     _id
     title
     participants{
-        _id
+       _id
+        username
+        email
+        image
       }
     user{
       _id

@@ -21,7 +21,8 @@ export class EventsResolver {
     }
 
     @Query()
-    getSingleEvent(@Args('id') id: string) {
+    async getSingleEvent(@Args('id') id: string) {
+        console.log(await this.eventsService.getSingleEvent(id))
         return this.eventsService.getSingleEvent(id)
     }
 
