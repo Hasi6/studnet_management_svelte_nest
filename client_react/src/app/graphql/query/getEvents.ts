@@ -9,7 +9,9 @@ export const getEventsQuery = `
         lat
         lng
       }
-      
+      participants{
+        _id
+      }
       user{
         _id
         username

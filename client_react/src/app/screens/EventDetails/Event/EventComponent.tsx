@@ -28,12 +28,16 @@ interface propTypes {
   event: IEvents[];
   getSingleEvent: Function;
   id: string;
+  participantIds: string[];
+  userId: string | undefined;
 }
 
 const EventComponent: FC<propTypes> = ({
   event,
   getSingleEvent,
-  id
+  id,
+  participantIds,
+  userId
 }): JSX.Element => {
   const classes = useStyles();
 
@@ -49,7 +53,9 @@ const EventComponent: FC<propTypes> = ({
     getEvent();
   }, []);
 
-  console.log(event);
+  const meJoined = () => {
+    return participantIds?.some((id: string) => id === userId);
+  };
 
   return (
     <div>
@@ -98,7 +104,7 @@ const EventComponent: FC<propTypes> = ({
           </CardActionArea>
           <CardActions>
             <Button size="small" color="primary">
-              Share
+              {meJoined() ? "Leave Event" : "Join Event"}
             </Button>
             <Button size="small" color="primary">
               Learn More
@@ -112,8 +118,19 @@ const EventComponent: FC<propTypes> = ({
 
 const mapStateToProps = (state: any, ownProps: any) => {
   const { id } = ownProps;
+  let participantIds = [];
+  const event = state?.events?.events.filter(
+    (event: IEvents) => event._id === id
+  );
+
+  if (event.length > 0) {
+    participantIds = event[0]?.participants?.map((user: any) => user._id);
+  }
+
   return {
-    event: state?.events?.events.filter((event: IEvents) => event._id === id)
+    event: state?.events?.events.filter((event: IEvents) => event._id === id),
+    participantIds,
+    userId: state?.auth?.user?._id
   };
 };
 

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import EventComponent from "./Event/EventComponent";
 import { useParams } from "react-router-dom";
 import { Grid } from "@material-ui/core";
+import Participants from "./Participants/Participants";
 
 interface propTypes {}
 
@@ -16,7 +17,7 @@ const EventDetails: FC<propTypes> = (): JSX.Element => {
           <EventComponent id={id} />
         </Grid>
         <Grid item md={4}>
-          {/*<EventComponent id={id} /> */}
+          <Participants />
         </Grid>
       </Grid>
     </div>
