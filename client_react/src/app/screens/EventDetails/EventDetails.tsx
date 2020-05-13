@@ -17,7 +17,7 @@ import { getSingleEvent } from "../../redux/actions/events/events.actions";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: "50vw"
+    maxWidth: 600
   }
 });
 
@@ -52,16 +52,38 @@ const EventDetails: FC<propTypes> = ({
           <CardMedia
             component="img"
             alt="Contemplative Reptile"
-            height="300"
             image={event[0]?.image}
             title="Contemplative Reptile"
           />
 
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="h2"
+              style={{ float: "left" }}
+            >
               {event[0]?.title}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <br />
+            <br />
+            <br />
+            <Typography
+              variant="h6"
+              color="textSecondary"
+              component="h4"
+              style={{ float: "left" }}
+            >
+              {event[0]?.dateTime}
+            </Typography>
+            <br />
+            <br />
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{ float: "left" }}
+            >
               {event[0]?.description}
             </Typography>
           </CardContent>
