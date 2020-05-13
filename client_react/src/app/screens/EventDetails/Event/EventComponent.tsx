@@ -49,6 +49,8 @@ const EventComponent: FC<propTypes> = ({
     getEvent();
   }, []);
 
+  console.log(event);
+
   return (
     <div>
       {event.length > 0 && (

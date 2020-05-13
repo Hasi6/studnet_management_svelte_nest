@@ -31,6 +31,7 @@ type Event {
 	_id: String!
 	title: String!
 	user: User
+	participants: [User]
 	image: String!
 	location: Location!
 	description: String!

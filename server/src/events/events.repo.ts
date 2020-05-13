@@ -10,9 +10,7 @@ export class EventsRepo {
     constructor(
         @InjectModel('events')
         private readonly eventsRepository: Model<IEvents>,
-    ) {
-        this.getEventById("5eba7bf778640931ac05bd0b")
-    }
+    ) { }
 
 
     // *************************************** Create Event Section ***************************************************
@@ -31,8 +29,7 @@ export class EventsRepo {
     // Get Event By Id
     public getEventById = async (_id: string) => {
         try {
-            console.log(await this.eventsRepository.findById(_id).populate('participants', ['image']))
-            return await this.eventsRepository.findById(_id).populate('participants', ['image']);
+            return await this.eventsRepository.findById(_id).populate('participants', ['image', 'username', '_id', 'email']);
         } catch (err) {
             throw new InternalServerErrorException();
         }

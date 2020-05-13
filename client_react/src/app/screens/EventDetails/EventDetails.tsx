@@ -16,7 +16,7 @@ const EventDetails: FC<propTypes> = (): JSX.Element => {
           <EventComponent id={id} />
         </Grid>
         <Grid item md={4}>
-          <EventComponent id={id} />
+          {/*<EventComponent id={id} /> */}
         </Grid>
       </Grid>
     </div>

@@ -9,6 +9,7 @@ export const getEventsQuery = `
         lat
         lng
       }
+      
       user{
         _id
         username
@@ -34,6 +35,9 @@ query($id: ID!){
   getSingleEvent(id: $id){
     _id
     title
+    participants{
+        _id
+      }
     user{
       _id
       username
