@@ -3,7 +3,7 @@ import { writable } from "svelte/store";
 
 const screenStore = () => {
   // Initial State
-  const screen = writable("chat");
+  const screen = writable("addGroup");
 
   // Set Loading
   const setScreen = name => {
