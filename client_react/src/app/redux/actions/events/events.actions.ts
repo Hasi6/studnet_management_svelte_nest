@@ -76,7 +76,6 @@ export const addParticipants = (variables: any) => async (dispatch: Dispatch, ge
         const { username, email, _id, image } = getState().auth?.user;
         const user: IUser = { username, email, _id, image }
         const res = await graphqlRequest(addParticipantsQuery, variables);
-        console.log(res)
         if (res.addParticipant) {
             dispatch({
                 type: EventTypes.ADD_PARTICIPANT,
@@ -91,16 +90,17 @@ export const addParticipants = (variables: any) => async (dispatch: Dispatch, ge
 }
 
 // Add Participants 
-export const removeParticipants = (variables: any) => async (dispatch: Dispatch, getState: StoreState) => {
+export const removeParticipants = (variables: any) => async (dispatch: Dispatch, getState: Function) => {
 
-    console.log(getState);
+    const user = getState().auth?.user?._id
     try {
         const res = await graphqlRequest(removeParticipantsQuery, variables);
-        console.log(res)
-        // dispatch({
-        //     type: EventTypes.ADD_PARTICIPANT,
-        //     payload: 
-        // })
+        if (res.removeParticipant) {
+            dispatch({
+                type: EventTypes.REMOVE_PARTICIPANT,
+                payload: { _id: variables.id, user }
+            });
+        }
     } catch (err) {
         toastr.error("Error", err.message)
     }

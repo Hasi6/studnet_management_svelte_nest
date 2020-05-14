@@ -49,9 +49,20 @@ const deleteEvent = (state: EventsReducer, { _id }: { _id: string }) => {
 
 // Add Participants
 const addParticipants = (state: EventsReducer, { _id, user }: { _id: string, user: IUser }) => {
-    console.log({ _id, user })
     const event: IEvents = state.events.filter((event: IEvents) => event._id === _id)[0];
     event.participants = [...event.participants, user]
+    let allEvents = state.events.filter((event: IEvents) => event._id !== _id);
+    allEvents = [...allEvents, event]
+    return {
+        ...state,
+        events: allEvents
+    };
+}
+
+// Remove Participants
+const removeParticipants = (state: EventsReducer, { _id, user }: { _id: string, user: string }) => {
+    const event: IEvents = state.events.filter((event: IEvents) => event._id === _id)[0];
+    event.participants = event.participants.filter((parti: IUser) => parti._id !== user)
     let allEvents = state.events.filter((event: IEvents) => event._id !== _id);
     allEvents = [...allEvents, event]
     return {
@@ -68,4 +79,5 @@ export default createReducer(initialState, {
     [EventTypes.CREATE_EVENT]: addNewEvent,
     [EventTypes.DELETE_EVENT]: deleteEvent,
     [EventTypes.ADD_PARTICIPANT]: addParticipants,
+    [EventTypes.REMOVE_PARTICIPANT]: removeParticipants,
 })
