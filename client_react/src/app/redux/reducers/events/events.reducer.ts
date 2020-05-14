@@ -50,7 +50,7 @@ const deleteEvent = (state: EventsReducer, { _id }: { _id: string }) => {
 // Add Participants
 const addParticipants = (state: EventsReducer, { _id, user }: { _id: string, user: IUser }) => {
     const event: IEvents = state.events.filter((event: IEvents) => event._id === _id)[0];
-    event.participants = [...event.participants, user]
+    event.participants = [user, ...event.participants]
     let allEvents = state.events.filter((event: IEvents) => event._id !== _id);
     allEvents = [...allEvents, event]
     return {
