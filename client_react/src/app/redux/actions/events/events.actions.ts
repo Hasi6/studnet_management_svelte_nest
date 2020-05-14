@@ -1,4 +1,4 @@
-import { createEvent } from '../../../graphql/mutations/createEvent';
+import { createEvent, addParticipantsQuery, removeParticipantsQuery } from '../../../graphql/mutations/createEvent';
 import { graphqlRequest, } from '../../../graphql/index.graphql';
 import { EventTypes } from '../../types/index.types';
 import { Dispatch } from 'redux';
@@ -63,5 +63,26 @@ export const deleteEvent = (_id: string) => async (dispatch: Dispatch) => {
         })
     } catch (err) {
         toastr.error("Error", err.message);
+    }
+};
+
+
+// Add Participants 
+export const addParticipants = (variables: any) => async (dispatch: Dispatch) => {
+    try {
+        const res = await graphqlRequest(addParticipantsQuery, variables);
+        console.log(res)
+    } catch (err) {
+        toastr.error("Error", err.message)
+    }
+}
+
+// Add Participants 
+export const removeParticipants = (variables: any) => async (dispatch: Dispatch) => {
+    try {
+        const res = await graphqlRequest(removeParticipantsQuery, variables);
+        console.log(res)
+    } catch (err) {
+        toastr.error("Error", err.message)
     }
 }

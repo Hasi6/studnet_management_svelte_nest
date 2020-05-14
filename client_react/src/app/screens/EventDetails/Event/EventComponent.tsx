@@ -13,10 +13,14 @@ import {
   Typography
 } from "@material-ui/core";
 
-import { getSingleEvent } from "../../../redux/actions/events/events.actions";
+import {
+  getSingleEvent,
+  addParticipants
+} from "../../../redux/actions/events/events.actions";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { IEvents } from "../../../model/User.model";
+import { removeParticipants } from "../../../redux/actions/events/events.actions";
 
 const useStyles = makeStyles({
   root: {
@@ -30,6 +34,8 @@ interface propTypes {
   id: string;
   participantIds: string[];
   userId: string | undefined;
+  addParticipants: Function;
+  removeParticipants: Function;
 }
 
 const EventComponent: FC<propTypes> = ({
@@ -37,7 +43,9 @@ const EventComponent: FC<propTypes> = ({
   getSingleEvent,
   id,
   participantIds,
-  userId
+  userId,
+  addParticipants,
+  removeParticipants
 }): JSX.Element => {
   const classes = useStyles();
 
@@ -55,6 +63,14 @@ const EventComponent: FC<propTypes> = ({
 
   const meJoined = () => {
     return participantIds?.some((id: string) => id === userId);
+  };
+
+  const joinOrLeave = () => {
+    if (meJoined()) {
+      removeParticipants({ id: event[0]?._id });
+    } else {
+      addParticipants({ id: event[0]?._id });
+    }
   };
 
   return (
@@ -103,7 +119,11 @@ const EventComponent: FC<propTypes> = ({
           </CardActionArea>
           <CardActions>
             {userId && (
-              <Button size="small" color="primary" onClick={() => alert()}>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => joinOrLeave()}
+              >
                 {meJoined() ? "Leave Event" : "Join Event"}
               </Button>
             )}
@@ -135,4 +155,8 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps, { getSingleEvent })(EventComponent);
+export default connect(mapStateToProps, {
+  getSingleEvent,
+  addParticipants,
+  removeParticipants
+})(EventComponent);

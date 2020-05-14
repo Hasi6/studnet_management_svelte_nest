@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       maxWidth: "36ch",
       backgroundColor: "grey",
-      height: "100px",
+      maxHeight: "600px",
       overflow: "auto"
     },
     inline: {

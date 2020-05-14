@@ -5,3 +5,15 @@ export const createEvent = `
         }
     }
 `;
+export const addParticipantsQuery = `
+  mutation($id: ID!){
+    addParticipant(id:$id)
+  }
+`;
+
+
+export const removeParticipantsQuery = `
+  mutation($id: ID!){
+    removeParticipant(id:$id)
+  }
+`;
