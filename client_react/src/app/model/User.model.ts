@@ -25,6 +25,7 @@ export interface IEvents {
     image: string;
     dateTime: string;
     description: string;
+    participants: IUser[];
     location: ILocation;
     createdAt: string;
     updatedAt: string;

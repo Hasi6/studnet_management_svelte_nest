@@ -4,6 +4,8 @@ import { EventTypes } from '../../types/index.types';
 import { Dispatch } from 'redux';
 import { toastr } from 'react-redux-toastr';
 import { getEventsQuery, getSingleEventQuery } from '../../../graphql/query/getEvents';
+import { StoreState } from '../../reducers/index';
+import { IUser } from '../../../model/User.model';
 
 
 // Get Events
@@ -68,20 +70,37 @@ export const deleteEvent = (_id: string) => async (dispatch: Dispatch) => {
 
 
 // Add Participants 
-export const addParticipants = (variables: any) => async (dispatch: Dispatch) => {
+export const addParticipants = (variables: any) => async (dispatch: Dispatch, getState: Function) => {
+
     try {
+        const { username, email, _id, image } = getState().auth?.user;
+        const user: IUser = { username, email, _id, image }
         const res = await graphqlRequest(addParticipantsQuery, variables);
         console.log(res)
+        if (res.addParticipant) {
+            dispatch({
+                type: EventTypes.ADD_PARTICIPANT,
+                payload: { _id: variables.id, user }
+            });
+        }
+
+
     } catch (err) {
         toastr.error("Error", err.message)
     }
 }
 
 // Add Participants 
-export const removeParticipants = (variables: any) => async (dispatch: Dispatch) => {
+export const removeParticipants = (variables: any) => async (dispatch: Dispatch, getState: StoreState) => {
+
+    console.log(getState);
     try {
         const res = await graphqlRequest(removeParticipantsQuery, variables);
         console.log(res)
+        // dispatch({
+        //     type: EventTypes.ADD_PARTICIPANT,
+        //     payload: 
+        // })
     } catch (err) {
         toastr.error("Error", err.message)
     }

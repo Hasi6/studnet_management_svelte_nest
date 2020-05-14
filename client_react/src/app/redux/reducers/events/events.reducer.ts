@@ -1,6 +1,6 @@
 import { createReducer } from "../util/reducerUtil"
 import { EventTypes } from '../../types/index.types';
-import { IEvents } from '../../../model/User.model';
+import { IEvents, IUser } from '../../../model/User.model';
 
 
 export interface EventsReducer {
@@ -48,6 +48,17 @@ const deleteEvent = (state: EventsReducer, { _id }: { _id: string }) => {
 
 
 // Add Participants
+const addParticipants = (state: EventsReducer, { _id, user }: { _id: string, user: IUser }) => {
+    console.log({ _id, user })
+    const event: IEvents = state.events.filter((event: IEvents) => event._id === _id)[0];
+    event.participants = [...event.participants, user]
+    let allEvents = state.events.filter((event: IEvents) => event._id !== _id);
+    allEvents = [...allEvents, event]
+    return {
+        ...state,
+        events: allEvents
+    };
+}
 
 
 
@@ -56,4 +67,5 @@ export default createReducer(initialState, {
     [EventTypes.GET_EVENTS]: getEvents,
     [EventTypes.CREATE_EVENT]: addNewEvent,
     [EventTypes.DELETE_EVENT]: deleteEvent,
+    [EventTypes.ADD_PARTICIPANT]: addParticipants,
 })

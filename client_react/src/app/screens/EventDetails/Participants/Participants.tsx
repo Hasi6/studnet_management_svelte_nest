@@ -33,7 +33,7 @@ const Participants: FC<propTypes> = ({ id, participants }): JSX.Element => {
       {participants?.length === 0 && <p>No Participants</p>}
       {participants?.length > 0 && <p>{participants.length} Participants</p>}
       {participants?.map((parti: any) => (
-        <SingleParticipants parti={parti} />
+        <SingleParticipants key={parti._id} parti={parti} />
       ))}
     </List>
   );
