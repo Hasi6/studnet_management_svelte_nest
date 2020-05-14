@@ -10,7 +10,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
       maxWidth: "36ch",
-      backgroundColor: "grey"
+      backgroundColor: "grey",
+      height: "100px",
+      overflow: "auto"
     },
     inline: {
       display: "inline"
@@ -28,7 +30,9 @@ const Participants: FC<propTypes> = ({ id, participants }): JSX.Element => {
 
   return (
     <List className={classes.root}>
-      {participants.map((parti: any) => (
+      {participants?.length === 0 && <p>No Participants</p>}
+      {participants?.length > 0 && <p>{participants.length} Participants</p>}
+      {participants?.map((parti: any) => (
         <SingleParticipants parti={parti} />
       ))}
     </List>

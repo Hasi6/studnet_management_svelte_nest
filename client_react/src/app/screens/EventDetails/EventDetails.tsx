@@ -11,7 +11,7 @@ interface propTypes {}
 const EventDetails: FC<propTypes> = (): JSX.Element => {
   const { id } = useParams();
   return (
-    <div className="container">
+    <div className="containers">
       <Grid container spacing={6}>
         <Grid item md={8}>
           <EventComponent id={id} />

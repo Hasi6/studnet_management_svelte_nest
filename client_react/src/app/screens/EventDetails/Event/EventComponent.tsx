@@ -80,7 +80,6 @@ const EventComponent: FC<propTypes> = ({
               </Typography>
               <br />
               <br />
-              <br />
 
               <Typography
                 variant="h6"
@@ -103,9 +102,11 @@ const EventComponent: FC<propTypes> = ({
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary">
-              {meJoined() ? "Leave Event" : "Join Event"}
-            </Button>
+            {userId && (
+              <Button size="small" color="primary" onClick={() => alert()}>
+                {meJoined() ? "Leave Event" : "Join Event"}
+              </Button>
+            )}
             <Button size="small" color="primary">
               Learn More
             </Button>
