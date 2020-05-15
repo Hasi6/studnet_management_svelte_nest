@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import GoogleMapReact from "google-map-react";
 import { Room } from "@material-ui/icons";
 
-const Marker: any = () => <Room color="primary" />;
+const Marker: any = () => <Room color="secondary" />;
 
 interface propTypes {
   lat: number;
@@ -11,8 +11,8 @@ interface propTypes {
 
 const MapComponent: FC<propTypes> = ({ lat, lng }): JSX.Element => {
   const center = {
-    lat: 0.0,
-    lng: 0.0
+    lat: lat,
+    lng: lng
   };
 
   const zoom = 15;

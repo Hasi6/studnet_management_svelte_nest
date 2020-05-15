@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -10,7 +10,8 @@ import {
   Card,
   CardActionArea,
   Button,
-  Typography
+  Typography,
+  Grid
 } from "@material-ui/core";
 
 import {
@@ -51,6 +52,8 @@ const EventComponent: FC<propTypes> = ({
   const classes = useStyles();
 
   const history = useHistory();
+
+  const [map, setMap] = useState(false);
 
   const getEvent = () => {
     if (event.length === 0) {
@@ -119,25 +122,47 @@ const EventComponent: FC<propTypes> = ({
             </CardContent>
           </CardActionArea>
           <CardActions>
-            {userId && (
-              <Button
-                size="small"
-                color="primary"
-                onClick={() => joinOrLeave()}
-              >
-                {meJoined() ? "Leave Event" : "Join Event"}
-              </Button>
-            )}
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
+            <Grid container spacing={8}>
+              <Grid item lg={8} xl={8} sm={8} xs={8}>
+                {userId && (
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => joinOrLeave()}
+                  >
+                    {meJoined() ? "Leave Event" : "Join Event"}
+                  </Button>
+                )}
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => setMap(!map)}
+                >
+                  {map ? "Hide Location" : "See Location"}
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  style={{ background: "green" }}
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => setMap(!map)}
+                >
+                  Edit Event
+                </Button>
+              </Grid>
+            </Grid>
           </CardActions>
         </Card>
       )}
-      <MapComponent
-        lat={parseFloat(event[0]?.location?.lat)}
-        lng={parseFloat(event[0]?.location?.lng)}
-      />
+      <br />
+      {event.length > 0 && map && (
+        <MapComponent
+          lat={parseFloat(event[0]?.location?.lat)}
+          lng={parseFloat(event[0]?.location?.lng)}
+        />
+      )}
     </div>
   );
 };
