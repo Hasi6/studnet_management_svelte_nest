@@ -21,6 +21,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { IEvents } from "../../../model/User.model";
 import { removeParticipants } from "../../../redux/actions/events/events.actions";
+import MapComponent from "../../../components/map/MapComponent";
 
 const useStyles = makeStyles({
   root: {
@@ -133,6 +134,10 @@ const EventComponent: FC<propTypes> = ({
           </CardActions>
         </Card>
       )}
+      <MapComponent
+        lat={parseFloat(event[0]?.location?.lat)}
+        lng={parseFloat(event[0]?.location?.lng)}
+      />
     </div>
   );
 };
