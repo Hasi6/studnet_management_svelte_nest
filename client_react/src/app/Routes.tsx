@@ -9,12 +9,14 @@ import UnPrivateRoute from "./Routes/UnPrivateRoute";
 import CreateEvents from "./screens/CreateEvents/CreateEvents";
 import EventDetails from "./screens/EventDetails/EventDetails";
 import NotFound from "./screens/NotFound/NotFound";
+import EditEvent from "./screens/EventDetails/Event/EditEvent/EditEvent";
 
 const Routes = ({ location }: { location: any }): JSX.Element => {
   return (
     <Switch key={location.key}>
       <PrivateRoute path="/" exact component={Home} />
       <PrivateRoute path="/createEvents" exact component={CreateEvents} />
+      <PrivateRoute path="/editEvent/:id" exact component={EditEvent} />
       <UnPrivateRoute path="/login" exact component={Auth} />
       <Route path="/event/:id" exact component={EventDetails} />
       <Route path="*" exact component={NotFound} />

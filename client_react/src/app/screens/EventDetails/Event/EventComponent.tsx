@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -142,15 +142,17 @@ const EventComponent: FC<propTypes> = ({
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  style={{ background: "green" }}
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  onClick={() => setMap(!map)}
-                >
-                  Edit Event
-                </Button>
+                {userId === event[0]?.user?._id && (
+                  <Button
+                    style={{ background: "green" }}
+                    size="small"
+                    color="primary"
+                    variant="contained"
+                    onClick={() => setMap(!map)}
+                  >
+                    <Link to={`/editEvent/${event[0]?._id}`}>Edit Event</Link>
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </CardActions>
