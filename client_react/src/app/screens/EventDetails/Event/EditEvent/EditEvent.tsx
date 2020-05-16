@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, useEffect } from "react";
 import {
   combineValidators,
   composeValidators,
@@ -7,16 +8,69 @@ import {
   hasLengthLessThan
 } from "revalidate";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
+import { reduxForm, Field } from "redux-form";
+import TextInput from "../../../../components/forms/TextInput";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import DataTimeFiled from "../../../../components/forms/DataTimeFiled";
+import { IEvents } from "../../../../model/User.model";
+import { getSingleEvent } from "../../../../redux/actions/events/events.actions";
 
 interface propTypes {
   handleSubmit: Function;
+  event: IEvents;
+  history: any;
+  getSingleEvent: Function;
+  match: any;
 }
 
-const EditEvent: FC<propTypes> = ({ handleSubmit }): JSX.Element => {
+const EditEvent: FC<propTypes> = ({
+  handleSubmit,
+  event,
+  history,
+  match,
+  getSingleEvent
+}): JSX.Element => {
+  const getEvent = () => {
+    if (!event._id) {
+      getSingleEvent({ id: match?.params?.id }, history);
+    }
+  };
+
+  useEffect(() => {
+    getEvent();
+  }, []);
+
+  if (!event._id) {
+    history.push(`/event/${match?.params?.id}`);
+  }
+
   return (
-    <div>
-      <h1>Handle Event</h1>
+    <div className="containers">
+      <h3>Edit Event</h3>
+      <Field component={TextInput} name="title" label="Title" type="text" />
+      <Field
+        component={TextInput}
+        name="description"
+        label="Description"
+        multiline={true}
+        rows={4}
+        type="text"
+      />
+
+      {/*<GooglePlacesAutocomplete
+        onSelect={async e => {
+          let loc: any = { location: e.description };
+          const geoMetry = await geocodeByPlaceId(e.place_id);
+          loc = { ...loc, ...(await getLatLng(geoMetry[0])) };
+          setLocation(loc);
+        }}
+      /> */}
+      <br />
+      <br />
+
+      <Field component={DataTimeFiled} name="dateTime" label="Date and Time" />
+      <br />
+      <br />
     </div>
   );
 };
@@ -44,12 +98,16 @@ const validate = combineValidators({
 });
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  console.log(ownProps);
+  const { id } = ownProps?.match?.params;
+
+  const event =
+    state?.events?.events.filter((event: IEvents) => event._id === id)[0] || {};
   return {
-    prop: state.prop
+    event,
+    initialValues: event,
+    userId: state?.auth?.user?._id
   };
 };
-
-export default connect(mapStateToProps)(
+export default connect(mapStateToProps, { getSingleEvent })(
   reduxForm({ form: "editEvent", validate })(EditEvent)
 );
