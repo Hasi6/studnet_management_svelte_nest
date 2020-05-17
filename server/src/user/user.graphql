@@ -3,3 +3,21 @@ type User {
 	username: String!
 	image: String!
 }
+
+
+input RegisterInput {
+	username: String!
+	email: String!
+	password: String!
+}
+
+input LoginInput {
+	email: String!
+	password: String!
+}
+
+
+type Mutation {
+	register(input: RegisterInput): String
+	login(input: LoginInput): String
+}
