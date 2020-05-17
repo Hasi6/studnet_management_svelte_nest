@@ -24,7 +24,7 @@ const RegisterForm: FC<propTypes> = ({
   handleSubmit
 }): JSX.Element => {
   const onSubmit = (e: any) => {
-    console.log(e);
+    registerUser(e);
   };
 
   return (

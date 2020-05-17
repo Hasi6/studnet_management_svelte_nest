@@ -16,3 +16,11 @@ type Comment {
 type Query {
 	getComments(event: ID!): Comment
 }
+
+type Mutation {
+	addComment(name: String): String
+}
+
+type Subscription {
+	commentAdded(name: String!): String
+}

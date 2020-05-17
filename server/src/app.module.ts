@@ -31,7 +31,7 @@ import { CommentsModule } from './comments/comments.module';
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
-      context: ({ req }) => ({ headers: req.headers }),
+      context: ({ req }) => ({ headers: req?.headers }),
       typePaths: ['./**/*.graphql']
     }),
     FacultiesModule,

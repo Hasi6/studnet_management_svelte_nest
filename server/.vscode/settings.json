@@ -4,5 +4,6 @@
         "nestjs",
         "typeorm",
         "websockets"
-    ]
+    ],
+    "deno.enable": false
 }
