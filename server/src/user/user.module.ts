@@ -10,6 +10,7 @@ import { UserRepo } from './user.repo';
 import { JwtStrategy } from './jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
+import { UserResolver } from './user.resolver';
 
 
 
@@ -27,7 +28,7 @@ import { User } from './user.entity';
     }),
   ],
   controllers: [UserController],
-  providers: [UserService, UserRepo, JwtStrategy],
+  providers: [UserService, UserRepo, JwtStrategy, UserResolver],
   exports: [UserService, UserRepo, JwtStrategy]
 })
 export class UserModule { }

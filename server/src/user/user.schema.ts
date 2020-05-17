@@ -12,12 +12,6 @@ export const UsersSchema = new Schema(
             required: true,
             unique: true
         },
-        faculty: {
-            type: String,
-        },
-        department: {
-            type: String,
-        },
         image: {
             type: String,
             required: true
@@ -32,15 +26,6 @@ export const UsersSchema = new Schema(
         verifyAccount: {
             type: Boolean,
             default: true
-        },
-        chatIdList: {
-            type: [Schema.Types.ObjectId],
-            default: [],
-            ref: "chatList"
-        },
-        onlineStatus: {
-            type: Boolean,
-            default: false
         }
     },
     { timestamps: true }

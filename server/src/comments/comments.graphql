@@ -12,6 +12,12 @@ type Comment {
 	comment: String!
 }
 
+type CommentTypes {
+	user: String!
+	event: String!
+	comment: String!
+}
+
 
 type Query {
 	getComments(event: ID!): Comment
@@ -23,4 +29,5 @@ type Mutation {
 
 type Subscription {
 	commentAdded(name: String!): String
+	commentAddeds(name: String!): CommentTypes
 }
