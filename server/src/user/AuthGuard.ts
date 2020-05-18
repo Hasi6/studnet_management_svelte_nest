@@ -35,7 +35,6 @@ export class AuthGuard implements CanActivate {
         if (token?.length > 0 && token[0] !== "Bearer") {
             throw new UnauthorizedException("")
         }
-
         const user = await this.validate(token[1])
         ctx.user = user;
         return true

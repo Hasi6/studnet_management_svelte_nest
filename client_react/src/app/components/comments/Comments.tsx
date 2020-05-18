@@ -6,6 +6,7 @@ import SingleComment from "./SingleComment/SingleComment";
 import CommentInput from "./CommentInput/CommentInput";
 import { graphqlRequest } from "../../graphql/index.graphql";
 import { getCommentsQuery } from "../../graphql/query/getComments";
+import { addCommentMutation } from "../../graphql/mutations/addComment";
 
 interface propTypes {
   id: string | undefined;
@@ -42,22 +43,25 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
     }
   };
 
-  const onSubmit = () => {};
+  const onSubmit = async (message: any) => {
+    const variables = { ...message, event: id };
+    const res = await graphqlRequest(addCommentMutation, variables);
+    if (res) {
+      const comment: any = [res?.addComment, ...comments];
+      setComments(comment);
+    }
+  };
 
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Comments</h1>
       <p>{id}</p>
       <Grid item xs={12} md={6}>
-        <CommentInput
-          onSubmit={() => {
-            alert();
-          }}
-        />
+        <CommentInput onSubmit={onSubmit} />
         <div className={classes.demo}>
           <List dense={dense}>
             {comments?.map((comment: any) => (
-              <SingleComment key={comment._id} comment={comment} />
+              <SingleComment key={comment?._id} comment={comment} />
             ))}
           </List>
         </div>
