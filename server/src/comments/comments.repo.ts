@@ -24,10 +24,10 @@ export class CommentsRepo {
 
 
     // ****************************************** Get Comment Section ***************************************************
-    // Get Comments By Post
-    public getCommentsByPost = async (post: string) => {
+    // Get Comments By Event
+    public getCommentsByEvent = async (event: string) => {
         try {
-            return this.comments.find({ post })
+            return this.comments.find({ event })
         } catch (err) {
             throw new InternalServerErrorException()
         }

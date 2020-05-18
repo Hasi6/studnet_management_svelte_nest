@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const Comments: FC<propTypes> = ({ id }): JSX.Element => {
   const classes = useStyles();
   const [dense, setDense] = React.useState(true);
-  const [secondary, setSecondary] = React.useState(false);
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Comments</h1>

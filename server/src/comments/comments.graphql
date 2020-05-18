@@ -18,13 +18,18 @@ type CommentTypes {
 	comment: String!
 }
 
+input CommentInput {
+	event: ID!
+	comment: String!
+}
+
 
 type Query {
 	getComments(event: ID!): Comment
 }
 
 type Mutation {
-	addComment(name: String): String
+	addComment(input: CommentInput): Comment
 }
 
 type Subscription {

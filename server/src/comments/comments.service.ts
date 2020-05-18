@@ -18,8 +18,8 @@ export class CommentsService {
 
     // ****************************************** Get Comment Section ***************************************************
     // Get Comments By Post
-    public getCommentsByPost = async (post: string) => {
-        return await this.commentsRepo.getCommentsByPost(post)
+    public getCommentsByEvent = async (post: string) => {
+        return await this.commentsRepo.getCommentsByEvent(post)
     }
 
     // Get Comments By Id
