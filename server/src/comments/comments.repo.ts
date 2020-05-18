@@ -28,8 +28,6 @@ export class CommentsRepo {
     // Get Comments By Event
     public getCommentsByEvent = async (event: string) => {
         try {
-            console.log(event)
-            console.log(await this.comments.find({ event }).populate('user', ['image', '_id', 'email', 'username']))
             return await this.comments.find({ event }).populate('user', ['image', '_id', 'email', 'username'])
         } catch (err) {
             throw new InternalServerErrorException()

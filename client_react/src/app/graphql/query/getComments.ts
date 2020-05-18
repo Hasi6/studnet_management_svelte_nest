@@ -1,6 +1,6 @@
-export const getComments = `
-query($event: event!){
-  getSingleEvent(event: $event){
+export const getCommentsQuery = `
+query($event: ID!){
+  getComments(event: $event){
     comment
     user{
       _id
