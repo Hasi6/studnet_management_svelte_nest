@@ -1,18 +1,9 @@
 import React, { FC } from "react";
-import {
-  Grid,
-  Typography,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  ListItemSecondaryAction
-} from "@material-ui/core";
+import { Grid, List } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import FolderIcon from "@material-ui/icons/Folder";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+import SingleComment from "./SingleComment/SingleComment";
+import CommentInput from "./CommentInput/CommentInput";
+
 interface propTypes {
   id: string | undefined;
 }
@@ -32,44 +23,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function generate(element: React.ReactElement) {
-  return [0, 1, 2].map(value =>
-    React.cloneElement(element, {
-      key: value
-    })
-  );
-}
-
 const Comments: FC<propTypes> = ({ id }): JSX.Element => {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [secondary, setSecondary] = React.useState(false);
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Comments</h1>
       <p>{id}</p>
       <Grid item xs={12} md={6}>
-        <Typography variant="h6" className={classes.title}>
-          Avatar with text and icon
-        </Typography>
+        <CommentInput
+          onSubmit={() => {
+            alert();
+          }}
+        />
         <div className={classes.demo}>
           <List dense={dense}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Single-line item"
-                secondary={secondary ? "Secondary text" : null}
-              />
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+            <SingleComment />
           </List>
         </div>
       </Grid>
