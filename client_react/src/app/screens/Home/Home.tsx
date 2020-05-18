@@ -11,6 +11,8 @@ import "react-google-places-autocomplete/dist/index.min.css";
 import EventsList from "../../components/singleEvent/EventsList";
 import { connect } from "react-redux";
 import { logOutUser } from "../../redux/actions/auth/auth.actions";
+import { Subscription } from "react-apollo";
+import { commentsSubscriptions } from "../../graphql/subscriptions/comments.subscriptions";
 
 interface propTypes {
   logOutUser: Function;
@@ -27,6 +29,17 @@ const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
           console.log(e);
           const geoMetry = await geocodeByPlaceId(e.place_id);
           console.log(await getLatLng(geoMetry[0]));
+        }}
+      />
+      <Subscription
+        subscription={commentsSubscriptions}
+        variables={{ name: "Test" }}
+        onSubscriptionData={({
+          subscriptionData
+        }: {
+          subscriptionData: any;
+        }) => {
+          console.log(subscriptionData);
         }}
       />
 

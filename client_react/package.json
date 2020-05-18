@@ -45,6 +45,7 @@
     "revalidate": "^1.2.0",
     "simple_alert_toaster": "^1.0.1",
     "socket.io-client": "^2.3.0",
+    "subscriptions-transport-ws": "^0.9.16",
     "typescript": "~3.7.2"
   },
   "scripts": {
