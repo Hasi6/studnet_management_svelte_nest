@@ -1,6 +1,9 @@
-import { Resolver, Args, Query, Subscription, Mutation } from "@nestjs/graphql";
+import { Resolver, Args, Query, Subscription, Mutation, Context } from "@nestjs/graphql";
 import { CommentsService } from './comments.service';
 import { PubSub } from 'graphql-subscriptions';
+import { UseGuards } from "@nestjs/common";
+import { AuthGuard } from '../user/AuthGuard';
+import { CreateCommentInput } from './Dto/comments.input';
 
 @Resolver('Comment')
 export class CommentsResolver {
@@ -16,14 +19,19 @@ export class CommentsResolver {
 
     @Query()
     getComments(@Args('event') event: string) {
-        console.log(event)
+        return this.commentsService.getCommentsByEvent(event)
     }
 
 
+    // @Args('name') name: string,
     @Mutation()
-    addComment(@Args('name') name: string) {
-        this.pubSub.publish(name, { commentAddeds: { user: 'user', comment: 'comment', event: 'Event' } });
-        return name;
+    @UseGuards(AuthGuard)
+    async addComment(@Args('input') input: CreateCommentInput, @Context() ctx: any) {
+        const user = ctx.user._id
+        console.log(user)
+        const comment = await this.commentsService.addComment(user, input)
+        // this.pubSub.publish(name, { commentAddeds: { user: 'user', comment: 'comment', event: 'Event' } });
+        return comment;
     }
 
     @Subscription()

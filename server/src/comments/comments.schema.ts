@@ -12,7 +12,7 @@ export const CommentsSchema = new Schema(
             ref: "events",
             required: true,
         },
-        message: {
+        comment: {
             type: String,
             required: true,
         }

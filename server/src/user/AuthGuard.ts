@@ -14,12 +14,11 @@ export class AuthGuard implements CanActivate {
     public validate = async (token: string) => {
         try {
             const decode: any = await jwt.verify(token, "jwtSecret")
-
             const { email } = decode
-
             const user = await this.userService.getUserByEmail(email)
             return user
         } catch (err) {
+            console.log(err.message)
             throw new UnauthorizedException()
         }
     }
@@ -33,7 +32,6 @@ export class AuthGuard implements CanActivate {
         }
 
         const token = ctx.headers.authorization.split(" ")
-
         if (token?.length > 0 && token[0] !== "Bearer") {
             throw new UnauthorizedException("")
         }

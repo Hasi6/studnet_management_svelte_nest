@@ -5,10 +5,12 @@ import { UsersSchema } from '../user/user.schema';
 import { CommentsSchema } from './comments.schema';
 import { CommentsRepo } from './comments.repo';
 import { CommentsResolver } from './comments.resolver';
+import { UserModule } from '../user/user.module';
 
 
 @Module({
   imports: [
+    UserModule,
     MongooseModule.forFeature(
       [
         { name: 'users', schema: UsersSchema },

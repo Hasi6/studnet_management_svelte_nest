@@ -8,7 +8,6 @@ type User {
 
 type Comment {
 	user: User
-	event: Event
 	comment: String!
 }
 
@@ -25,7 +24,7 @@ input CommentInput {
 
 
 type Query {
-	getComments(event: ID!): Comment
+	getComments(event: ID!): [Comment]
 }
 
 type Mutation {

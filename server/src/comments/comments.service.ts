@@ -11,8 +11,9 @@ export class CommentsService {
     // ****************************************** Create Comment Section ***************************************************
     // Create Comments
     public addComment = async (user: string, comment: any) => {
-        const newComment = { ...comment, user }
-        return await this.commentsRepo.addComment(newComment)
+        const newComment = { ...comment, user };
+        const newlyAddedComment = await this.commentsRepo.addComment(newComment);
+        return await this.getCommentsById(newlyAddedComment._id);
     }
 
 

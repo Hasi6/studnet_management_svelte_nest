@@ -18,6 +18,7 @@ export class CommentsRepo {
             const newComment = this.comments(comment);
             return await newComment.save();
         } catch (err) {
+            console.log(err.message)
             throw new InternalServerErrorException()
         }
     }
@@ -27,7 +28,9 @@ export class CommentsRepo {
     // Get Comments By Event
     public getCommentsByEvent = async (event: string) => {
         try {
-            return this.comments.find({ event })
+            console.log(event)
+            console.log(await this.comments.find({ event }).populate('user', ['image', '_id', 'email', 'username']))
+            return await this.comments.find({ event }).populate('user', ['image', '_id', 'email', 'username'])
         } catch (err) {
             throw new InternalServerErrorException()
         }
@@ -36,7 +39,7 @@ export class CommentsRepo {
     // Get Comments By Id
     public getCommentsById = async (_id: string) => {
         try {
-            return this.comments.findOne(_id)
+            return await this.comments.findById(_id).populate('user', ['image', '_id', 'email', 'username'])
         } catch (err) {
             throw new InternalServerErrorException()
         }
