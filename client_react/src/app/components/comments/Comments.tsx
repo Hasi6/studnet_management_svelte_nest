@@ -7,6 +7,8 @@ import CommentInput from "./CommentInput/CommentInput";
 import { graphqlRequest } from "../../graphql/index.graphql";
 import { getCommentsQuery } from "../../graphql/query/getComments";
 import { addCommentMutation } from "../../graphql/mutations/addComment";
+import { Subscription } from "react-apollo";
+import { commentsSubscriptions } from "../../graphql/subscriptions/comments.subscriptions";
 
 interface propTypes {
   id: string | undefined;
@@ -54,6 +56,17 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
 
   return (
     <div>
+      <Subscription
+        subscription={commentsSubscriptions}
+        variables={{ name: "Test" }}
+        onSubscriptionData={({
+          subscriptionData
+        }: {
+          subscriptionData: any;
+        }) => {
+          console.log(subscriptionData);
+        }}
+      />
       <h1 style={{ textAlign: "center" }}>Comments</h1>
       <p>{id}</p>
       <Grid item xs={12} md={6}>

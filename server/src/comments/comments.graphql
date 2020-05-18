@@ -35,4 +35,5 @@ type Mutation {
 type Subscription {
 	commentAdded(name: String!): String
 	commentAddeds(name: String!): CommentTypes
+	newCommentAdded(id: String!): Comment
 }
