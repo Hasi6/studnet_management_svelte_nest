@@ -9,9 +9,10 @@ import { getCommentsQuery } from "../../graphql/query/getComments";
 import { addCommentMutation } from "../../graphql/mutations/addComment";
 import { Subscription } from "react-apollo";
 import { commentsSubscriptions } from "../../graphql/subscriptions/comments.subscriptions";
-
+import { connect } from "react-redux";
 interface propTypes {
   id: string | undefined;
+  userId: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Comments: FC<propTypes> = ({ id }): JSX.Element => {
+const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
   const classes = useStyles();
   const [dense, setDense] = useState(true);
   const [comments, setComments] = useState([]);
@@ -58,19 +59,23 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
     <div>
       <Subscription
         subscription={commentsSubscriptions}
-        variables={{ name: "Test" }}
+        variables={{ id }}
         onSubscriptionData={({
           subscriptionData
         }: {
           subscriptionData: any;
         }) => {
-          console.log(subscriptionData);
+          const newlyAddedAllComments: any = [
+            subscriptionData.data.newCommentAdded,
+            ...comments
+          ];
+          setComments(newlyAddedAllComments);
         }}
       />
       <h1 style={{ textAlign: "center" }}>Comments</h1>
       <p>{id}</p>
       <Grid item xs={12} md={6}>
-        <CommentInput onSubmit={onSubmit} />
+        {userId && <CommentInput onSubmit={onSubmit} />}
         <div className={classes.demo}>
           <List dense={dense}>
             {comments?.map((comment: any) => (
@@ -83,4 +88,10 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
   );
 };
 
-export default Comments;
+const mapStateToProps = (state: any) => {
+  return {
+    userId: state?.auth?.user?.Id
+  };
+};
+
+export default connect(mapStateToProps)(Comments);

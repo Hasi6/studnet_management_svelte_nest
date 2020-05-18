@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 
-const PORT = process.env.PORT || 5100;
+const PORT = process.env.PORT || 5000;
 const logger: Logger = new Logger();
 
 async function bootstrap() {

@@ -28,9 +28,10 @@ export class CommentsResolver {
     @UseGuards(AuthGuard)
     async addComment(@Args('input') input: CreateCommentInput, @Context() ctx: any) {
         const user = ctx.user._id
+        const id = input.event
         console.log(user)
         const comment = await this.commentsService.addComment(user, input)
-        // this.pubSub.publish(name, { commentAddeds: { user: 'user', comment: 'comment', event: 'Event' } });
+        this.pubSub.publish(id, { newCommentAdded: comment });
         return comment;
     }
 
