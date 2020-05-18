@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect, useState } from "react";
 import { Grid, List } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -32,11 +33,13 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
 
   useEffect(() => {
     getComments();
-  });
+  }, []);
 
   const getComments = async () => {
     const res = await graphqlRequest(getCommentsQuery, { event: id });
-    console.log(res);
+    if (res) {
+      setComments(res?.getComments);
+    }
   };
 
   const onSubmit = () => {};
@@ -53,7 +56,9 @@ const Comments: FC<propTypes> = ({ id }): JSX.Element => {
         />
         <div className={classes.demo}>
           <List dense={dense}>
-            <SingleComment />
+            {comments?.map((comment: any) => (
+              <SingleComment key={comment._id} comment={comment} />
+            ))}
           </List>
         </div>
       </Grid>
