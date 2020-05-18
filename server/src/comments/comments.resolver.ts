@@ -44,13 +44,11 @@ export class CommentsResolver {
 
     @Subscription()
     commentAddeds(@Args('name') name: string) {
-        console.log(name)
         return this.pubSub.asyncIterator(name)
     }
 
     @Subscription()
     newCommentAdded(@Args('id') id: string) {
-        console.log(id)
         return this.pubSub.asyncIterator(id)
     }
 
