@@ -48,7 +48,6 @@ export class CommentsResolver {
 
   @Subscription()
   commentAdded(@Args('name') name: string) {
-    console.log(name);
     return this.pubSub.asyncIterator(name);
   }
 

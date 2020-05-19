@@ -19,14 +19,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      maxWidth: 752
+      maxWidth: 752,
     },
     demo: {
-      backgroundColor: theme.palette.background.paper
+      backgroundColor: theme.palette.background.paper,
     },
     title: {
-      margin: theme.spacing(4, 0, 2)
-    }
+      margin: theme.spacing(4, 0, 2),
+    },
   })
 );
 
@@ -61,13 +61,13 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
         subscription={commentsSubscriptions}
         variables={{ id }}
         onSubscriptionData={({
-          subscriptionData
+          subscriptionData,
         }: {
           subscriptionData: any;
         }) => {
           const newlyAddedAllComments: any = [
             subscriptionData.data.newCommentAdded,
-            ...comments
+            ...comments,
           ];
           setComments(newlyAddedAllComments);
         }}
@@ -90,7 +90,7 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
 
 const mapStateToProps = (state: any) => {
   return {
-    userId: state?.auth?.user?.Id
+    userId: state?.auth?.user?._id,
   };
 };
 

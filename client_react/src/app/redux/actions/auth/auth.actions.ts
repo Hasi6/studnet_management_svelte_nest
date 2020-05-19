@@ -34,7 +34,6 @@ export const loginUser = (user: IAuthUser, history: any) => async (
 // Register User
 export const registerUser = (user: IAuthUser) => async (dispatch: Dispatch) => {
   const res = await apiRequests("post", `${authEndPoint}/register`, user);
-  console.log(res);
   if (res) {
     dispatch({ type: AuthTypes.REGISTER_USER });
     toastr.success(
