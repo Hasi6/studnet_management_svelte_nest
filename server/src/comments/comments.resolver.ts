@@ -40,9 +40,11 @@ export class CommentsResolver {
   }
 
   @Mutation()
-  async deleteComment(@Args('id') id: string) {
+  async deleteComment(@Args('id') id: string, @Args('event') event: string) {
     const response = await this.commentsService.deleteCommentById(id);
-    this.pubSub.publish(id, { deleteCommentSubscription: response });
+    this.pubSub.publish(`delete${event}`, {
+      deleteCommentSubscription: response,
+    });
     return response;
   }
 
@@ -63,6 +65,6 @@ export class CommentsResolver {
 
   @Subscription()
   deleteCommentSubscription(@Args('id') id: string) {
-    return this.pubSub.asyncIterator(id);
+    return this.pubSub.asyncIterator(`delete${id}`);
   }
 }

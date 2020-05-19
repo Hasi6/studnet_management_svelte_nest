@@ -6,9 +6,15 @@ import SingleComment from "./SingleComment/SingleComment";
 import CommentInput from "./CommentInput/CommentInput";
 import { graphqlRequest } from "../../graphql/index.graphql";
 import { getCommentsQuery } from "../../graphql/query/getComments";
-import { addCommentMutation } from "../../graphql/mutations/addComment";
+import {
+  addCommentMutation,
+  deleteCommentMutation,
+} from "../../graphql/mutations/addComment";
 import { Subscription } from "react-apollo";
-import { commentsSubscriptions } from "../../graphql/subscriptions/comments.subscriptions";
+import {
+  commentsSubscriptions,
+  deleteCommentSubscription,
+} from "../../graphql/subscriptions/comments.subscriptions";
 import { connect } from "react-redux";
 interface propTypes {
   id: string | undefined;
@@ -55,6 +61,12 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
     }
   };
 
+  const deleteComment = async (comment: any) => {
+    const variables = { id: comment?._id, event: id };
+    const res = await graphqlRequest(deleteCommentMutation, variables);
+    console.log(res);
+  };
+
   return (
     <div>
       <Subscription
@@ -72,6 +84,19 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
           setComments(newlyAddedAllComments);
         }}
       />
+
+      <Subscription
+        subscription={deleteCommentSubscription}
+        variables={{ id }}
+        onSubscriptionData={({
+          subscriptionData,
+        }: {
+          subscriptionData: any;
+        }) => {
+          console.log(subscriptionData);
+        }}
+      />
+
       <h1 style={{ textAlign: "center" }}>Comments</h1>
       <p>{id}</p>
       <Grid item xs={12} md={6}>
@@ -79,7 +104,11 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
         <div className={classes.demo}>
           <List dense={dense}>
             {comments?.map((comment: any) => (
-              <SingleComment key={comment?._id} comment={comment} />
+              <SingleComment
+                key={comment?._id}
+                comment={comment}
+                deleteComment={deleteComment}
+              />
             ))}
           </List>
         </div>

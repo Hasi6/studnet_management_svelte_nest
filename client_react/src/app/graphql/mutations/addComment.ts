@@ -12,3 +12,9 @@ export const addCommentMutation = `
     }
   }
 `;
+
+export const deleteCommentMutation = `
+  mutation($id: ID!, $event: ID!){
+    deleteComment(id: $id, event: $event)
+  }
+`;

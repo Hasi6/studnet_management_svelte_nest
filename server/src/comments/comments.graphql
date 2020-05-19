@@ -30,7 +30,7 @@ type Query {
 
 type Mutation {
 	addComment(input: CommentInput): Comment
-	deleteComment(id: ID!): String!
+	deleteComment(id: ID!, event: ID!): String!
 }
 
 type Subscription {

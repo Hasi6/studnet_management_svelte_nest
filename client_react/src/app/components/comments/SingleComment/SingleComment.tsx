@@ -12,9 +12,14 @@ import { connect } from "react-redux";
 interface propTypes {
   comment: any;
   userId: String;
+  deleteComment: Function;
 }
 
-const SingleComment: FC<propTypes> = ({ comment, userId }): JSX.Element => {
+const SingleComment: FC<propTypes> = ({
+  comment,
+  userId,
+  deleteComment,
+}): JSX.Element => {
   return (
     <ListItem>
       <ListItemAvatar>
@@ -32,7 +37,11 @@ const SingleComment: FC<propTypes> = ({ comment, userId }): JSX.Element => {
       />
       {userId && userId === comment?.user?._id && (
         <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="delete">
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={() => deleteComment(comment)}
+          >
             <DeleteIcon color="secondary" />
           </IconButton>
         </ListItemSecondaryAction>
