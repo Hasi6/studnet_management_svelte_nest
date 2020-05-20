@@ -11,23 +11,26 @@ import {
   CardActionArea,
   Button,
   Typography,
-  Grid
+  Grid,
+  IconButton,
 } from "@material-ui/core";
 
 import {
   getSingleEvent,
-  addParticipants
+  addParticipants,
+  deleteEvent,
 } from "../../../redux/actions/events/events.actions";
 
 import { makeStyles } from "@material-ui/core/styles";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { IEvents } from "../../../model/User.model";
 import { removeParticipants } from "../../../redux/actions/events/events.actions";
 import MapComponent from "../../../components/map/MapComponent";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 600
-  }
+    maxWidth: 600,
+  },
 });
 
 interface propTypes {
@@ -38,6 +41,7 @@ interface propTypes {
   userId: string | undefined;
   addParticipants: Function;
   removeParticipants: Function;
+  deleteEvent: Function;
 }
 
 const EventComponent: FC<propTypes> = ({
@@ -47,7 +51,8 @@ const EventComponent: FC<propTypes> = ({
   participantIds,
   userId,
   addParticipants,
-  removeParticipants
+  removeParticipants,
+  deleteEvent,
 }): JSX.Element => {
   const classes = useStyles();
 
@@ -143,15 +148,24 @@ const EventComponent: FC<propTypes> = ({
               </Grid>
               <Grid item>
                 {userId === event[0]?.user?._id && (
-                  <Button
-                    style={{ background: "green" }}
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                    onClick={() => setMap(!map)}
-                  >
-                    <Link to={`/editEvent/${event[0]?._id}`}>Edit Event</Link>
-                  </Button>
+                  <>
+                    <Button
+                      style={{ background: "green" }}
+                      size="small"
+                      color="primary"
+                      variant="contained"
+                      onClick={() => setMap(!map)}
+                    >
+                      <Link to={`/editEvent/${event[0]?._id}`}>Edit Event</Link>
+                    </Button>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => deleteEvent(event[0]?._id, history)}
+                    >
+                      <DeleteIcon color="secondary" />
+                    </IconButton>
+                  </>
                 )}
               </Grid>
             </Grid>
@@ -183,12 +197,13 @@ const mapStateToProps = (state: any, ownProps: any) => {
   return {
     event: state?.events?.events.filter((event: IEvents) => event._id === id),
     participantIds,
-    userId: state?.auth?.user?._id
+    userId: state?.auth?.user?._id,
   };
 };
 
 export default connect(mapStateToProps, {
   getSingleEvent,
   addParticipants,
-  removeParticipants
+  removeParticipants,
+  deleteEvent,
 })(EventComponent);

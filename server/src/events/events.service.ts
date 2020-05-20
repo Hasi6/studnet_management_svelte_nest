@@ -49,7 +49,12 @@ export class EventsService {
     if (!event) {
       throw new NotFoundException('Event is Not Found');
     }
-    if (event.user._id !== user) {
+
+    console.log(user === event.user);
+    console.log(typeof event.user);
+    console.log(typeof user);
+
+    if (`${event.user}` !== `${user}`) {
       return new UnauthorizedException(
         'You are unauthorized to delete this event',
       );
