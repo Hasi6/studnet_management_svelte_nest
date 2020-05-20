@@ -1,21 +1,21 @@
-import React, { FC } from "react";
-import AuthorizedWrapper from "../../components/wrappers/AuthorizedWrapper/AuthorizedWrapper";
+import React, { FC } from 'react'
+import AuthorizedWrapper from '../../components/wrappers/AuthorizedWrapper/AuthorizedWrapper'
 // import SingleEvent from "../../components/singleEvent/SingleEvent";
-import { Button } from "@material-ui/core";
+import { Button } from '@material-ui/core'
 import GooglePlacesAutocomplete, {
   getLatLng,
-  geocodeByPlaceId
-} from "react-google-places-autocomplete";
+  geocodeByPlaceId,
+} from 'react-google-places-autocomplete'
 // If you want to use the provided css
-import "react-google-places-autocomplete/dist/index.min.css";
-import EventsList from "../../components/singleEvent/EventsList";
-import { connect } from "react-redux";
-import { logOutUser } from "../../redux/actions/auth/auth.actions";
-import { Subscription } from "react-apollo";
-import { commentsSubscriptions } from "../../graphql/subscriptions/comments.subscriptions";
+import 'react-google-places-autocomplete/dist/index.min.css'
+import EventsList from '../../components/singleEvent/EventsList'
+import { connect } from 'react-redux'
+import { logOutUser } from '../../redux/actions/auth/auth.actions'
+import { Subscription } from 'react-apollo'
+import { commentsSubscriptions } from '../../graphql/subscriptions/comments.subscriptions'
 
 interface propTypes {
-  logOutUser: Function;
+  logOutUser: Function
 }
 
 const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
@@ -25,21 +25,21 @@ const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
       <EventsList />
       <Button onClick={() => logOutUser()}>Logout</Button>
       <GooglePlacesAutocomplete
-        onSelect={async e => {
-          console.log(e);
-          const geoMetry = await geocodeByPlaceId(e.place_id);
-          console.log(await getLatLng(geoMetry[0]));
+        onSelect={async (e) => {
+          console.log(e)
+          const geoMetry = await geocodeByPlaceId(e.place_id)
+          console.log(await getLatLng(geoMetry[0]))
         }}
       />
       <Subscription
         subscription={commentsSubscriptions}
-        variables={{ name: "Test" }}
+        variables={{ name: 'Test' }}
         onSubscriptionData={({
-          subscriptionData
+          subscriptionData,
         }: {
-          subscriptionData: any;
+          subscriptionData: any
         }) => {
-          console.log(subscriptionData);
+          console.log(subscriptionData)
         }}
       />
 
@@ -61,7 +61,7 @@ const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
         </Grid>
       </Grid> */}
     </AuthorizedWrapper>
-  );
-};
+  )
+}
 
-export default connect(null, { logOutUser })(Home);
+export default connect(null, { logOutUser })(Home)

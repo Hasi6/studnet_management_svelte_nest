@@ -5,6 +5,7 @@
         "inmemory",
         "inputtext",
         "primereact",
+        "scroller",
         "toastr"
     ],
     "deno.enable": false

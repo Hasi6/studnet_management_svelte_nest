@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useState, useEffect } from "react";
 import { connect } from "react-redux";
+import InfiniteScroll from "react-infinite-scroller";
 
 import "./EventsList.scss";
 import SingleEvent from "./SingleEvent";
@@ -16,20 +17,21 @@ interface propTypes {
 const EventsList: FC<propTypes> = ({
   getEvents,
   events,
-  pages
+  pages,
 }): JSX.Element => {
   const [page, setPage] = useState(1);
 
   // Call Get Events Action
   const getNewEvents = () => {
-    getEvents({ page });
-    setPage(page + 1);
+    if (pages === 0 || page < pages) {
+      getEvents({ page });
+      setPage(page + 1);
+      console.log("Hasi");
+    }
   };
 
   useEffect(() => {
-    if (pages === 0 || page < pages) {
-      getNewEvents();
-    }
+    getNewEvents();
   }, []);
 
   return (
@@ -45,11 +47,18 @@ const EventsList: FC<propTypes> = ({
           </p>
         </div>
         <div className="events">
-          <ul>
-            {events.map((event: IEvents) => (
-              <SingleEvent key={event._id} event={event._id} />
-            ))}
-          </ul>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => getNewEvents()}
+            hasMore={page < pages}
+            initialLoad={false}
+          >
+            <ul>
+              {events.map((event: IEvents) => (
+                <SingleEvent key={event._id} event={event._id} />
+              ))}
+            </ul>
+          </InfiniteScroll>
         </div>
       </div>
     </section>
@@ -59,7 +68,7 @@ const EventsList: FC<propTypes> = ({
 const mapStateToProps = (state: any) => {
   return {
     events: state?.events?.events,
-    pages: state?.events?.pages
+    pages: state?.events?.pages,
   };
 };
 

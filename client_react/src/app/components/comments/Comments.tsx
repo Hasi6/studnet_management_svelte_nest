@@ -94,6 +94,11 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
           subscriptionData: any;
         }) => {
           console.log(subscriptionData);
+          let filterComments = comments.filter(
+            (comment: any) =>
+              comment._id !== subscriptionData?.data?.deleteCommentSubscription
+          );
+          setComments(filterComments);
         }}
       />
 
