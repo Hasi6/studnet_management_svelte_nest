@@ -54,6 +54,16 @@ export class EventsResolver {
 
   @Mutation()
   @UseGuards(AuthGuard)
+  deleteEventById(@Args('id') id: string, @Context() ctx: any) {
+    return this.eventsService.deleteEventById(id, ctx.user._id);
+  }
+
+  @Mutation()
+  @UseGuards(AuthGuard)
+  deleteEventByUser(@Args('id') id: string, @Context() ctx: any) {
+    return this.eventsService.deleteEventByUser(ctx.user._id);
+  }
+
   @ResolveField()
   user(@Parent() parent: any) {
     return this.userService.getUserById(parent.user);
