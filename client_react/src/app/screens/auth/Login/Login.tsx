@@ -60,7 +60,6 @@ const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
     </div>
   );
 };
-// as
 const validate = combineValidators({
   email: isRequired({ message: "Email Required" }),
   password: composeValidators(
