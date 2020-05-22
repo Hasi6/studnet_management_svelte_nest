@@ -24,7 +24,7 @@ const TextInput: FC<propTypes> = ({
   type,
   multiline,
   rows,
-  meta: { touched, error }
+  meta: { touched, error },
 }): JSX.Element => {
   return (
     <>
