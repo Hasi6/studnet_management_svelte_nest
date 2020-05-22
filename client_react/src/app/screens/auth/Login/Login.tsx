@@ -5,8 +5,10 @@ import {
   combineValidators,
   isRequired,
   composeValidators,
-  hasLengthGreaterThan
+  hasLengthGreaterThan,
 } from "revalidate";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 import { loginUser } from "../../../redux/actions/auth/auth.actions";
 import { reduxForm, Field } from "redux-form";
@@ -63,11 +65,11 @@ const validate = combineValidators({
   password: composeValidators(
     isRequired({ message: "Password is Required" }),
     hasLengthGreaterThan(5)({
-      message: "Password needs to be at least 6 Characters"
+      message: "Password needs to be at least 6 Characters",
     })
-  )()
+  )(),
 });
 
 export default connect(null, {
-  loginUser
+  loginUser,
 })(reduxForm({ form: "loginForm", validate })(Login));
