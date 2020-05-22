@@ -1,10 +1,10 @@
 <script>
-  import { Link } from "svelte-routing";
+  import { Link } from 'svelte-routing'
 
   const navList = [
-    { path: "addFaculty", lable: "Add Faculty" },
-    { path: "addDepartment", lable: "Add Department" }
-  ];
+    { path: 'addFaculty', lable: 'Add Faculty' },
+    { path: 'addDepartment', lable: 'Add Department' },
+  ]
 </script>
 
 <nav class="main-nav">
@@ -19,3 +19,4 @@
 
   </ul>
 </nav>
+<h1>Test Fix</h1>
