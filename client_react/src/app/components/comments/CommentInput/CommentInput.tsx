@@ -1,31 +1,24 @@
 import React, { FC } from "react";
-import { Field, reduxForm } from "redux-form";
 import { Button } from "@material-ui/core";
-import { combineValidators, isRequired } from "revalidate";
-import { connect } from "react-redux";
-import TextInput from "../../forms/TextInput";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import FormikTextInput from "../../forms/FormikTextInput";
 
 interface propTypes {
-  handleSubmit: Function;
   onSubmit: Function;
 }
 
 const initialValues = { comment: "" };
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required(),
+  comment: Yup.string().required(),
 });
 
-const CommentInput: FC<propTypes> = ({
-  handleSubmit,
-  onSubmit,
-}): JSX.Element => {
+const CommentInput: FC<propTypes> = ({ onSubmit }): JSX.Element => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(e: any) => console.log(e)}
+      onSubmit={(e: any) => onSubmit(e)}
       validationSchema={validationSchema}
     >
       {({
@@ -37,20 +30,18 @@ const CommentInput: FC<propTypes> = ({
         touched,
       }) => (
         <>
-          <TextInput
+          <FormikTextInput
             id={"comment"}
+            touched={touched.comment}
             name="comment"
-            required={true}
             label="Comment"
             fullWidth={true}
-            type="text"
             value={values.comment}
+            error={errors.comment}
             onChange={handleChange}
-            errors={errors.comment}
-            touch={touched.comment}
-            handleBlur={handleBlur}
+            onBlur={handleBlur}
+            multiline={false}
           />
-          {values.comment}
           <Button type="submit" onClick={() => handleSubmit()}>
             Add Comment
           </Button>
@@ -60,10 +51,4 @@ const CommentInput: FC<propTypes> = ({
   );
 };
 
-const validate = combineValidators({
-  comment: isRequired({ message: "Please Add Comment" }),
-});
-
-export default connect(null)(
-  reduxForm({ form: "loginForm", validate })(CommentInput)
-);
+export default CommentInput;

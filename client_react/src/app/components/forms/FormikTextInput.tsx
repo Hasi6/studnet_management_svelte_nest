@@ -4,14 +4,16 @@ import { TextField } from "@material-ui/core";
 interface propTypes {
   id: string;
   touched: any;
-  label: string;
   name: string;
+  label: string;
+  fullWidth?: any;
   value: string;
   error: string | undefined;
-  fullWidth?: any;
-  type: string;
+  type?: string;
   multiline: boolean;
-  rows: number;
+  rows?: number;
+  onChange: any;
+  onBlur: any;
 }
 
 const FormikTextInput: FC<propTypes> = ({
@@ -22,6 +24,8 @@ const FormikTextInput: FC<propTypes> = ({
   value,
   error,
   fullWidth,
+  onChange,
+  onBlur,
   type,
   multiline,
   rows,
@@ -32,10 +36,12 @@ const FormikTextInput: FC<propTypes> = ({
         {!touched && <label htmlFor="in">{label}</label>}
         <TextField
           name={name}
+          onChange={onChange}
+          onBlur={onBlur}
           value={value}
           color={touched && !!error ? "secondary" : "primary"}
           fullWidth={fullWidth}
-          type={type}
+          type={type ? type : "text"}
           multiline={multiline || false}
           rows={rows || 0}
           margin="normal"
