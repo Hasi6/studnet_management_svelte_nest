@@ -5,12 +5,11 @@ import {
   composeValidators,
   isRequired,
   hasLengthGreaterThan,
-  hasLengthLessThan
+  hasLengthLessThan,
 } from "revalidate";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../../../../components/forms/TextInput";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import DataTimeFiled from "../../../../components/forms/DataTimeFiled";
 import { IEvents } from "../../../../model/User.model";
 import { getSingleEvent } from "../../../../redux/actions/events/events.actions";
@@ -28,7 +27,7 @@ const EditEvent: FC<propTypes> = ({
   event,
   history,
   match,
-  getSingleEvent
+  getSingleEvent,
 }): JSX.Element => {
   const getEvent = () => {
     if (!event._id) {
@@ -79,22 +78,22 @@ const validate = combineValidators({
   title: composeValidators(
     isRequired({ message: "Title is Required" }),
     hasLengthGreaterThan(3)({
-      message: "Title must be between 4"
+      message: "Title must be between 4",
     }),
     hasLengthLessThan(20)({
-      message: "Title must be between 4 and 20 characters"
+      message: "Title must be between 4 and 20 characters",
     })
   )(),
   description: composeValidators(
     isRequired({ message: "Description is Required" }),
     hasLengthGreaterThan(50)({
-      message: "Description must be Longer than 50 Characters"
+      message: "Description must be Longer than 50 Characters",
     }),
     hasLengthLessThan(250)({
-      message: "Description must be Lower than 250 Characters"
+      message: "Description must be Lower than 250 Characters",
     })
   )(),
-  dateTime: isRequired({ message: "Date and Time is Required" })
+  dateTime: isRequired({ message: "Date and Time is Required" }),
 });
 
 const mapStateToProps = (state: any, ownProps: any) => {
@@ -105,7 +104,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
   return {
     event,
     initialValues: event,
-    userId: state?.auth?.user?._id
+    userId: state?.auth?.user?._id,
   };
 };
 export default connect(mapStateToProps, { getSingleEvent })(

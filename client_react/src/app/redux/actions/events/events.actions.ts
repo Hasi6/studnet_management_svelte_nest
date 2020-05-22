@@ -11,10 +11,8 @@ import {
   getEventsQuery,
   getSingleEventQuery,
 } from "../../../graphql/query/getEvents";
-import { StoreState } from "../../reducers/index";
 import { IUser } from "../../../model/User.model";
 import { deleteEventById } from "../../../graphql/mutations/deleteEvent";
-import { Navigation } from "@material-ui/icons";
 
 // Get Events
 export const getEvents = (variables: any) => async (dispatch: Dispatch) => {

@@ -1,12 +1,7 @@
 import React, { FC } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Button } from "@material-ui/core";
-import {
-  combineValidators,
-  isRequired,
-  composeValidators,
-  hasLengthGreaterThan
-} from "revalidate";
+import { combineValidators, isRequired } from "revalidate";
 import { connect } from "react-redux";
 import TextInput from "../../forms/TextInput";
 
@@ -17,7 +12,7 @@ interface propTypes {
 
 const CommentInput: FC<propTypes> = ({
   handleSubmit,
-  onSubmit
+  onSubmit,
 }): JSX.Element => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,7 +30,7 @@ const CommentInput: FC<propTypes> = ({
 };
 
 const validate = combineValidators({
-  comment: isRequired({ message: "Please Add Comment" })
+  comment: isRequired({ message: "Please Add Comment" }),
 });
 
 export default connect(null)(

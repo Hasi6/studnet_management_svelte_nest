@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
   const classes = useStyles();
-  const [dense, setDense] = useState(true);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -107,7 +106,7 @@ const Comments: FC<propTypes> = ({ id, userId }): JSX.Element => {
       <Grid item xs={12} md={6}>
         {userId && <CommentInput onSubmit={onSubmit} />}
         <div className={classes.demo}>
-          <List dense={dense}>
+          <List dense={false}>
             {comments?.map((comment: any) => (
               <SingleComment
                 key={comment?._id}

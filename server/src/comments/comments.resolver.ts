@@ -40,8 +40,16 @@ export class CommentsResolver {
   }
 
   @Mutation()
-  async deleteComment(@Args('id') id: string, @Args('event') event: string) {
-    const response = await this.commentsService.deleteCommentById(id);
+  @UseGuards(AuthGuard)
+  async deleteComment(
+    @Args('id') id: string,
+    @Args('event') event: string,
+    @Context() ctx: any,
+  ) {
+    const response = await this.commentsService.deleteCommentById(
+      id,
+      ctx.user._id,
+    );
     this.pubSub.publish(`delete${event}`, {
       deleteCommentSubscription: response,
     });

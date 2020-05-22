@@ -20,6 +20,7 @@
     "fileupload_firebase": "^1.0.1",
     "firebase": "^7.14.2",
     "firebase_fileupload": "^1.1.2",
+    "formik": "^2.1.4",
     "google-map-react": "^1.1.7",
     "graphql": "^15.0.0",
     "graphql-request": "^1.8.2",
@@ -48,7 +49,8 @@
     "simple_alert_toaster": "^1.0.1",
     "socket.io-client": "^2.3.0",
     "subscriptions-transport-ws": "^0.9.16",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "yup": "^0.29.0"
   },
   "scripts": {
     "start": "react-scripts start",
