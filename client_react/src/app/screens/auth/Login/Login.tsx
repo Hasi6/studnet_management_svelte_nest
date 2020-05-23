@@ -1,20 +1,12 @@
 import React, { FC } from 'react'
 import { Grid } from '@material-ui/core'
 import { connect } from 'react-redux'
-import {
-  combineValidators,
-  isRequired,
-  composeValidators,
-  hasLengthGreaterThan,
-} from 'revalidate'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
 import { loginUser } from '../../../redux/actions/auth/auth.actions'
-import { reduxForm, Field } from 'redux-form'
 import { IAuthUser } from '../../../model/User.model'
 
-import TextInput from '../../../components/forms/TextInput'
 import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import FormikTextInput from '../../../components/forms/FormikTextInput'
@@ -31,10 +23,9 @@ const initialValues = {
 
 interface propTypes {
   loginUser: Function
-  handleSubmit: Function
 }
 
-const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
+const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
   const history = useHistory()
 
   const onSubmit = (e: IAuthUser) => {
@@ -49,23 +40,6 @@ const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
           <h1>Login Section</h1>
         </Grid>
         <Grid item md={6} sm={6} xs={6} xl={6} lg={6}>
-          {/**<form onSubmit={handleSubmit(onSubmit)}>
-            <div className="login">
-              <Field
-                name="email"
-                component={TextInput}
-                label="Username or Email"
-                type="text"
-              />
-              <Field
-                name="password"
-                component={TextInput}
-                label="Password"
-                type="password"
-              />
-              <Button type="submit">Login</Button>
-            </div>
-          </form> */}
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -79,7 +53,7 @@ const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
               handleSubmit,
               touched,
             }) => (
-              <>
+              <div className="login">
                 <FormikTextInput
                   error={errors.email}
                   type="email"
@@ -90,23 +64,25 @@ const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.email}
-                  fullWidth={false}
                   name="email"
                 />
                 <FormikTextInput
-                  error={errors.email}
-                  type="email"
-                  id={'email'}
-                  touched={touched.email}
-                  label="Email"
+                  error={errors.password}
+                  type="password"
+                  id={'Password'}
+                  touched={touched.password}
+                  label="Password"
                   multiline={false}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.email}
+                  value={values.password}
                   fullWidth={false}
-                  name="email"
+                  name="password"
                 />
-              </>
+                <Button type="submit" onClick={() => handleSubmit()}>
+                  Login
+                </Button>
+              </div>
             )}
           </Formik>
         </Grid>
@@ -114,17 +90,7 @@ const Login: FC<propTypes> = ({ loginUser, handleSubmit }): JSX.Element => {
     </div>
   )
 }
-// asasaj
-const validate = combineValidators({
-  email: isRequired({ message: 'Email Required' }),
-  password: composeValidators(
-    isRequired({ message: 'Password is Required' }),
-    hasLengthGreaterThan(5)({
-      message: 'Password needs to be at least 6 Characters',
-    }),
-  )(),
-})
 
 export default connect(null, {
   loginUser,
-})(reduxForm({ form: 'loginForm', validate })(Login))
+})(Login)
