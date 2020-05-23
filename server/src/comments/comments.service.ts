@@ -48,7 +48,7 @@ export class CommentsService {
   // Delete Comments By Id
   public deleteCommentById = async (_id: string, userId: string) => {
     const comment = await this.commentsRepo.getCommentsById(_id);
-    if (`${comment.user}` !== `${userId}`) {
+    if (`${comment.user._id}` !== `${userId}`) {
       throw new UnauthorizedException();
     }
     return this.commentsRepo.deleteCommentById(_id);
