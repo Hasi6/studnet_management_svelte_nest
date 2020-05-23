@@ -22,8 +22,8 @@ const Home: FC<propTypes> = ({ logOutUser }): JSX.Element => {
   return (
     <AuthorizedWrapper>
       <h1>Home Page</h1>
-      <EventsList />
       <Button onClick={() => logOutUser()}>Logout</Button>
+      <EventsList />
       <GooglePlacesAutocomplete
         onSelect={async (e) => {
           console.log(e)

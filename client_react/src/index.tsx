@@ -14,8 +14,6 @@ import 'primeicons/primeicons.css'
 const rootEl = document.getElementById('root')
 declare const module: any
 
-// hey
-
 let render = () =>
   ReactDOM.render(
     <BrowserRouter>
