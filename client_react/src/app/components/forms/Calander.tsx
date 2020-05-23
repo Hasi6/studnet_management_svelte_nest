@@ -1,41 +1,41 @@
-import React, { FC } from "react";
-import { TextField } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import React, { FC } from 'react'
+import { TextField } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 interface propTypes {
-  onChange: Function;
-  value: any;
-  label: string;
-  required: boolean;
-  fullWidth: boolean;
-  name: string;
-  type?: string;
-  autoFocus: boolean;
-  setFocus: Function;
-  input: any;
-  meta: any;
+  onChange: Function
+  value: any
+  label: string
+  required: boolean
+  fullWidth: boolean
+  name: string
+  type?: string
+  autoFocus: boolean
+  setFocus: Function
+  input: any
+  meta: any
 }
 
 const CalenderComponent: FC<propTypes> = ({
   input,
   label,
-  meta: { touched, error }
+  meta: { touched, error },
 }): JSX.Element => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       container: {
-        display: "flex",
-        flexWrap: "wrap"
+        display: 'flex',
+        flexWrap: 'wrap',
       },
       textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: 200
-      }
-    })
-  );
+        width: 200,
+      },
+    }),
+  )
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <>
@@ -48,17 +48,82 @@ const CalenderComponent: FC<propTypes> = ({
           defaultValue="2017-05-24"
           className={classes.textField}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
         />
         {touched && error && (
-          <label style={{ textAlign: "center", color: "darkRed" }}>
+          <label style={{ textAlign: 'center', color: 'darkRed' }}>
             {error}
           </label>
         )}
       </span>
     </>
-  );
-};
+  )
+}
 
-export default CalenderComponent;
+export default CalenderComponent
+
+interface propTypesTwo {
+  onChange: any
+  value: any
+  label: string
+  fullWidth: boolean
+  onBlur: any
+  name: string
+  touched: any
+  error: any
+  id: string
+  defaultValue: string
+}
+
+export const FormikCalenderComponent: FC<propTypesTwo> = ({
+  onChange,
+  value,
+  label,
+  fullWidth,
+  name,
+  touched,
+  error,
+  id,
+  defaultValue,
+  onBlur,
+}): JSX.Element => {
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 200,
+      },
+    }),
+  )
+
+  const classes = useStyles()
+
+  return (
+    <span className="p-float-label">
+      <TextField
+        id={id}
+        name={name}
+        value={value}
+        fullWidth={fullWidth}
+        onChange={onChange}
+        onBlur={onBlur}
+        label={label}
+        type="date"
+        defaultValue={defaultValue}
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      {touched && error && (
+        <label style={{ textAlign: 'center', color: 'darkRed' }}>{error}</label>
+      )}
+    </span>
+  )
+}
