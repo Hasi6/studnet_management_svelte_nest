@@ -1,36 +1,38 @@
-import React, { FC } from 'react'
-import { Grid } from '@material-ui/core'
-import { connect } from 'react-redux'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
+import React, { FC } from "react";
+import { Grid } from "@material-ui/core";
+import { connect } from "react-redux";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-import { loginUser } from '../../../redux/actions/auth/auth.actions'
-import { IAuthUser } from '../../../model/User.model'
+import { loginUser } from "../../../redux/actions/auth/auth.actions";
+import { IAuthUser } from "../../../model/User.model";
 
-import { Button } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
-import FormikTextInput from '../../../components/forms/FormikTextInput'
+import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import FormikTextInput from "../../../components/forms/FormikTextInput";
+import { loginSaga } from "../../../redux/saga/auth/auth.saga";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email().required(),
   password: Yup.string().required().min(6).max(16),
-})
+});
 
 const initialValues = {
-  email: '',
-  password: '',
-}
+  email: "",
+  password: "",
+};
 
 interface propTypes {
-  loginUser: Function
+  loginUser: Function;
+  loginSaga: Function;
 }
 
-const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
-  const history = useHistory()
+const Login: FC<propTypes> = ({ loginUser, loginSaga }): JSX.Element => {
+  const history = useHistory();
 
   const onSubmit = (e: IAuthUser) => {
-    loginUser(e, history)
-  }
+    loginSaga(e, history);
+  };
   // as
 
   return (
@@ -57,7 +59,7 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
                 <FormikTextInput
                   error={errors.email}
                   type="email"
-                  id={'email'}
+                  id={"email"}
                   touched={touched.email}
                   label="Email"
                   multiline={false}
@@ -69,7 +71,7 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
                 <FormikTextInput
                   error={errors.password}
                   type="password"
-                  id={'Password'}
+                  id={"Password"}
                   touched={touched.password}
                   label="Password"
                   multiline={false}
@@ -88,9 +90,10 @@ const Login: FC<propTypes> = ({ loginUser }): JSX.Element => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
 export default connect(null, {
   loginUser,
-})(Login)
+  loginSaga,
+})(Login);
