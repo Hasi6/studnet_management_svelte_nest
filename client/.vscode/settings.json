@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\Hasitha\\.virtualenvs\\Rest-Api-kuqBNbaP\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Hasitha\\.virtualenvs\\Rest-Api-kuqBNbaP\\Scripts\\python.exe",
+    "deno.enable": false
 }

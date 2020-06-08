@@ -3,5 +3,6 @@
         "gravatar",
         "nestjs",
         "websockets"
-    ]
+    ],
+    "deno.enable": false
 }
