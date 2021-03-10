@@ -1,0 +1,17 @@
+service:
+  name: serverless-example-123
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+  stage: ${opt:stage, 'develop'}
+
+functions:
+  main:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          cors: false
+          method: any
+          path: /{any+}

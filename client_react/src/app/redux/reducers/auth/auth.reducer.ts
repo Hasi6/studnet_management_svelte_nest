@@ -1,6 +1,6 @@
-import { createReducer } from "../util/reducerUtil";
-import { AuthTypes } from "../../types/index.types";
-import { IUser } from "../../../model/User.model";
+import { createReducer } from '../util/reducerUtil';
+import { AuthTypes } from '../../types/index.types';
+import { IUser } from '../../../model/User.model';
 
 export interface AuthReducer {
   user: IUser | null;

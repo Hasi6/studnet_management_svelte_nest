@@ -1,37 +1,37 @@
-import React, { FC, Fragment } from "react";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import React, { FC, Fragment } from 'react'
+import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar'
+import IconButton from '@material-ui/core/IconButton'
+import CloseIcon from '@material-ui/icons/Close'
 
 const Alerts: FC = (): JSX.Element => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   const handleClick = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = (
     event: React.SyntheticEvent | React.MouseEvent,
-    reason?: string
+    reason?: string,
   ) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
 
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const alerts = [1, 2, 3, 4, 5, 6, 7];
+  const alerts = [1, 2, 3, 4, 5, 6, 7]
 
   return (
     <div>
       <Button onClick={handleClick}>Open simple snackbar</Button>
-      {alerts.map(alert => (
+      {alerts.map((alert) => (
         <Snackbar
           anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
+            vertical: 'bottom',
+            horizontal: 'left',
           }}
           open={open}
           autoHideDuration={6000}
@@ -52,7 +52,7 @@ const Alerts: FC = (): JSX.Element => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Alerts;
+export default Alerts

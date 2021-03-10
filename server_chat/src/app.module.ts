@@ -1,3 +1,4 @@
+import { AppController } from './app.controller';
 import { GraphQLModule } from "@nestjs/graphql";
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
@@ -14,21 +15,21 @@ import { MessagesModule } from "./messages/messages.module";
   imports: [
     MongooseModule.forRoot(
       process.env.NODE_ENV === "production"
-        ? "mongodb://localhost:27017/studentManagement-svelte-nest"
-        : "mongodb://localhost:27017/studentManagement-svelte-nest",
+        ? "mongodb+srv://Hasitha:F453RhXHvfKW9xqq@cluster0-hcdmm.azure.mongodb.net/test?retryWrites=true&w=majority"
+        : "mongodb+srv://Hasitha:F453RhXHvfKW9xqq@cluster0-hcdmm.azure.mongodb.net/test?retryWrites=true&w=majority",
       {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true,
-      },
+      }
     ),
     GraphQLModule.forRoot({
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
-      context: ({ req }) => ({ headers: req.headers }),
-      typePaths: ["./**/*.graphql"],
+      context: ({ req }) => ({ headers: req?.headers }),
+      typePaths: [ "./**/*.graphql" ],
     }),
     FacultiesModule,
     UserModule,
@@ -38,7 +39,9 @@ import { MessagesModule } from "./messages/messages.module";
     ChatModule,
     MessagesModule,
   ],
-  controllers: [],
+  controllers: [
+    AppController,
+  ],
   providers: [],
 })
 export class AppModule {}
